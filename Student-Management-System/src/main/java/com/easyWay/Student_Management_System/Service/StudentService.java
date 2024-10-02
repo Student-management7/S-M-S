@@ -1,4 +1,9 @@
 package com.easyWay.Student_Management_System.Service;
 
-public interface StudentService {
+import com.easyWay.Student_Management_System.Dto.StudentInfoDto;
+
+public interface StudentService{
+
+    String saveStudent(StudentInfoDto details);
+
 }

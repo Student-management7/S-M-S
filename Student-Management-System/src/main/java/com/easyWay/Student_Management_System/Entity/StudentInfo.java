@@ -16,5 +16,7 @@ public class StudentInfo {
     public String surName;
     public String phoneNumber;
     public String emailId;
+    public String Class;
+    public int age;
 
 }

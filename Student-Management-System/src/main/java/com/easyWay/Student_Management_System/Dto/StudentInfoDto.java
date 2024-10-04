@@ -12,7 +12,7 @@ public class StudentInfoDto {
     public String address;
     public String city;
     public String state;
-    public String familyDetails;
+    public FamilyDetails familyDetails;
     public String contact;
     public String gender;
     public String dob;

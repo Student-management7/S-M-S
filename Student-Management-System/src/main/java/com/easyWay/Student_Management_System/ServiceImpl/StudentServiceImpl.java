@@ -18,15 +18,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public String saveStudent(StudentInfoDto details) {
-        StudentInfo studentInfo = new StudentInfo();
-        studentInfo.setName(details.getName());
-        studentInfo.setSurName(details.getSurName());
-        studentInfo.setEmailId(details.getEmailId());
-        studentInfo.setPhoneNumber(details.getPhoneNumber());
-        studentInfo.setId(UUID.randomUUID());
-        studentInfo.setClass(details.getClass());
-        studentInfo.setAge(details.getAge());
-        infoRepo.save(studentInfo);
+
+       // infoRepo.save();
         return "Saved Successfully";
     }
 }

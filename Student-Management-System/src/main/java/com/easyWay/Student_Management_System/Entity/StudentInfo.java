@@ -33,5 +33,9 @@ public class StudentInfo extends BaseEntity {
     public String department;
     public String category;
     public String creation;
+    private String errorCode;
+    @Column(columnDefinition = "text")
+    private String errorDescription;
+    private boolean isDelete = false;
 
 }

@@ -1,8 +1,10 @@
 package com.easyWay.Student_Management_System.Dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class FamilyDetails {
     private String stdo_FatherName;
     private String stdo_MotherName;

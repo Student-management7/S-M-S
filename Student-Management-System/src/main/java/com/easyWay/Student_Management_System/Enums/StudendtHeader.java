@@ -4,10 +4,12 @@ import lombok.Getter;
 
 @Getter
 public enum StudendtHeader {
-    NAME(1, "Name"),
-    ADDRESS(3, "Address"),
-    CITY(4, "City"),
-    STATE(5, "State");
+    NAME(0, "Name*"),
+    ADDRESS(1, "Address*"),
+    CITY(2, "City"),
+    STATE(3, "State"),
+    FATHER(4 ,"Father Name");
+
 
     int index;
     String value;

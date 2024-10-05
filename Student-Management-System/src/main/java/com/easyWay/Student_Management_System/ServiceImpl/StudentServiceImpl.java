@@ -48,8 +48,8 @@ public class StudentServiceImpl implements StudentService {
     FileTrackingRepo fileTrackingRepo;
 
 
-    @Value("${chunckSize}")
-    static int size ;
+   // @Value("${chunckSize")
+    static int size = 1000 ;
 
     @Override
     public String saveStudent(StudentInfoDto details) {
@@ -223,7 +223,7 @@ public class StudentServiceImpl implements StudentService {
             log.error("error message : {}", e.getMessage());
         }
 
-        return null;
+        return studentList;
     }
 
     static void  validateHeader(Sheet sheet ) throws BadRequestException {
@@ -235,7 +235,7 @@ public class StudentServiceImpl implements StudentService {
             String  getValue = header.getValue();
             String colValue = dataFormatter.formatCellValue(headerRow.getCell(index));
             headList.add(colValue);
-            if (getValue.equalsIgnoreCase(colValue)){
+            if (!getValue.equalsIgnoreCase(colValue)){
                 throw new BadRequestException("Please upload the correct format !");
             }
         }

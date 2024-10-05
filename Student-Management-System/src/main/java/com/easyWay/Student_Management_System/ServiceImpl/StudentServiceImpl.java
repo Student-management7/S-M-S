@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static com.easyWay.Student_Management_System.Helper.ExcelHelper.setColumnValue;
 
@@ -61,31 +62,79 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String studentBulkUpload(MultipartFile file) throws Exception {
-        String filename = file.getOriginalFilename();
-        log.info("Uploading file : {}", filename);
-        FileTracking fileTracking = new FileTracking();
-        if (FileUtils.isCsv(filename)) {
+    public String studentBulkUpload(MultipartFile file) {
+        try {
 
-        } else if (FileUtils.isExcel(filename)) {
+            String filename = file.getOriginalFilename();
+            log.info("Uploading file : {}", filename);
+            FileTracking fileTracking = new FileTracking();
+            if (FileUtils.isCsv(filename)) {
 
-            Workbook workbook = new XSSFWorkbook(file.getInputStream());
-            if (workbook == null) {
-                throw new BadRequestException("No record found");
+            } else if (FileUtils.isExcel(filename)) {
+
+                Workbook workbook = new XSSFWorkbook(file.getInputStream());
+                if (workbook == null) {
+                    throw new BadRequestException("No record found");
+                }
+
+                Sheet sheet = workbook.getSheetAt(0);
+                long total = sheet.getLastRowNum();
+                if (total < 1) {
+                    throw new BadRequestException("No record found");
+                }
+                validateHeader(sheet);
+                fileTracking = saveFileTracking(fileTracking, filename, total);
+                List<StudentInfoDto> students = readExcel(sheet, workbook);
+                biffercations(students, fileTracking);
+                log.info("biffercations ended !");
             }
-
-            Sheet sheet = workbook.getSheetAt(0);
-            long total = sheet.getLastRowNum();
-            if (total < 1) {
-                throw new BadRequestException("No record found");
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            try {
+                throw new BadRequestException(e.getMessage());
+            } catch (BadRequestException ex) {
+                throw new RuntimeException(ex);
             }
-            validateHeader(sheet);
-            fileTracking = saveFileTracking(fileTracking, filename, total - 1);
-            List<StudentInfoDto> students = readExcel(sheet);
-            biffercations(students, fileTracking);
-            log.info("biffercations ended !");
         }
         return "Uploaded Successfully";
+    }
+
+    public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {
+        List<StudentInfo> studentInfos = new ArrayList<>();
+        long errorCount = 0;
+
+        for (StudentInfoDto studentDto : students) {
+            List<String> errorCodes = new ArrayList<>();
+            List<String> errorDescription = new ArrayList<>();
+
+            validateMaditeryField(studentDto, errorDescription, errorCodes);
+            StudentInfo studentInfo = new StudentInfo();
+            studentInfo.setFileTracking(fileTracking);
+            convertDtoToEntity(studentDto, studentInfo);
+
+            if (!errorCodes.isEmpty() && !errorDescription.isEmpty()) {
+                studentInfo.setErrorCode(String.join(", ", errorCodes));
+                studentInfo.setErrorDescription(String.join(", ", errorDescription));
+                errorCount++;
+            }
+            infoRepo.save(studentInfo);
+            studentInfos.add(studentInfo);
+        }
+        setFileTrackingDetails(fileTracking, studentInfos, errorCount);
+    }
+
+    private void setFileTrackingDetails(FileTracking fileTracking, List<StudentInfo> studentInfos, long errorCount) {
+        fileTracking.setStudentInfo(studentInfos);
+        fileTracking.setSuccess(fileTracking.getTotal() - errorCount);
+        fileTracking.setFailure(errorCount);
+        if (fileTracking.getSuccess() > 1 && fileTracking.getFailure() > 1) {
+            fileTracking.setFileStatus(FileStatus.PROCESSEDWITHERROR);
+        } else if (errorCount == 0) {
+            fileTracking.setFileStatus(FileStatus.PROCESSED);
+        } else {
+            fileTracking.setFileStatus(FileStatus.ERROR);
+        }
+        fileTrackingRepo.save(fileTracking);
     }
 
     private void convertDtoToEntity(StudentInfoDto dto, StudentInfo entity) {
@@ -104,77 +153,11 @@ public class StudentServiceImpl implements StudentService {
         entity.setDob(dto.getDob());
     }
 
-    public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {
-        List<String> errorCodes = new ArrayList<>();
-        List<String> errorDescription = new ArrayList<>();
-        List<StudentInfo> studentInfos = new ArrayList<>();
-        long errorCount = 0;
-        for (StudentInfoDto studentDto : students) {
-            validateMaditeryField(studentDto, errorDescription, errorCodes);
-            StudentInfo studentInfo = new StudentInfo();
-            studentInfo.setFileTracking(fileTracking);
-            convertDtoToEntity(studentDto, studentInfo);
-            if (!errorCodes.isEmpty() && !errorDescription.isEmpty()) {
-                studentInfo.setErrorCode(errorCodes.toString().substring(1, errorCodes.toString().length() - 1));
-                studentInfo.setErrorDescription(errorDescription.toString().substring(1, errorDescription.toString().length() - 1));
-                errorCount++;
-            }
-            studentInfos.add(studentInfo);
-        }
-
-        setFileTrackingDetails(fileTracking, studentInfos, errorCount, errorCodes, errorDescription);
-        infoRepo.saveAllAndFlush(studentInfos);
-    }
-
-    private void setFileTrackingDetails(FileTracking fileTracking, List<StudentInfo> studentInfos, long errorCount, List<String> errorCodes, List<String> errorDescription) {
-        fileTracking.setStudentInfo(studentInfos);
-        fileTracking.setSuccess(fileTracking.getTotal() - errorCount);
-        fileTracking.setFailure(errorCount);
-        if (fileTracking.getSuccess() > 1 && fileTracking.getFailure() > 1) {
-            fileTracking.setFileStatus(FileStatus.PROCESSEDWITHERROR);
-        } else if (!errorCodes.isEmpty() && !errorDescription.isEmpty()) {
-            fileTracking.setFileStatus(FileStatus.PROCESSED);
-        } else {
-            fileTracking.setFileStatus(FileStatus.ERROR);
-        }
-        fileTrackingRepo.save(fileTracking);
-    }
-
-    void validateMaditeryField(StudentInfoDto student, List<String> errorDescription, List<String> errorCodes) {
-        if (StringUtil.isBlank(student.getName())) {
-            errorCodes.add("ER201");
-            errorDescription.add("Name is required");
-        }
-        if (StringUtil.isBlank(student.getAddress())) {
-            errorCodes.add("ER202");
-            errorDescription.add("Address is required");
-        }
-        if (StringUtil.isBlank(student.getDob())) {
-            errorCodes.add("ER203");
-            errorDescription.add("DOB is required");
-        }
-        if (StringUtil.isBlank(student.getCity())) {
-            errorCodes.add("ER204");
-            errorDescription.add(" City is required");
-        }
-        if (StringUtil.isBlank(student.getState())) {
-            errorCodes.add("ER205");
-            errorDescription.add("State is required");
-        }
-        if (StringUtil.isBlank(student.getGender())) {
-            errorCodes.add("ER206");
-            errorDescription.add("Gender is required");
-        }
-
-    }
-
-    public List<StudentInfoDto> readExcel(Sheet sheet) throws Exception {
+    public List<StudentInfoDto> readExcel(Sheet sheet, Workbook workbook) throws Exception {
         List<StudentInfoDto> studentList = new ArrayList<>();
-
 
         int rowCount = sheet.getLastRowNum() + 1;
         int chunkSize = (rowCount / size) + 1;
-
 
         ExecutorService executorService = Executors.newFixedThreadPool(chunkSize);
         try {
@@ -228,10 +211,59 @@ public class StudentServiceImpl implements StudentService {
         } finally {
             executorService.shutdown();
         }
-
+        fileClose(workbook, executorService);
         log.info("read Excel file success : {}", studentList);
         log.info("Size : {}", studentList.size());
         return studentList;
+    }
+
+    void validateMaditeryField(StudentInfoDto student, List<String> errorDescription, List<String> errorCodes) {
+        if (StringUtil.isBlank(student.getName())) {
+            errorCodes.add("ER201");
+            errorDescription.add("Name is required");
+        }
+        if (StringUtil.isBlank(student.getAddress())) {
+            errorCodes.add("ER202");
+            errorDescription.add("Address is required");
+        }
+        if (StringUtil.isBlank(student.getDob())) {
+            errorCodes.add("ER203");
+            errorDescription.add("DOB is required");
+        }
+        if (StringUtil.isBlank(student.getCity())) {
+            errorCodes.add("ER204");
+            errorDescription.add(" City is required");
+        }
+        if (StringUtil.isBlank(student.getState())) {
+            errorCodes.add("ER205");
+            errorDescription.add("State is required");
+        }
+        if (StringUtil.isBlank(student.getGender())) {
+            errorCodes.add("ER206");
+            errorDescription.add("Gender is required");
+        }
+
+    }
+
+    private void fileClose(Workbook workbook, ExecutorService executorService) throws IOException {
+        try {
+            executorService.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (Exception e) {
+            log.error("error message : {}", e.getMessage());
+
+            Thread.currentThread().interrupt();
+        } finally {
+            workbook.close();
+        }
+    }
+
+    public FileTracking saveFileTracking(FileTracking fileTracking, String filename, long total) {
+        fileTracking.setFileName(filename + System.currentTimeMillis());
+        fileTracking.setTotal(total);
+        fileTracking.setFileStatus(FileStatus.IN_PROGRESS);
+        fileTracking.setFileType(FileType.EXCEL);
+        fileTracking = fileTrackingRepo.save(fileTracking);
+        return fileTracking;
     }
 
     static void validateHeader(Sheet sheet) throws BadRequestException {
@@ -253,15 +285,6 @@ public class StudentServiceImpl implements StudentService {
                 throw new BadRequestException("Please upload the correct format !");
             }
         }
-    }
-
-    public FileTracking saveFileTracking(FileTracking fileTracking, String filename, long total) {
-        fileTracking.setFileName(filename + System.currentTimeMillis());
-        fileTracking.setTotal(total);
-        fileTracking.setFileStatus(FileStatus.IN_PROGRESS);
-        fileTracking.setFileType(FileType.EXCEL);
-        fileTracking = fileTrackingRepo.save(fileTracking);
-        return fileTracking;
     }
 
 

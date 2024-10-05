@@ -24,13 +24,17 @@ public class StudentController {
       return studentService.saveStudent(details);
     }
     @PostMapping("/bulkupload")
-    public ResponseEntity<String> bulkUploadStudent(@RequestBody MultipartFile file) throws Exception {
+    public ResponseEntity<String> bulkUploadStudent(@RequestBody MultipartFile file){
 
         try {
-            return  ResponseEntity.ok(studentService.studentBulkUpload(file));
+            return ResponseEntity.ok(studentService.studentBulkUpload(file));
         }
         catch (Exception e){
-            throw new BadRequestException(String.valueOf(Map.of("message" ,e.getMessage())));
+            try {
+                throw new BadRequestException(String.valueOf(Map.of("message" ,e.getMessage())));
+            } catch (BadRequestException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 

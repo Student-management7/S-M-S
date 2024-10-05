@@ -69,11 +69,19 @@ public class StudentServiceImpl implements StudentService {
         }
         else if(FileUtils.isExcel(filename)){
 
-            List<StudentInfoDto> students = readExcel(file.getInputStream() ,fileTracking);
-            fileTracking.setFileName(filename+ System.currentTimeMillis());
-            fileTracking.setTotal((long) students.size());
-            fileTracking.setFileStatus(FileStatus.IN_PROGRESS);
-            fileTracking =  fileTrackingRepo.save(fileTracking);
+            Workbook workbook = new XSSFWorkbook(file.getInputStream());
+            if(workbook == null){
+                throw new BadRequestException("No record found");
+            }
+
+            Sheet sheet = workbook.getSheetAt(0);
+            long total = sheet.getLastRowNum();
+            if(total < 1){
+                throw new BadRequestException("No record found");
+            }
+            validateHeader(sheet);
+            fileTracking =  saveFileTracking(fileTracking, filename, total);
+            List<StudentInfoDto> students = readExcel(sheet);
             biffercations(students , fileTracking);
             log.info("biffercations ended !");
         }
@@ -142,18 +150,12 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
-    public  List<StudentInfoDto>  readExcel(InputStream file , FileTracking fileTracking) throws Exception {
+    public  List<StudentInfoDto>  readExcel(Sheet sheet) throws Exception {
         List<StudentInfoDto> studentList = new ArrayList<>();
         DataFormatter dataFormatter = new DataFormatter();
-        fileTracking.setFileType(FileType.EXCEL);
-        fileTracking.setFileStatus(FileStatus.UPLOADED);
-        fileTracking = fileTrackingRepo.save(fileTracking);
 
-        try (Workbook workbook = new XSSFWorkbook(file)) {
+        try {
 
-            Sheet sheet = workbook.getSheetAt(0);
-            Row headerRow = sheet.getRow(0);
-            validateHeader(headerRow);
             int rowCount = sheet.getLastRowNum() +1 ;
             int chunkSize  = (rowCount/size) +1;
             ExecutorService executorService  = Executors.newFixedThreadPool(chunkSize);
@@ -204,7 +206,8 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
-    static void  validateHeader(Row headerRow ) throws BadRequestException {
+    static void  validateHeader(Sheet sheet ) throws BadRequestException {
+        Row headerRow = sheet.getRow(0);
         List<String > headList = new ArrayList<>();
         DataFormatter dataFormatter = new DataFormatter();
         for(StudendtHeader header : StudendtHeader.values()) {
@@ -224,5 +227,13 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    public FileTracking saveFileTracking(FileTracking fileTracking, String filename, long total) {
+        fileTracking.setFileName(filename+ System.currentTimeMillis());
+        fileTracking.setTotal(total);
+        fileTracking.setFileStatus(FileStatus.IN_PROGRESS);
+        fileTracking.setFileType(FileType.EXCEL);
+        fileTracking =  fileTrackingRepo.save(fileTracking);
+        return fileTracking;
+    }
 
 }

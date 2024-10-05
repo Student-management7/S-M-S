@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static com.easyWay.Student_Management_System.Helper.ExcelHelper.setColumnValue;
 
@@ -82,7 +83,7 @@ public class StudentServiceImpl implements StudentService {
             }
             validateHeader(sheet);
             fileTracking =  saveFileTracking(fileTracking, filename, total-1);
-            List<StudentInfoDto> students = readExcel(sheet);
+            List<StudentInfoDto> students = readExcel(sheet , workbook);
             biffercations(students , fileTracking);
             log.info("biffercations ended !");
         }
@@ -170,7 +171,7 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
-    public  List<StudentInfoDto>  readExcel(Sheet sheet) throws Exception {
+    public  List<StudentInfoDto>  readExcel(Sheet sheet , Workbook workbook) throws Exception {
         List<StudentInfoDto> studentList = new ArrayList<>();
 
 
@@ -232,10 +233,23 @@ public class StudentServiceImpl implements StudentService {
         finally {
             executorService.shutdown();
         }
-
+        fileClose(workbook , executorService);
         log.info("read Excel file success : {}", studentList);
         log.info("Size : {}", studentList.size());
         return studentList;
+    }
+    private void  fileClose(Workbook workbook , ExecutorService executorService) throws IOException {
+        try {
+            executorService.awaitTermination(1, TimeUnit.MINUTES);
+        }
+        catch (Exception e) {
+            log.error("error message : {}", e.getMessage());
+
+            Thread.currentThread().interrupt();
+        }
+        finally {
+            workbook.close();
+        }
     }
 
     static void  validateHeader(Sheet sheet ) throws BadRequestException {

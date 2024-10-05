@@ -2,9 +2,10 @@ package com.easyWay.Student_Management_System.Entity;
 
 import com.easyWay.Student_Management_System.Enums.FileStatus;
 import com.easyWay.Student_Management_System.Enums.FileType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -20,6 +21,9 @@ public class FileTracking extends BaseEntity {
     private Long failure;
     private FileType fileType;
     private FileStatus fileStatus;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<StudentInfo> studentInfo;
 
 
 }

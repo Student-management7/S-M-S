@@ -90,6 +90,11 @@ public class StudentServiceImpl implements StudentService {
             }
         }catch (Exception e){
            log.info(e.getMessage());
+            try {
+                throw new BadRequestException(e.getMessage());
+            } catch (BadRequestException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         return "Uploaded Successfully";
     }
@@ -110,36 +115,41 @@ public class StudentServiceImpl implements StudentService {
         entity.setDob(dto.getDob());
     }
 
-    public void biffercations(List<StudentInfoDto> students , FileTracking fileTracking){
-        List<String> errorCodes = new ArrayList<>();
-        List<String> errorDescription = new ArrayList<>();
+    public void biffercations(List<StudentInfoDto> students , FileTracking fileTracking) {
         List<StudentInfo> studentInfos = new ArrayList<>();
         long errorCount = 0;
-        for(StudentInfoDto studentDto : students){
+
+        for (StudentInfoDto studentDto : students) {
+            List<String> errorCodes = new ArrayList<>();
+            List<String> errorDescription = new ArrayList<>();
+
             validateMaditeryField(studentDto, errorDescription, errorCodes);
             StudentInfo studentInfo = new StudentInfo();
             studentInfo.setFileTracking(fileTracking);
             convertDtoToEntity(studentDto, studentInfo);
-            if(!errorCodes.isEmpty() && !errorDescription.isEmpty()){
-                studentInfo.setErrorCode(errorCodes.toString().substring(1 ,errorCodes.toString().length()-1));
-                studentInfo.setErrorDescription(errorDescription.toString().substring(1 ,errorDescription.toString().length()-1));
+
+            if (!errorCodes.isEmpty() && !errorDescription.isEmpty()) {
+                studentInfo.setErrorCode(String.join(", ", errorCodes));
+                studentInfo.setErrorDescription(String.join(", ", errorDescription));
                 errorCount++;
             }
+            infoRepo.save(studentInfo);
             studentInfos.add(studentInfo);
         }
 
-        setFileTrackingDetails(fileTracking, studentInfos, errorCount, errorCodes, errorDescription);
-        infoRepo.saveAll(studentInfos);
+        setFileTrackingDetails(fileTracking, studentInfos, errorCount);
+
     }
 
-    private void setFileTrackingDetails(FileTracking fileTracking, List<StudentInfo> studentInfos, long errorCount, List<String> errorCodes, List<String> errorDescription) {
+
+    private void setFileTrackingDetails(FileTracking fileTracking, List<StudentInfo> studentInfos, long errorCount) {
         fileTracking.setStudentInfo(studentInfos);
         fileTracking.setSuccess(fileTracking.getTotal()- errorCount);
         fileTracking.setFailure(errorCount);
         if(fileTracking.getSuccess() > 1 && fileTracking.getFailure() > 1){
             fileTracking.setFileStatus(FileStatus.PROCESSEDWITHERROR);
         }
-        else if(!errorCodes.isEmpty() && !errorDescription.isEmpty()){
+        else if(errorCount == 0){
             fileTracking.setFileStatus(FileStatus.PROCESSED);
         }else {
             fileTracking.setFileStatus(FileStatus.ERROR);

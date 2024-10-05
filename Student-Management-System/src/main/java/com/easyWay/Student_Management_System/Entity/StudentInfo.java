@@ -36,7 +36,7 @@ public class StudentInfo extends BaseEntity {
     private String errorDescription;
     private boolean isDelete = false;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
     @JsonIgnore
     private FileTracking fileTracking;
 

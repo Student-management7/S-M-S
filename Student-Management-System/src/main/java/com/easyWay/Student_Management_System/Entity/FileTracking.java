@@ -24,7 +24,7 @@ public class FileTracking extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private FileStatus fileStatus;
 
-    @OneToMany( mappedBy = "fileTracking",cascade = CascadeType.ALL )
+    @OneToMany( mappedBy = "fileTracking",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<StudentInfo> studentInfo;
 
 

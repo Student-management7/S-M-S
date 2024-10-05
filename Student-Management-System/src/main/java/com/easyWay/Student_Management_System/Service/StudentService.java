@@ -9,6 +9,6 @@ public interface StudentService{
 
     String saveStudent(StudentInfoDto details);
 
-    String studentBulkUpload(MultipartFile file) throws Exception;
+    String studentBulkUpload(MultipartFile file) ;
 
 }

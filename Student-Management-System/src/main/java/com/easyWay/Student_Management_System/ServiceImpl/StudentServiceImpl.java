@@ -62,30 +62,34 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String studentBulkUpload(MultipartFile file) throws Exception {
-        String filename = file.getOriginalFilename();
-        log.info("Uploading file : {}", filename);
-        FileTracking fileTracking = new FileTracking();
-        if(FileUtils.isCsv(filename)){
+    public String studentBulkUpload(MultipartFile file) {
+        try {
 
-        }
-        else if(FileUtils.isExcel(filename)){
+            String filename = file.getOriginalFilename();
+            log.info("Uploading file : {}", filename);
+            FileTracking fileTracking = new FileTracking();
+            if (FileUtils.isCsv(filename)) {
 
-            Workbook workbook = new XSSFWorkbook(file.getInputStream());
-            if(workbook == null){
-                throw new BadRequestException("No record found");
+            } else if (FileUtils.isExcel(filename)) {
+
+                Workbook workbook = new XSSFWorkbook(file.getInputStream());
+                if (workbook == null) {
+                    throw new BadRequestException("No record found");
+                }
+
+                Sheet sheet = workbook.getSheetAt(0);
+                long total = sheet.getLastRowNum();
+                if (total < 1) {
+                    throw new BadRequestException("No record found");
+                }
+                validateHeader(sheet);
+                fileTracking = saveFileTracking(fileTracking, filename, total);
+                List<StudentInfoDto> students = readExcel(sheet, workbook);
+                biffercations(students, fileTracking);
+                log.info("biffercations ended !");
             }
-
-            Sheet sheet = workbook.getSheetAt(0);
-            long total = sheet.getLastRowNum();
-            if(total < 1){
-                throw new BadRequestException("No record found");
-            }
-            validateHeader(sheet);
-            fileTracking =  saveFileTracking(fileTracking, filename, total-1);
-            List<StudentInfoDto> students = readExcel(sheet , workbook);
-            biffercations(students , fileTracking);
-            log.info("biffercations ended !");
+        }catch (Exception e){
+           log.info(e.getMessage());
         }
         return "Uploaded Successfully";
     }
@@ -125,7 +129,7 @@ public class StudentServiceImpl implements StudentService {
         }
 
         setFileTrackingDetails(fileTracking, studentInfos, errorCount, errorCodes, errorDescription);
-        infoRepo.saveAllAndFlush(studentInfos);
+        infoRepo.saveAll(studentInfos);
     }
 
     private void setFileTrackingDetails(FileTracking fileTracking, List<StudentInfo> studentInfos, long errorCount, List<String> errorCodes, List<String> errorDescription) {

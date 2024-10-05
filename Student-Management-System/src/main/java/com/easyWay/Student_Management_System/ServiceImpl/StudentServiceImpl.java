@@ -100,27 +100,27 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {
-    List<StudentInfo> studentInfos = new ArrayList<>();
-    long errorCount = 0;
+        List<StudentInfo> studentInfos = new ArrayList<>();
+        long errorCount = 0;
 
-    for (StudentInfoDto studentDto : students) {
-        List<String> errorCodes = new ArrayList<>();
-        List<String> errorDescription = new ArrayList<>();
+        for (StudentInfoDto studentDto : students) {
+            List<String> errorCodes = new ArrayList<>();
+            List<String> errorDescription = new ArrayList<>();
 
-        validateMaditeryField(studentDto, errorDescription, errorCodes);
-        StudentInfo studentInfo = new StudentInfo();
-        studentInfo.setFileTracking(fileTracking);
-        convertDtoToEntity(studentDto, studentInfo);
+            validateMaditeryField(studentDto, errorDescription, errorCodes);
+            StudentInfo studentInfo = new StudentInfo();
+            studentInfo.setFileTracking(fileTracking);
+            convertDtoToEntity(studentDto, studentInfo);
 
-        if (!errorCodes.isEmpty() && !errorDescription.isEmpty()) {
-            studentInfo.setErrorCode(String.join(", ", errorCodes));
-            studentInfo.setErrorDescription(String.join(", ", errorDescription));
-            errorCount++;
+            if (!errorCodes.isEmpty() && !errorDescription.isEmpty()) {
+                studentInfo.setErrorCode(String.join(", ", errorCodes));
+                studentInfo.setErrorDescription(String.join(", ", errorDescription));
+                errorCount++;
+            }
+            infoRepo.save(studentInfo);
+            studentInfos.add(studentInfo);
         }
-        infoRepo.save(studentInfo);
-        studentInfos.add(studentInfo);
-    }
-    setFileTrackingDetails(fileTracking, studentInfos, errorCount);
+        setFileTrackingDetails(fileTracking, studentInfos, errorCount);
     }
 
     private void setFileTrackingDetails(FileTracking fileTracking, List<StudentInfo> studentInfos, long errorCount) {

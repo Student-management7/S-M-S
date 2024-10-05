@@ -62,7 +62,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public String studentBulkUpload(MultipartFile file) throws Exception {
         String filename = file.getOriginalFilename();
-        log.info("Uploading file " + filename);
+        log.info("Uploading file : {}", filename);
         FileTracking fileTracking = new FileTracking();
         if(FileUtils.isCsv(filename)){
 
@@ -73,14 +73,15 @@ public class StudentServiceImpl implements StudentService {
             fileTracking.setFileName(filename+ System.currentTimeMillis());
             fileTracking.setTotal((long) students.size());
             fileTracking.setFileStatus(FileStatus.IN_PROGRESS);
-            fileTrackingRepo.save(fileTracking);
+            fileTracking =  fileTrackingRepo.save(fileTracking);
             biffercations(students , fileTracking);
-
+            log.info("biffercations ended !");
         }
-        return null;
+        return "Uploaded Successfully";
     }
 
     private void convertDtoToEntity(StudentInfoDto dto, StudentInfo entity){
+
         entity.setName(dto.getName());
         entity.setCity(dto.getCity());
         entity.setAddress(dto.getAddress());
@@ -96,39 +97,45 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public void biffercations(List<StudentInfoDto> students , FileTracking fileTracking){
+        List<String> errorCodes = new ArrayList<>();
+        List<String> errorDescription = new ArrayList<>();
         for(StudentInfoDto studentDto : students){
-            validateMaditeryField(studentDto);
+            validateMaditeryField(studentDto, errorDescription, errorCodes);
             StudentInfo studentInfo = new StudentInfo();
             convertDtoToEntity(studentDto, studentInfo);
+            if(!errorCodes.isEmpty() && !errorDescription.isEmpty()){
+                studentInfo.setErrorCode(errorCodes.toString().substring(1 ,errorCodes.toString().length()-1));
+                studentInfo.setErrorDescription(errorDescription.toString().substring(1 ,errorDescription.toString().length()-1));
+            }
             infoRepo.save(studentInfo);
         }
         fileTracking.setFileStatus(FileStatus.PROCESSED);
         fileTrackingRepo.save(fileTracking);
     }
-   void validateMaditeryField(StudentInfoDto student){
+   void validateMaditeryField(StudentInfoDto student, List<String> errorDescription, List<String> errorCodes){
          if(StringUtil.isBlank(student.getName())){
-             student.getErrorCodes().add("ER201");
-             student.getErrorDescription().add("Er: Name is required");
+            errorCodes.add("ER201");
+            errorDescription.add("Name is required");
          }
        if(StringUtil.isBlank(student.getAddress())){
-           student.getErrorCodes().add("ER202");
-           student.getErrorDescription().add("Er: Address is required");
+           errorCodes.add("ER202");
+           errorDescription.add("Address is required");
        }
        if(StringUtil.isBlank(student.getDob())){
-           student.getErrorCodes().add("ER203");
-           student.getErrorDescription().add("Er: DOB is required");
+           errorCodes.add("ER203");
+           errorDescription.add("DOB is required");
        }
        if(StringUtil.isBlank(student.getCity())){
-           student.getErrorCodes().add("ER204");
-           student.getErrorDescription().add("Er: City is required");
+           errorCodes.add("ER204");
+           errorDescription.add(" City is required");
        }
        if(StringUtil.isBlank(student.getState())){
-           student.getErrorCodes().add("ER205");
-           student.getErrorDescription().add("Er: State is required");
+           errorCodes.add("ER205");
+           errorDescription.add("State is required");
        }
        if(StringUtil.isBlank(student.getGender())){
-           student.getErrorCodes().add("ER206");
-           student.getErrorDescription().add("Er: Gender is required");
+           errorCodes.add("ER206");
+           errorDescription.add("Gender is required");
        }
 
 
@@ -140,7 +147,7 @@ public class StudentServiceImpl implements StudentService {
         DataFormatter dataFormatter = new DataFormatter();
         fileTracking.setFileType(FileType.EXCEL);
         fileTracking.setFileStatus(FileStatus.UPLOADED);
-        fileTrackingRepo.save(fileTracking);
+        fileTracking = fileTrackingRepo.save(fileTracking);
 
         try (Workbook workbook = new XSSFWorkbook(file)) {
 

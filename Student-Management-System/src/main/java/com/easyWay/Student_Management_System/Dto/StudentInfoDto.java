@@ -22,8 +22,7 @@ public class StudentInfoDto {
     public String cls;
     public String department;
     public String category;
-    public List<String> errorCodes;
-    public List<String> errorDescription;
+
 
 
 }

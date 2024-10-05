@@ -1,6 +1,7 @@
 package com.easyWay.Student_Management_System.Entity;
 
 import com.easyWay.Student_Management_System.Dto.FamilyDetails;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +36,8 @@ public class StudentInfo extends BaseEntity {
     private String errorDescription;
     private boolean isDelete = false;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+    @JsonIgnore
     private FileTracking fileTracking;
 
 }

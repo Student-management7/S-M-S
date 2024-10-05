@@ -22,7 +22,7 @@ public class FileTracking extends BaseEntity {
     private FileType fileType;
     private FileStatus fileStatus;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "fileTracking",cascade = CascadeType.ALL )
     private List<StudentInfo> studentInfo;
 
 

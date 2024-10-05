@@ -23,6 +23,4 @@ public class StudentInfoDto {
     public String department;
     public String category;
 
-
-
 }

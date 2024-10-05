@@ -113,8 +113,8 @@ public class StudentServiceImpl implements StudentService {
         for(StudentInfoDto studentDto : students){
             validateMaditeryField(studentDto, errorDescription, errorCodes);
             StudentInfo studentInfo = new StudentInfo();
+            studentInfo.setFileTracking(fileTracking);
             convertDtoToEntity(studentDto, studentInfo);
-            
             if(!errorCodes.isEmpty() && !errorDescription.isEmpty()){
                 studentInfo.setErrorCode(errorCodes.toString().substring(1 ,errorCodes.toString().length()-1));
                 studentInfo.setErrorDescription(errorDescription.toString().substring(1 ,errorDescription.toString().length()-1));
@@ -172,19 +172,19 @@ public class StudentServiceImpl implements StudentService {
 
     public  List<StudentInfoDto>  readExcel(Sheet sheet) throws Exception {
         List<StudentInfoDto> studentList = new ArrayList<>();
-        DataFormatter dataFormatter = new DataFormatter();
 
         try {
 
             int rowCount = sheet.getLastRowNum() +1 ;
             int chunkSize  = (rowCount/size) +1;
+
+            var studentInfoDto = StudentInfoDto.builder();
+            var familyDetails = FamilyDetails.builder();
             ExecutorService executorService  = Executors.newFixedThreadPool(chunkSize);
 
             for(int i = 0; i< chunkSize ; i++ ){
                 int startIndex = i*size;
                 int endIndex = Math.min((i+1)*size, chunkSize);
-                var studentInfoDto = StudentInfoDto.builder();
-                var familyDetails = FamilyDetails.builder();
                 executorService.submit(() -> {
                     log.info("job started for reading Excel file");
                     for(int j = startIndex; j< endIndex; j++){

@@ -100,30 +100,31 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {
-        List<StudentInfo> studentInfos = new ArrayList<>();
-        long errorCount = 0;
+    List<StudentInfo> studentInfos = new ArrayList<>();
+    long errorCount = 0;
 
-        for (StudentInfoDto studentDto : students) {
-            List<String> errorCodes = new ArrayList<>();
-            List<String> errorDescription = new ArrayList<>();
+    for (StudentInfoDto studentDto : students) {
+        List<String> errorCodes = new ArrayList<>();
+        List<String> errorDescription = new ArrayList<>();
 
-            validateMaditeryField(studentDto, errorDescription, errorCodes);
-            StudentInfo studentInfo = new StudentInfo();
-            studentInfo.setFileTracking(fileTracking);
-            convertDtoToEntity(studentDto, studentInfo);
+        validateMaditeryField(studentDto, errorDescription, errorCodes);
+        StudentInfo studentInfo = new StudentInfo();
+        studentInfo.setFileTracking(fileTracking);
+        convertDtoToEntity(studentDto, studentInfo);
 
-            if (!errorCodes.isEmpty() && !errorDescription.isEmpty()) {
-                studentInfo.setErrorCode(String.join(", ", errorCodes));
-                studentInfo.setErrorDescription(String.join(", ", errorDescription));
-                errorCount++;
-            }
-            infoRepo.save(studentInfo);
-            studentInfos.add(studentInfo);
+        if (!errorCodes.isEmpty() && !errorDescription.isEmpty()) {
+            studentInfo.setErrorCode(String.join(", ", errorCodes));
+            studentInfo.setErrorDescription(String.join(", ", errorDescription));
+            errorCount++;
         }
-        setFileTrackingDetails(fileTracking, studentInfos, errorCount);
+        infoRepo.save(studentInfo);
+        studentInfos.add(studentInfo);
+    }
+    setFileTrackingDetails(fileTracking, studentInfos, errorCount);
     }
 
     private void setFileTrackingDetails(FileTracking fileTracking, List<StudentInfo> studentInfos, long errorCount) {
+
         fileTracking.setStudentInfo(studentInfos);
         fileTracking.setSuccess(fileTracking.getTotal() - errorCount);
         fileTracking.setFailure(errorCount);
@@ -158,7 +159,6 @@ public class StudentServiceImpl implements StudentService {
 
         int rowCount = sheet.getLastRowNum() + 1;
         int chunkSize = (rowCount / size) + 1;
-
         ExecutorService executorService = Executors.newFixedThreadPool(chunkSize);
         try {
             for (int i = 0; i < chunkSize; i++) {
@@ -175,9 +175,7 @@ public class StudentServiceImpl implements StudentService {
 
                         var studentInfoDto = StudentInfoDto.builder();
                         var familyDetails = FamilyDetails.builder();
-                        log.info("line 198");
                         studentInfoDto.name(setColumnValue(row.getCell(k++)));
-                        log.info("line 199");
                         studentInfoDto.address(setColumnValue(row.getCell(k++)));
                         studentInfoDto.city(setColumnValue(row.getCell(k++)));
                         studentInfoDto.state(setColumnValue(row.getCell(k++)));
@@ -197,10 +195,7 @@ public class StudentServiceImpl implements StudentService {
                         studentInfoDto.cls(setColumnValue(row.getCell(k++)));
                         studentInfoDto.department(setColumnValue(row.getCell(k++)));
                         studentInfoDto.category(setColumnValue(row.getCell(k++)));
-                        log.info("info : {}", studentInfoDto);
                         studentList.add(studentInfoDto.build());
-                        log.info("line 222");
-                        log.info("info 2 : {}", studentList);
                     }
                 }, executorService);
             }

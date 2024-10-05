@@ -24,7 +24,7 @@ public class StudentController {
       return studentService.saveStudent(details);
     }
     @PostMapping("/bulkupload")
-    public ResponseEntity<String> bulkUploadStudent(@RequestBody MultipartFile file){
+    public ResponseEntity<String> bulkUploadStudent(@RequestParam("file") MultipartFile file){
 
         try {
             return ResponseEntity.ok(studentService.studentBulkUpload(file));

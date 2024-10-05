@@ -19,7 +19,9 @@ public class FileTracking extends BaseEntity {
     private Long  total;
     private Long  success;
     private Long failure;
+    @Enumerated(EnumType.STRING)
     private FileType fileType;
+    @Enumerated(EnumType.STRING)
     private FileStatus fileStatus;
 
     @OneToMany( mappedBy = "fileTracking",cascade = CascadeType.ALL )

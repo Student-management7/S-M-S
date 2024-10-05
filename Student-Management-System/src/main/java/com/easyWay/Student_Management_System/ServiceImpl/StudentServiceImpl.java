@@ -81,7 +81,7 @@ public class StudentServiceImpl implements StudentService {
                 throw new BadRequestException("No record found");
             }
             validateHeader(sheet);
-            fileTracking =  saveFileTracking(fileTracking, filename, total);
+            fileTracking =  saveFileTracking(fileTracking, filename, total-1);
             List<StudentInfoDto> students = readExcel(sheet);
             biffercations(students , fileTracking);
             log.info("biffercations ended !");
@@ -173,18 +173,17 @@ public class StudentServiceImpl implements StudentService {
     public  List<StudentInfoDto>  readExcel(Sheet sheet) throws Exception {
         List<StudentInfoDto> studentList = new ArrayList<>();
 
-        try {
+
 
             int rowCount = sheet.getLastRowNum() +1 ;
             int chunkSize  = (rowCount/size) +1;
 
-            var studentInfoDto = StudentInfoDto.builder();
-            var familyDetails = FamilyDetails.builder();
-            ExecutorService executorService  = Executors.newFixedThreadPool(chunkSize);
 
+            ExecutorService executorService  = Executors.newFixedThreadPool(chunkSize);
+        try {
             for(int i = 0; i< chunkSize ; i++ ){
-                int startIndex = i*size;
-                int endIndex = Math.min((i+1)*size, chunkSize);
+                int startIndex = i * size;
+                int endIndex = Math.min((i+1) * size, rowCount);
                 executorService.submit(() -> {
                     log.info("job started for reading Excel file");
                     for(int j = startIndex; j< endIndex; j++){
@@ -192,8 +191,13 @@ public class StudentServiceImpl implements StudentService {
                         if(row == null || row.getRowNum() ==0){
                             continue;
                         }
-                        int k =0;
+                        int k = 0;
+
+                        var studentInfoDto = StudentInfoDto.builder();
+                        var familyDetails = FamilyDetails.builder();
+                        log.info("line 198");
                         studentInfoDto.name(setColumnValue(row.getCell(k++)));
+                        log.info("line 199");
                         studentInfoDto.address(setColumnValue(row.getCell(k++)));
                         studentInfoDto.city(setColumnValue(row.getCell(k++)));
                         studentInfoDto.state(setColumnValue(row.getCell(k++)));
@@ -213,16 +217,24 @@ public class StudentServiceImpl implements StudentService {
                         studentInfoDto.cls(setColumnValue(row.getCell(k++)));
                         studentInfoDto.department(setColumnValue(row.getCell(k++)));
                         studentInfoDto.category(setColumnValue(row.getCell(k++)));
-
+                        log.info("info : {}" , studentInfoDto);
                         studentList.add(studentInfoDto.build());
+                        log.info("line 222");
+                        log.info("info 2 : {}" , studentList);
                     }
-                });
+                }, executorService);
             }
 
         } catch (Exception e) {
             log.error("error message : {}", e.getMessage());
+            throw new BadRequestException(e.getMessage());
+        }
+        finally {
+            executorService.shutdown();
         }
 
+        log.info("read Excel file success : {}", studentList);
+        log.info("Size : {}", studentList.size());
         return studentList;
     }
 

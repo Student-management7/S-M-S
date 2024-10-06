@@ -7,11 +7,11 @@ import com.easyWay.Student_Management_System.Entity.StudentInfo;
 import com.easyWay.Student_Management_System.Enums.FileStatus;
 import com.easyWay.Student_Management_System.Enums.FileType;
 import com.easyWay.Student_Management_System.Enums.StudendtHeader;
-import com.easyWay.Student_Management_System.Helper.ExcelHelper;
 import com.easyWay.Student_Management_System.Repo.FileTrackingRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
 import com.easyWay.Student_Management_System.Service.StudentService;
 import com.easyWay.Student_Management_System.Utils.FileUtils;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -21,9 +21,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.util.StringUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -47,6 +45,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     FileTrackingRepo fileTrackingRepo;
+
+    @Autowired
+    Gson gson;
 
 
     // @Value("${chunckSize")
@@ -97,6 +98,12 @@ public class StudentServiceImpl implements StudentService {
             }
         }
         return "Uploaded Successfully";
+    }
+
+    @Override
+    public List<StudentInfo> getStudentByClass(String cls) {
+
+        return infoRepo.findByClass(cls);
     }
 
     public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {
@@ -281,6 +288,5 @@ public class StudentServiceImpl implements StudentService {
             }
         }
     }
-
 
 }

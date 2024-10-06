@@ -1,13 +1,16 @@
 package com.easyWay.Student_Management_System.Controller;
 
 import com.easyWay.Student_Management_System.Dto.StudentInfoDto;
+import com.easyWay.Student_Management_System.Entity.StudentInfo;
 import com.easyWay.Student_Management_System.Service.StudentService;
+import lombok.Getter;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -36,6 +39,11 @@ public class StudentController {
                 throw new RuntimeException(ex);
             }
         }
+    }
+
+    @GetMapping("/findAllStudent")
+    public List<StudentInfo> findAllStudentBYClass(@RequestParam("cls") String cls){
+        return studentService.getStudentByClass(cls);
     }
 
 

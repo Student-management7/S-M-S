@@ -17,4 +17,8 @@ public class FamilyDetails {
     private String stdo_state;
     private String stdo_email;
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e1485da8693fb7e80bb20d73a1956695af593d5f

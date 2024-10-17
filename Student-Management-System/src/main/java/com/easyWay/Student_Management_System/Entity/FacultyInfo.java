@@ -10,7 +10,7 @@ import java.util.UUID;
 @Entity
 public class FacultyInfo {
 
-   @Id
+    @Id
     private UUID fact_id;
     private String fact_Name;
     private String fact_email;
@@ -22,11 +22,19 @@ public class FacultyInfo {
     private String fact_joiningDate;
     private String fact_leavingDate;
 
-//   @Column(columnDefinition = "text")
+   @Column(columnDefinition = "text")
    private String fact_graduation;
+
+   @Column(columnDefinition = "text")
    private String fact_postGraduation;
+
+   @Column(columnDefinition = "text")
    private String fact_other;
+
+   @Column(columnDefinition = "text")
    private String fact_cls;
+
+   @Column(columnDefinition = "text")
    private String fact_status;
 
 

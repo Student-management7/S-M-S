@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-@Data
 public class FacultyServiceImpl implements FacultyService {
 
     @Autowired
@@ -42,11 +41,11 @@ public class FacultyServiceImpl implements FacultyService {
         entity.setFact_joiningDate(dto.getFact_joiningDate());
         entity.setFact_leavingDate(dto.getFact_leavingDate());
 
-        entity.setFact_graduation(dto.getFact_graduation().toString());
-        entity.setFact_postGraduation(dto.getFact_postGraduation().toString());
-        entity.setFact_other(dto.getFact_other().toString());
-        entity.setFact_cls(dto.getFact_cls().toString());
-        entity.setFact_status(dto.getFact_status().toString());
+        entity.setFact_graduation(dto.getFact_qualification().get(0).getFact_Graduation().toString());
+        entity.setFact_postGraduation(dto.getFact_qualification().get(0).getFact_PostGraduation().toString());
+        entity.setFact_other(dto.getFact_qualification().get(0).getFact_0ther().toString());
+        entity.setFact_cls(dto.getFact_Cls().toString());
+        entity.setFact_status(dto.getFact_Status());
 
 
     }

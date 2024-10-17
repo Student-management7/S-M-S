@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.util.List;
 @Data
-@Builder
 public class FactCls {
     private String cls_name;
 

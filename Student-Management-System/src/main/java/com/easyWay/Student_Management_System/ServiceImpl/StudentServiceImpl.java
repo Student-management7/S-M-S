@@ -21,12 +21,18 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.util.StringUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -106,6 +112,20 @@ public class StudentServiceImpl implements StudentService {
         return infoRepo.findByClass(cls);
     }
 
+    @Override
+    public String filterData(HashMap<String, Object> params, int page, int size) throws Exception {
+       if(ObjectUtils.isEmpty(params)){
+           throw new BadRequestException("Params are empty");
+       }
+
+       if(params.get("name") != null){
+           infoRepo.findByClassAndName(params.get("class").toString(), params.get("name").toString());
+       } else{
+           infoRepo.findByClass(params.get("class").toString());
+       }
+       return null;
+    }
+
     public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {
         List<StudentInfo> studentInfos = new ArrayList<>();
         long errorCount = 0;
@@ -151,7 +171,7 @@ public class StudentServiceImpl implements StudentService {
         entity.setCity(dto.getCity());
         entity.setAddress(dto.getAddress());
         entity.setStd_state(dto.getState());
-        entity.setFamilyDetails(dto.getFamilyDetails().toString());
+        entity.setFamilyDetails(gson.toJson(dto.getFamilyDetails()));
         entity.setContact(dto.getContact());
         entity.setGender(dto.getGender());
         entity.setCls(dto.getCls());
@@ -288,5 +308,7 @@ public class StudentServiceImpl implements StudentService {
             }
         }
     }
+
+
 
 }

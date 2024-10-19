@@ -5,6 +5,7 @@ import com.easyWay.Student_Management_System.Entity.StudentInfo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public interface StudentService{
@@ -14,5 +15,7 @@ public interface StudentService{
     String studentBulkUpload(MultipartFile file) ;
 
     List<StudentInfo> getStudentByClass(String cls);
+
+    String filterData(HashMap<String,Object> params, int page, int pageSize) throws Exception;
 
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/save")
     public String saveStudent(@RequestBody StudentInfoDto details){
 
@@ -46,5 +47,20 @@ public class StudentController {
         return studentService.getStudentByClass(cls);
     }
 
+    @PostMapping("/")
+    public String getFilter(@RequestParam(value = "cls", required = false) String cls,
+                            @RequestParam(value = "name", required = false) String name,
+                            @RequestParam(defaultValue = "0", required = false) int page,
+                            @RequestParam(defaultValue = "10", required = false) int size) throws Exception{
+
+        HashMap<String,Object> params = new HashMap<String,Object>();
+        params.put("class", cls);
+        params.put("name", name);
+
+        studentService.filterData(params, page, size);
+
+        return null;
+
+    }
 
 }

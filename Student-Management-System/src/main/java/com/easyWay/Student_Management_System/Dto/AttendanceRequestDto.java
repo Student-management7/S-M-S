@@ -10,7 +10,7 @@ import java.util.List;
 public class AttendanceRequestDto {
     public String className;
     public String subject;
-//    public List<StudentAttendanceDto> studentList;
+
 
     public List<AttendanceDto> studentList;
 

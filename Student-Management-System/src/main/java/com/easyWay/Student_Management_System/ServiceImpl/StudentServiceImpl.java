@@ -101,9 +101,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentInfo> getStudentByClass(String cls) {
+    public List<StudentInfo> getStudentByClass() {
 
-        return infoRepo.findByClass(cls);
+        return infoRepo.findAll();
     }
 
     public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {

@@ -101,9 +101,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentInfo> getStudentByClass() {
+    public List<StudentInfoDto> getStudentByClass() {
 
-        return infoRepo.findAll();
+        List<StudentInfo> savedStudent = infoRepo.findAll();
+        List<StudentInfoDto> resultList = new ArrayList<>();
+        for (StudentInfo studentInfo : savedStudent) {
+            StudentInfoDto studentInfoDto = convertEntityToDto(studentInfo);
+
+            resultList.add(studentInfoDto);
+        }
+        return resultList;
     }
 
     public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {
@@ -151,7 +158,7 @@ public class StudentServiceImpl implements StudentService {
         entity.setCity(dto.getCity());
         entity.setAddress(dto.getAddress());
         entity.setStd_state(dto.getState());
-        entity.setFamilyDetails(dto.getFamilyDetails().toString());
+        entity.setFamilyDetails(gson.toJson(dto.getFamilyDetails()));
         entity.setContact(dto.getContact());
         entity.setGender(dto.getGender());
         entity.setCls(dto.getCls());
@@ -160,6 +167,24 @@ public class StudentServiceImpl implements StudentService {
         entity.setEmail(dto.getEmail());
         entity.setDob(dto.getDob());
     }
+
+    private StudentInfoDto convertEntityToDto(StudentInfo entity) {
+        return StudentInfoDto.builder()
+                .name(entity.getName())
+                .city(entity.getCity())
+                .address(entity.getAddress())
+                .state(entity.getStd_state())
+                .familyDetails(gson.fromJson(entity.getFamilyDetails(), FamilyDetails.class))
+                .contact(entity.getContact())
+                .gender(entity.getGender())
+                .cls(entity.getCls())
+                .department(entity.getDepartment())
+                .category(entity.getCategory())
+                .email(entity.getEmail())
+                .dob(entity.getDob())
+                .build();
+    }
+
 
     public List<StudentInfoDto> readExcel(Sheet sheet, Workbook workbook) throws Exception {
         List<StudentInfoDto> studentList = new ArrayList<>();

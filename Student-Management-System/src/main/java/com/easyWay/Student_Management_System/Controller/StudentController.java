@@ -42,7 +42,7 @@ public class StudentController {
     }
 
     @GetMapping("/findAllStudent")
-    public List<StudentInfo> findAllStudentBYClass(){
+    public List<StudentInfoDto> findAllStudentBYClass(){
         return studentService.getStudentByClass();
     }
 

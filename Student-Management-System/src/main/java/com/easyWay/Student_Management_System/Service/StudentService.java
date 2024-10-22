@@ -13,6 +13,6 @@ public interface StudentService{
 
     String studentBulkUpload(MultipartFile file) ;
 
-    List<StudentInfo> getStudentByClass();
+    List<StudentInfoDto> getStudentByClass();
 
 }

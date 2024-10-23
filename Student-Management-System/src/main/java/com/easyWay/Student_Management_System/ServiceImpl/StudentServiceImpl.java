@@ -182,6 +182,8 @@ public class StudentServiceImpl implements StudentService {
                 .category(entity.getCategory())
                 .email(entity.getEmail())
                 .dob(entity.getDob())
+                .id(entity.getId())
+                .creationDateTime(entity.getCreationDateTime())
                 .build();
     }
 

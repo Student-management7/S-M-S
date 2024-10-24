@@ -7,6 +7,7 @@ import com.easyWay.Student_Management_System.Entity.StudentInfo;
 import com.easyWay.Student_Management_System.Enums.FileStatus;
 import com.easyWay.Student_Management_System.Enums.FileType;
 import com.easyWay.Student_Management_System.Enums.StudendtHeader;
+import com.easyWay.Student_Management_System.Feign.MailServiceFeignClient;
 import com.easyWay.Student_Management_System.Repo.FileTrackingRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
 import com.easyWay.Student_Management_System.Service.StudentService;
@@ -49,6 +50,8 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     Gson gson;
 
+    @Autowired
+    MailServiceFeignClient mailService;
 
     // @Value("${chunckSize")
     static int size = 1000;
@@ -59,6 +62,7 @@ public class StudentServiceImpl implements StudentService {
         StudentInfo studentInfo = new StudentInfo();
         convertDtoToEntity(details, studentInfo);
         infoRepo.save(studentInfo);
+        mailService.sendEmail(details.getFamilyDetails().getStdo_email(),"Tesing 2", "Test");
         return "Saved Successfully";
     }
 

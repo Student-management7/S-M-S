@@ -8,6 +8,6 @@ import java.util.List;
 public class ClassAndSubjetDataDto {
 
     private String className;
-    private String subject;
+    private List<String> subject;
 
 }

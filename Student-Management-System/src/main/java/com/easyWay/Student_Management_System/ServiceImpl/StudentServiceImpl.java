@@ -117,6 +117,34 @@ public class StudentServiceImpl implements StudentService {
         return resultList;
     }
 
+    @Override
+    public String updateStudent(StudentInfoDto student) {
+        try {
+            StudentInfo savedStudent = infoRepo.getById(student.getId());
+            updateStudentDetails(savedStudent, student);
+            return "Student saved successfully";
+        }catch (Exception e){
+            System.out.println("data not found");
+            return "Data not saved successfully";
+        }
+    }
+
+    void updateStudentDetails(StudentInfo saveStudent, StudentInfoDto details){
+        saveStudent.setId(details.getId());
+        saveStudent.setName(details.getName());
+        saveStudent.setGender(details.getGender());
+        saveStudent.setAddress(details.getAddress());
+        saveStudent.setContact(details.getContact());
+        saveStudent.setCls(details.getCls());
+        saveStudent.setCategory(details.getCategory());
+        saveStudent.setFamilyDetails(gson.toJson(details.getFamilyDetails()));
+        saveStudent.setCity(details.getCity());
+        saveStudent.setDob(details.getDob());
+        saveStudent.setDepartment(details.getDepartment());
+
+        infoRepo.save(saveStudent);
+    }
+
     public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {
         List<StudentInfo> studentInfos = new ArrayList<>();
         long errorCount = 0;

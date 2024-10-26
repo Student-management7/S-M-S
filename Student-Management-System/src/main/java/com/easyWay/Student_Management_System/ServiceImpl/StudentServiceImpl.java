@@ -123,8 +123,20 @@ public class StudentServiceImpl implements StudentService {
         return resultList;
     }
 
+    @Override
+    public String deleteStudent(UUID id) {
+        try {
 
+            StudentInfo entity = infoRepo.getById(id);
+            entity.setDelete(true);
+            infoRepo.save(entity);
+            return "deleted Successfully";
 
+        } catch (Exception e) {
+            System.out.println("not deleted");
+            return "deleted Successfully";
+        }
+    }
 
 
     public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {

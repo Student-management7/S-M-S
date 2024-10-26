@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/student")
@@ -47,6 +48,11 @@ public class StudentController {
     public List<StudentInfoDto> findAllStudentBYClass(){
 
         return studentService.getStudentByClass();
+    }
+
+    @PostMapping("/delete")
+    public String deleteStudent(@RequestParam UUID id){
+        return studentService.deleteStudent(id);
     }
 
 }

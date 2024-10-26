@@ -124,20 +124,21 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-<<<<<<< HEAD
     public String deleteStudent(UUID id) {
         try {
 
             StudentInfo entity = infoRepo.getById(id);
             entity.setDelete(true);
             infoRepo.save(entity);
-            return "deleted Successfully";
+            return "Deleted successfully";
 
         } catch (Exception e) {
             System.out.println("not deleted");
-            return "deleted Successfully";
+            return "Not deleted successfully";
         }
-=======
+    }
+
+    @Override
     public String updateStudent(StudentInfoDto student) {
         try {
             StudentInfo savedStudent = infoRepo.getById(student.getId());
@@ -163,7 +164,6 @@ public class StudentServiceImpl implements StudentService {
         saveStudent.setDepartment(details.getDepartment());
 
         infoRepo.save(saveStudent);
->>>>>>> b1dee8988347dea98f51238db1fbccdf84089b21
     }
 
 

@@ -124,6 +124,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+<<<<<<< HEAD
     public String deleteStudent(UUID id) {
         try {
 
@@ -136,6 +137,33 @@ public class StudentServiceImpl implements StudentService {
             System.out.println("not deleted");
             return "deleted Successfully";
         }
+=======
+    public String updateStudent(StudentInfoDto student) {
+        try {
+            StudentInfo savedStudent = infoRepo.getById(student.getId());
+            updateStudentDetails(savedStudent, student);
+            return "Student saved successfully";
+        }catch (Exception e){
+            System.out.println("data not found");
+            return "Data not saved successfully";
+        }
+    }
+
+    void updateStudentDetails(StudentInfo saveStudent, StudentInfoDto details){
+        saveStudent.setId(details.getId());
+        saveStudent.setName(details.getName());
+        saveStudent.setGender(details.getGender());
+        saveStudent.setAddress(details.getAddress());
+        saveStudent.setContact(details.getContact());
+        saveStudent.setCls(details.getCls());
+        saveStudent.setCategory(details.getCategory());
+        saveStudent.setFamilyDetails(gson.toJson(details.getFamilyDetails()));
+        saveStudent.setCity(details.getCity());
+        saveStudent.setDob(details.getDob());
+        saveStudent.setDepartment(details.getDepartment());
+
+        infoRepo.save(saveStudent);
+>>>>>>> b1dee8988347dea98f51238db1fbccdf84089b21
     }
 
 

@@ -17,5 +17,10 @@ public interface StudentService{
 
     List<StudentInfoDto> getStudentByClass();
 
+<<<<<<< HEAD
     String deleteStudent(UUID id);
+=======
+    String updateStudent(StudentInfoDto student);
+
+>>>>>>> b1dee8988347dea98f51238db1fbccdf84089b21
 }

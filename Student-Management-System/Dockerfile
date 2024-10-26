@@ -1,3 +1,7 @@
+FROM maven:3.8.5-openjdk-17 AS build
+COPY . .
+RUN mvn clean package -DskipTests
+
 # Use a base image with JDK
 FROM openjdk:17-jdk-slim
 
@@ -5,7 +9,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the jar file into the container
-COPY target/Student-Management-System-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /target/Student-Management-System-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port your app runs on
 EXPOSE 8080

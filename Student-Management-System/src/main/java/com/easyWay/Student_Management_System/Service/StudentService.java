@@ -16,6 +16,6 @@ public interface StudentService{
 
     List<StudentInfoDto> getStudentByClass();
 
-
+    String updateStudent(StudentInfoDto student);
 
 }

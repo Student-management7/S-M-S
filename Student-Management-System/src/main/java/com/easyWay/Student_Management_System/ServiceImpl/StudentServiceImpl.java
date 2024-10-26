@@ -68,7 +68,7 @@ public class StudentServiceImpl implements StudentService {
         StudentInfo studentInfo = new StudentInfo();
         convertDtoToEntity(details, studentInfo);
         infoRepo.save(studentInfo);
-        mailService.sendEmail(details.getFamilyDetails().getStdo_email(),"Tesing 2", "Test");
+      //  mailService.sendEmail(details.getFamilyDetails().getStdo_email(),"Tesing 2", "Test");
         return "Saved Successfully";
     }
 

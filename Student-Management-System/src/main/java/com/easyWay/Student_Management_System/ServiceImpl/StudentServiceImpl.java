@@ -1,13 +1,16 @@
 package com.easyWay.Student_Management_System.ServiceImpl;
 
+import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
 import com.easyWay.Student_Management_System.Dto.FamilyDetails;
 import com.easyWay.Student_Management_System.Dto.StudentInfoDto;
+import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Entity.FileTracking;
 import com.easyWay.Student_Management_System.Entity.StudentInfo;
 import com.easyWay.Student_Management_System.Enums.FileStatus;
 import com.easyWay.Student_Management_System.Enums.FileType;
 import com.easyWay.Student_Management_System.Enums.StudendtHeader;
 import com.easyWay.Student_Management_System.Feign.MailServiceFeignClient;
+import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.FileTrackingRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
 import com.easyWay.Student_Management_System.Service.StudentService;
@@ -53,7 +56,10 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     MailServiceFeignClient mailService;
 
-    // @Value("${chunckSize")
+
+
+    // @Value("${chunckSize"
+    //
     static int size = 1000;
 
     @Override
@@ -144,6 +150,7 @@ public class StudentServiceImpl implements StudentService {
 
         infoRepo.save(saveStudent);
     }
+
 
     public void biffercations(List<StudentInfoDto> students, FileTracking fileTracking) {
         List<StudentInfo> studentInfos = new ArrayList<>();

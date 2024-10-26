@@ -6,5 +6,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface FacultyService {
 
+
     String saveFaculty(FacultyInfoDto details);
+
+
+    String updateFaculty(FacultyInfoDto faculty);
 }

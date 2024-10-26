@@ -1,7 +1,9 @@
 package com.easyWay.Student_Management_System.Controller;
 
+import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
 import com.easyWay.Student_Management_System.Dto.StudentInfoDto;
 import com.easyWay.Student_Management_System.Entity.StudentInfo;
+import com.easyWay.Student_Management_System.Service.FacultyService;
 import com.easyWay.Student_Management_System.Service.StudentService;
 import lombok.Getter;
 import org.apache.coyote.BadRequestException;
@@ -44,6 +46,7 @@ public class StudentController {
 
     @GetMapping("/findAllStudent")
     public List<StudentInfoDto> findAllStudentBYClass(){
+
         return studentService.getStudentByClass();
     }
 
@@ -51,6 +54,5 @@ public class StudentController {
     public String updateStudent(@RequestBody StudentInfoDto student){
         return studentService.updateStudent(student);
     }
-
 
 }

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 public class FacultyInfoDto {
-    @Id
+
     public UUID fact_id;
 
     public String fact_Name;

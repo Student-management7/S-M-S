@@ -25,7 +25,7 @@ public class StudentController {
 
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/save")
-    public String saveStudent(@RequestBody StudentInfoDto details){
+    public String saveStudent(@RequestBody StudentInfoDto details) throws BadRequestException {
 
       return studentService.saveStudent(details);
     }

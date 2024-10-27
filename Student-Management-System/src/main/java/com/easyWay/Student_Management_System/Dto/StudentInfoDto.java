@@ -25,5 +25,7 @@ public class StudentInfoDto {
     public String cls;
     public String department;
     public String category;
+    public String admissionClass;
+    public String endDate;
 
 }

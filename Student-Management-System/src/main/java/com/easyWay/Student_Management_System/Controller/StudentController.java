@@ -46,7 +46,7 @@ public class StudentController {
     }
 
     @GetMapping("/findAllStudent")
-    public List<StudentInfoDto> findAllStudentBYClass(@RequestParam() String cls){
+    public List<StudentInfoDto> findAllStudentBYClass(@RequestParam(required = false) String cls){
 
         return studentService.getStudentByClass(cls);
     }

@@ -7,6 +7,7 @@ import com.easyWay.Student_Management_System.Service.FacultyService;
 import com.easyWay.Student_Management_System.Service.StudentService;
 import lombok.Getter;
 import org.apache.coyote.BadRequestException;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,9 +46,9 @@ public class StudentController {
     }
 
     @GetMapping("/findAllStudent")
-    public List<StudentInfoDto> findAllStudentBYClass(){
+    public List<StudentInfoDto> findAllStudentBYClass(@RequestParam() String cls){
 
-        return studentService.getStudentByClass();
+        return studentService.getStudentByClass(cls);
     }
 
     @PostMapping("/update")

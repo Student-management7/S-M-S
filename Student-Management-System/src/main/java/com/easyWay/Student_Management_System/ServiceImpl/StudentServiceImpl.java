@@ -26,6 +26,7 @@ import org.apache.poi.util.StringUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -70,7 +71,7 @@ StudentServiceImpl implements StudentService {
         StudentInfo studentInfo = new StudentInfo();
         convertDtoToEntity(details, studentInfo);
         infoRepo.save(studentInfo);
-        mailService.sendEmail(details.getFamilyDetails().getStdo_email(),"Tesing 2", "Test");
+      //  mailService.sendEmail(details.getFamilyDetails().getStdo_email(),"Tesing 2", "Test");
         return "Saved Successfully";
     }
 
@@ -113,9 +114,17 @@ StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentInfoDto> getStudentByClass() {
+    public List<StudentInfoDto> getStudentByClass(String cls) {
 
-        List<StudentInfo> savedStudent = infoRepo.findAll();
+        List<StudentInfo> savedStudent = new ArrayList<>();
+
+        if(StringUtil.isBlank(cls)) {
+            savedStudent = infoRepo.findAll();
+
+        }else {
+            savedStudent = infoRepo.findByClass(cls);
+        }
+
         List<StudentInfoDto> resultList = new ArrayList<>();
         for (StudentInfo studentInfo : savedStudent) {
             StudentInfoDto studentInfoDto = convertEntityToDto(studentInfo);
@@ -123,6 +132,7 @@ StudentServiceImpl implements StudentService {
             resultList.add(studentInfoDto);
         }
         return resultList;
+
     }
 
     @Override

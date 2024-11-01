@@ -25,9 +25,15 @@ public class StudentController {
 
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/save")
-    public String saveStudent(@RequestBody StudentInfoDto details) throws BadRequestException {
-
-      return studentService.saveStudent(details);
+    public String saveStudent(@RequestBody StudentInfoDto details){
+    try {
+        return studentService.saveStudent(details);
+    } catch (com.easyWay.Student_Management_System.Helper.BadRequestException e) {
+        throw e;
+    } catch (Exception e) {
+        // Wrap other exceptions to be handled by GlobalExceptionHandler
+        throw new RuntimeException("An error occurred while saving the student: " + e.getMessage());
+    }
     }
     @PostMapping("/bulkupload")
     public ResponseEntity<String> bulkUploadStudent(@RequestParam("file") MultipartFile file){

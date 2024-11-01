@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public interface StudentService{
 
-    String saveStudent(StudentInfoDto details) throws BadRequestException;
+    String saveStudent(StudentInfoDto details);
 
     String studentBulkUpload(MultipartFile file) ;
 

@@ -10,6 +10,7 @@ import com.easyWay.Student_Management_System.Enums.FileStatus;
 import com.easyWay.Student_Management_System.Enums.FileType;
 import com.easyWay.Student_Management_System.Enums.StudendtHeader;
 import com.easyWay.Student_Management_System.Feign.MailServiceFeignClient;
+import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.FileTrackingRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
@@ -17,7 +18,6 @@ import com.easyWay.Student_Management_System.Service.StudentService;
 import com.easyWay.Student_Management_System.Utils.FileUtils;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -65,7 +65,7 @@ StudentServiceImpl implements StudentService {
 
 
     @Override
-    public String saveStudent(StudentInfoDto details) throws BadRequestException {
+    public String saveStudent(StudentInfoDto details)  {
         checkStudentValidations(details);
         StudentInfo studentInfo = new StudentInfo();
         convertDtoToEntity(details, studentInfo);
@@ -374,7 +374,11 @@ StudentServiceImpl implements StudentService {
         }
     }
 
-    void checkStudentValidations(StudentInfoDto details) throws BadRequestException {
+    void checkStudentValidations(StudentInfoDto details) {
+
+        if (details == null) {
+            throw new BadRequestException("Student details can't be null");
+        }
 
         if(StringUtil.isBlank(details.getName())){
             throw new BadRequestException("Name can't be empty");

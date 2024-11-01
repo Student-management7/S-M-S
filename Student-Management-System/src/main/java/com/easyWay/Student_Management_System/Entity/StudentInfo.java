@@ -39,5 +39,7 @@ public class StudentInfo extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     @JsonIgnore
     private FileTracking fileTracking;
+    private String admissionClass;
+    private String endDate;
 
 }

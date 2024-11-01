@@ -49,6 +49,24 @@ public class FacultyServiceImpl implements FacultyService {
             return "Data not found";
         }
     }
+
+    @Override
+    public String deleteFaculty(UUID id) {
+        try {
+            FacultyInfo entity = infoRepo.getById(id);
+            entity.setDelete(true);
+            infoRepo.save(entity);
+            return "Deleted successfully";
+
+        }catch (Exception e){
+            System.out.println("Not deleted");
+            return "Not deleted successfully";
+
+        }
+
+    }
+
+
     void updateFacultyDetails(FacultyInfo saveFaculty , FacultyInfoDto details){
         saveFaculty.setFact_id(details.getFact_id());
         saveFaculty.setFact_Name(details.getFact_Name());

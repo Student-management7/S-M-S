@@ -3,6 +3,8 @@ package com.easyWay.Student_Management_System.Service;
 import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public interface FacultyService {
 
@@ -11,4 +13,6 @@ public interface FacultyService {
 
 
     String updateFaculty(FacultyInfoDto faculty);
+
+    String deleteFaculty(UUID id);
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -36,6 +37,11 @@ public class FacultyController {
     @GetMapping("/all")
     public List<FacultyInfo>a(){
         return infoRepo.findAll();
+    }
+
+    @PostMapping("/delete")
+    public String deleteFaculty(@RequestParam UUID id){
+        return facultyService.deleteFaculty(id);
     }
 }
 

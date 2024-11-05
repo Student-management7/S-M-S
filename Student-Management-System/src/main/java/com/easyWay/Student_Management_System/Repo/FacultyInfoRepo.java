@@ -11,4 +11,7 @@ import java.util.UUID;
 @Repository
 public interface FacultyInfoRepo extends JpaRepository<FacultyInfo , UUID> {
 
+    @Query("select a from FacultyInfo a where a.isDelete = false")
+    List<FacultyInfo> findAllFaculty();
+
 }

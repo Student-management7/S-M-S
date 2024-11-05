@@ -3,6 +3,7 @@ package com.easyWay.Student_Management_System.Controller;
 import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
+import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
 import com.easyWay.Student_Management_System.Service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,8 @@ public class FacultyController {
     }
 
     @GetMapping("/all")
-    public List<FacultyInfo>a(){
+    public List<FacultyInfo>a()
+    {
         return infoRepo.findAll();
     }
 
@@ -43,6 +45,7 @@ public class FacultyController {
     public String deleteFaculty(@RequestParam UUID id){
         return facultyService.deleteFaculty(id);
     }
+
 }
 
 

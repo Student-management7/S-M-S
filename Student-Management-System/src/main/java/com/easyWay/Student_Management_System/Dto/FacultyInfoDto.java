@@ -1,6 +1,5 @@
 package com.easyWay.Student_Management_System.Dto;
 
-import jakarta.persistence.Id;
 import lombok.Data;
 
 import java.util.List;
@@ -26,5 +25,6 @@ public class FacultyInfoDto {
     public String Fact_Status;
 
     public List<FactCls> Fact_Cls;
+
 
 }

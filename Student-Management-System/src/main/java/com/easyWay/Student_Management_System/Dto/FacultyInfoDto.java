@@ -24,8 +24,7 @@ public class FacultyInfoDto {
     public List<FactQualificationDto> fact_qualification;
     @JsonProperty("Fact_Status")
     public String Fact_Status;
+
     @JsonProperty("Fact_Cls")
     public List<FactCls> Fact_Cls;
-
-
 }

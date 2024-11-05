@@ -119,7 +119,7 @@ StudentServiceImpl implements StudentService {
         List<StudentInfo> savedStudent = new ArrayList<>();
 
         if(StringUtil.isBlank(cls)) {
-            savedStudent = infoRepo.findAll();
+            savedStudent = infoRepo.findAllStudent();
 
         }else {
             savedStudent = infoRepo.findByClass(cls);
@@ -145,8 +145,7 @@ StudentServiceImpl implements StudentService {
             return "Deleted successfully";
 
         } catch (Exception e) {
-            System.out.println("not deleted");
-            return "Not deleted successfully";
+           throw new BadRequestException("Not deleted");
         }
     }
 
@@ -157,8 +156,7 @@ StudentServiceImpl implements StudentService {
             updateStudentDetails(savedStudent, student);
             return "Student saved successfully";
         }catch (Exception e){
-            System.out.println("data not found");
-            return "Data not saved successfully";
+            throw new BadRequestException("Not saved");
         }
     }
 

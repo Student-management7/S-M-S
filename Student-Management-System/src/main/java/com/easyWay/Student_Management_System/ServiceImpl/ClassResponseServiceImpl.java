@@ -11,6 +11,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,10 +84,13 @@ public class ClassResponseServiceImpl implements ClassResponseService {
                 dto.getClassName().equalsIgnoreCase("12"))){
 
                 List<CLassInfo> savedData = classInfoRepo.findAll();
+                if(ObjectUtils.isEmpty(savedData)){
+                    return true;
+                }
                 boolean check = false;
                 for (CLassInfo cls: savedData){
                    if (cls.getClassName().equalsIgnoreCase(dto.getClassName())){
-                       throw new BadRequestException("Class already present");
+                       throw new BadRequestException("Class is already present");
                    }
                    else {
                        check = true;
@@ -95,7 +99,7 @@ public class ClassResponseServiceImpl implements ClassResponseService {
                return check;
 
         }else {
-            throw new BadRequestException("Not valid");
+            throw new BadRequestException("This is not a valid class");
         }
 
     }

@@ -423,9 +423,9 @@ StudentServiceImpl implements StudentService {
         if (StringUtil.isBlank(details.getCategory())){
             throw new BadRequestException("Category can't be empty");
         }
-        if (StringUtil.isBlank(details.getAdmissionClass())){
-            throw new BadRequestException("AdmissionDate can't be empty");
-        }
+//        if (StringUtil.isBlank(details.getAdmissionClass())){
+//            throw new BadRequestException("AdmissionDate can't be empty");
+//        }
 
     }
 

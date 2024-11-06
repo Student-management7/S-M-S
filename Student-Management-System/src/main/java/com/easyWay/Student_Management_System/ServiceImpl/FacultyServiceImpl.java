@@ -58,6 +58,26 @@ public class FacultyServiceImpl implements FacultyService {
             throw new BadRequestException("Not deleted successfully");
         }
     }
+
+    public List<FacultyInfoDto> getAllFaculty() {
+        try {
+            List<FacultyInfo> facultyList = infoRepo.findAllFaculty();
+            if (ObjectUtils.isEmpty(facultyList)) {
+                throw new BadRequestException("Data not found");
+            }
+            List<FacultyInfoDto> facultyInfoDto = new ArrayList<>();
+            for (FacultyInfo facultyinfo : facultyList) {
+                FacultyInfoDto dto = new FacultyInfoDto();
+                convertEntityToDto(facultyinfo, dto);
+                facultyInfoDto.add(dto);
+            }
+            return facultyInfoDto;
+        } catch (Exception e) {
+
+            throw new BadRequestException("Data not found");
+        }
+    }
+
     void updateFacultyDetails(FacultyInfo saveFaculty, FacultyInfoDto details) {
         saveFaculty.setFact_id(details.getFact_id());
         saveFaculty.setFact_Name(details.getFact_Name());
@@ -135,4 +155,32 @@ public class FacultyServiceImpl implements FacultyService {
             throw new BadRequestException("Joining date can't be empty");
         }
     }
+    private void convertEntityToDto(FacultyInfo entity, FacultyInfoDto dto) {
+
+        dto.setFact_id(entity.getFact_id());
+        dto.setFact_Name(entity.getFact_Name());
+        dto.setFact_email(entity.getFact_email());
+        dto.setFact_contact(entity.getFact_contact());
+        dto.setFact_gender(entity.getFact_gender());
+        dto.setFact_address(entity.getFact_address());
+        dto.setFact_city(entity.getFact_city());
+        dto.setFact_state(entity.getFact_state());
+        dto.setFact_joiningDate(entity.getFact_joiningDate());
+        dto.setFact_leavingDate(entity.getFact_leavingDate());
+
+        List<FactQualificationDto> qualifications = new ArrayList<>();
+        FactQualificationDto qualificationDto = new FactQualificationDto();
+
+        qualificationDto.setFact_Graduation(gson.fromJson(entity.getFact_graduation(), FactGraduation.class));
+        qualificationDto.setFact_PostGraduation(gson.fromJson(entity.getFact_postGraduation(), FactPostGraduation.class));
+        qualificationDto.setFact_0ther(gson.fromJson(entity.getFact_other(), FactOther.class));
+
+        qualifications.add(qualificationDto);
+        dto.setFact_qualification(qualifications);
+
+        //dto.setFact_Cls(Facult.valueOf(entity.getFact_cls()));
+        dto.setFact_Status(entity.getFact_status());
+
+    }
+
 }

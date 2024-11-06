@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3494a89f-a3b0-4c77-b30a-d840ca5cbb1e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Controller/FacultyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Controller/FacultyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/FacultyInfoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/FacultyInfoDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/StudentInfoRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/StudentInfoRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/FacultyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/FacultyService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/FacultyController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/FacultyController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/FacultyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/FacultyService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,26 +23,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
-}</component>
-  <component name="ProjectId" id="2oNAhly5H5ZmZ6KxxiwB6xVzETk" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.StudentManagementSystemApplication.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Faculty-Validation",
-    "kotlin-language-version-configured": "true",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+    "git-widget-placeholder": "Faculty-Validation"
   }
 }]]></component>
   <component name="RunManager">
@@ -63,34 +50,8 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="3494a89f-a3b0-4c77-b30a-d840ca5cbb1e" name="Changes" comment="" />
-      <created>1730699780838</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1730699780838</updated>
-    </task>
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

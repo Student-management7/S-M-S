@@ -46,6 +46,11 @@ public class FacultyController {
         return facultyService.deleteFaculty(id);
     }
 
+    @GetMapping("/findAllFaculty")
+    public List<FacultyInfoDto> findAllFaculty(){
+        return facultyService.getAllFaculty();
+
+    }
 }
 
 

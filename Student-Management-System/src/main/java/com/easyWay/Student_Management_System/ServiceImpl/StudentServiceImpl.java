@@ -232,6 +232,7 @@ StudentServiceImpl implements StudentService {
         entity.setDob(dto.getDob());
         entity.setAdmissionClass(dto.admissionClass);
         entity.setEndDate(dto.getEndDate());
+        entity.setAdmissionClass(dto.getCls());
     }
 
     private StudentInfoDto convertEntityToDto(StudentInfo entity) {

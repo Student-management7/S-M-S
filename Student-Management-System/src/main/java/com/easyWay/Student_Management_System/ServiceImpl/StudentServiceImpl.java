@@ -10,6 +10,7 @@ import com.easyWay.Student_Management_System.Enums.FileStatus;
 import com.easyWay.Student_Management_System.Enums.FileType;
 import com.easyWay.Student_Management_System.Enums.StudendtHeader;
 import com.easyWay.Student_Management_System.Feign.MailServiceFeignClient;
+import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.FileTrackingRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
@@ -17,7 +18,6 @@ import com.easyWay.Student_Management_System.Service.StudentService;
 import com.easyWay.Student_Management_System.Utils.FileUtils;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -26,6 +26,7 @@ import org.apache.poi.util.StringUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -42,7 +43,8 @@ import static com.easyWay.Student_Management_System.Helper.ExcelHelper.setColumn
 
 @Service
 @Slf4j
-public class StudentServiceImpl implements StudentService {
+public class
+StudentServiceImpl implements StudentService {
 
     @Autowired
     StudentInfoRepo infoRepo;
@@ -62,9 +64,10 @@ public class StudentServiceImpl implements StudentService {
     //
     static int size = 1000;
 
-    @Override
-    public String saveStudent(StudentInfoDto details) {
 
+    @Override
+    public String saveStudent(StudentInfoDto details)  {
+        checkStudentValidations(details);
         StudentInfo studentInfo = new StudentInfo();
         convertDtoToEntity(details, studentInfo);
         infoRepo.save(studentInfo);
@@ -111,9 +114,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentInfoDto> getStudentByClass() {
+    public List<StudentInfoDto> getStudentByClass(String cls) {
 
-        List<StudentInfo> savedStudent = infoRepo.findAll();
+        List<StudentInfo> savedStudent = new ArrayList<>();
+
+        if(StringUtil.isBlank(cls)) {
+            savedStudent = infoRepo.findAllStudent();
+
+        }else {
+            savedStudent = infoRepo.findByClass(cls);
+        }
+
         List<StudentInfoDto> resultList = new ArrayList<>();
         for (StudentInfo studentInfo : savedStudent) {
             StudentInfoDto studentInfoDto = convertEntityToDto(studentInfo);
@@ -121,6 +132,21 @@ public class StudentServiceImpl implements StudentService {
             resultList.add(studentInfoDto);
         }
         return resultList;
+
+    }
+
+    @Override
+    public String deleteStudent(UUID id) {
+        try {
+
+            StudentInfo entity = infoRepo.getById(id);
+            entity.setDelete(true);
+            infoRepo.save(entity);
+            return "Deleted successfully";
+
+        } catch (Exception e) {
+           throw new BadRequestException("Not deleted");
+        }
     }
 
     @Override
@@ -130,8 +156,7 @@ public class StudentServiceImpl implements StudentService {
             updateStudentDetails(savedStudent, student);
             return "Student saved successfully";
         }catch (Exception e){
-            System.out.println("data not found");
-            return "Data not saved successfully";
+            throw new BadRequestException("Not saved");
         }
     }
 
@@ -205,6 +230,8 @@ public class StudentServiceImpl implements StudentService {
         entity.setCategory(dto.getCategory());
         entity.setEmail(dto.getEmail());
         entity.setDob(dto.getDob());
+        entity.setAdmissionClass(dto.admissionClass);
+        entity.setEndDate(dto.getEndDate());
     }
 
     private StudentInfoDto convertEntityToDto(StudentInfo entity) {
@@ -353,6 +380,53 @@ public class StudentServiceImpl implements StudentService {
                 throw new BadRequestException("Please upload the correct format !");
             }
         }
+    }
+
+    void checkStudentValidations(StudentInfoDto details) {
+
+        if (details == null) {
+            throw new BadRequestException("Student details can't be null");
+        }
+
+        if(StringUtil.isBlank(details.getName())){
+            throw new BadRequestException("Name can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getAddress())){
+            throw new BadRequestException("address can't be empty");
+        }
+
+        if(StringUtil.isBlank(details.getCity())){
+            throw new BadRequestException("city can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getState())) {
+            throw new BadRequestException("state can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getFamilyDetails().getStdo_FatherName())){
+            throw new BadRequestException("FatherName can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getFamilyDetails().getStdo_primaryContact())){
+            throw new BadRequestException("contact can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getGender())){
+            throw new BadRequestException("Gender can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getDob())){
+            throw new BadRequestException("DOB can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getCategory())){
+            throw new BadRequestException("Category can't be empty");
+        }
+//        if (StringUtil.isBlank(details.getAdmissionClass())){
+//            throw new BadRequestException("AdmissionDate can't be empty");
+//        }
+
     }
 
 }

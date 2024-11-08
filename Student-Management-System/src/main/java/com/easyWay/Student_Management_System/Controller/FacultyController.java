@@ -3,12 +3,14 @@ package com.easyWay.Student_Management_System.Controller;
 import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
+import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
 import com.easyWay.Student_Management_System.Service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -34,8 +36,20 @@ public class FacultyController {
     }
 
     @GetMapping("/all")
-    public List<FacultyInfo>a(){
+    public List<FacultyInfo>a()
+    {
         return infoRepo.findAll();
+    }
+
+    @PostMapping("/delete")
+    public String deleteFaculty(@RequestParam UUID id){
+        return facultyService.deleteFaculty(id);
+    }
+
+    @GetMapping("/findAllFaculty")
+    public List<FacultyInfoDto> findAllFaculty(){
+        return facultyService.getAllFaculty();
+
     }
 }
 

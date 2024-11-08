@@ -7,6 +7,7 @@ import com.easyWay.Student_Management_System.Service.FacultyService;
 import com.easyWay.Student_Management_System.Service.StudentService;
 import lombok.Getter;
 import org.apache.coyote.BadRequestException;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,14 @@ public class StudentController {
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/save")
     public String saveStudent(@RequestBody StudentInfoDto details){
-
-      return studentService.saveStudent(details);
+    try {
+        return studentService.saveStudent(details);
+    } catch (com.easyWay.Student_Management_System.Helper.BadRequestException e) {
+        throw e;
+    } catch (Exception e) {
+        // Wrap other exceptions to be handled by GlobalExceptionHandler
+        throw new RuntimeException("An error occurred while saving the student: " + e.getMessage());
+    }
     }
     @PostMapping("/bulkupload")
     public ResponseEntity<String> bulkUploadStudent(@RequestParam("file") MultipartFile file){
@@ -45,14 +52,21 @@ public class StudentController {
     }
 
     @GetMapping("/findAllStudent")
-    public List<StudentInfoDto> findAllStudentBYClass(){
+    public List<StudentInfoDto> findAllStudentBYClass(@RequestParam(required = false) String cls){
 
-        return studentService.getStudentByClass();
+        return studentService.getStudentByClass(cls);
+    }
+
+    @PostMapping("/delete")
+    public String deleteStudent(@RequestParam UUID id) {
+        return studentService.deleteStudent(id);
     }
 
     @PostMapping("/update")
     public String updateStudent(@RequestBody StudentInfoDto student){
         return studentService.updateStudent(student);
     }
+
+
 
 }

@@ -1,16 +1,17 @@
 package com.easyWay.Student_Management_System.ServiceImpl;
 
-import com.easyWay.Student_Management_System.Dto.FactQualificationDto;
-import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
+import com.easyWay.Student_Management_System.Dto.*;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
+import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Service.FacultyService;
 import com.google.gson.Gson;
-import lombok.Data;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,29 +28,57 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public String saveFaculty(FacultyInfoDto details) {
+        checkFacultyValidations(details);
         FacultyInfo facultyInfo = new FacultyInfo();
-
         convertDtoToEntity(details, facultyInfo);
-
         infoRepo.save(facultyInfo);
-
         return "Saved Successfully";
-
     }
-
 
     @Override
     public String updateFaculty(FacultyInfoDto faculty) {
         try {
             FacultyInfo saveFaculty = infoRepo.getById(faculty.getFact_id());
-            updateFacultyDetails( saveFaculty, faculty);
+            updateFacultyDetails(saveFaculty, faculty);
             return "Faculty saved successfully";
-        }catch (Exception e){
-            System.out.println("data not found");
-            return "Data not found";
+        } catch (Exception e) {
+            throw new BadRequestException("Data not found");
         }
     }
-    void updateFacultyDetails(FacultyInfo saveFaculty , FacultyInfoDto details){
+
+    @Override
+    public String deleteFaculty(UUID id) {
+        try {
+            FacultyInfo entity = infoRepo.getById(id);
+            entity.setDelete(true);
+            infoRepo.save(entity);
+            return "Deleted successfully";
+
+        } catch (Exception e) {
+            throw new BadRequestException("Not deleted successfully");
+        }
+    }
+
+    public List<FacultyInfoDto> getAllFaculty() {
+        try {
+            List<FacultyInfo> facultyList = infoRepo.findAllFaculty();
+            if (ObjectUtils.isEmpty(facultyList)) {
+                throw new BadRequestException("Data not found");
+            }
+            List<FacultyInfoDto> facultyInfoDto = new ArrayList<>();
+            for (FacultyInfo facultyinfo : facultyList) {
+                FacultyInfoDto dto = new FacultyInfoDto();
+                convertEntityToDto(facultyinfo, dto);
+                facultyInfoDto.add(dto);
+            }
+            return facultyInfoDto;
+        } catch (Exception e) {
+
+            throw new BadRequestException("Data not found");
+        }
+    }
+
+    void updateFacultyDetails(FacultyInfo saveFaculty, FacultyInfoDto details) {
         saveFaculty.setFact_id(details.getFact_id());
         saveFaculty.setFact_Name(details.getFact_Name());
         saveFaculty.setFact_cls(details.getFact_Cls().toString());
@@ -62,15 +91,15 @@ public class FacultyServiceImpl implements FacultyService {
         saveFaculty.setFact_joiningDate(details.getFact_joiningDate());
         saveFaculty.setFact_leavingDate(details.getFact_leavingDate());
 
-        for ( FactQualificationDto qualificationDto:details.getFact_qualification()){
-           saveFaculty.setFact_graduation(gson.toJson(qualificationDto.getFact_Graduation()));
-           saveFaculty.setFact_postGraduation(gson.toJson(qualificationDto.getFact_PostGraduation()));
-           saveFaculty.setFact_other(gson.toJson(qualificationDto.Fact_0ther));
+        for (FactQualificationDto qualificationDto : details.getFact_qualification()) {
+            saveFaculty.setFact_graduation(gson.toJson(qualificationDto.getFact_Graduation()));
+            saveFaculty.setFact_postGraduation(gson.toJson(qualificationDto.getFact_PostGraduation()));
+            saveFaculty.setFact_other(gson.toJson(qualificationDto.Fact_0ther));
         }
-      infoRepo.save(saveFaculty);
+        infoRepo.save(saveFaculty);
     }
 
-    private void convertDtoToEntity(FacultyInfoDto dto, FacultyInfo entity){
+    private void convertDtoToEntity(FacultyInfoDto dto, FacultyInfo entity) {
 
         entity.setFact_id(UUID.randomUUID());
         entity.setFact_Name(dto.getFact_Name());
@@ -82,7 +111,7 @@ public class FacultyServiceImpl implements FacultyService {
         entity.setFact_state(dto.getFact_state());
         entity.setFact_joiningDate(dto.getFact_joiningDate());
         entity.setFact_leavingDate(dto.getFact_leavingDate());
-        for ( FactQualificationDto qualificationDto:dto.getFact_qualification()){
+        for (FactQualificationDto qualificationDto : dto.getFact_qualification()) {
             entity.setFact_graduation(gson.toJson(qualificationDto.getFact_Graduation()));
             entity.setFact_postGraduation(gson.toJson(qualificationDto.getFact_PostGraduation()));
             entity.setFact_other(gson.toJson(qualificationDto.Fact_0ther));
@@ -91,6 +120,67 @@ public class FacultyServiceImpl implements FacultyService {
         entity.setFact_cls(dto.getFact_Cls().toString());
         entity.setFact_status(dto.getFact_Status());
 
+    }
+
+    void checkFacultyValidations(FacultyInfoDto details) {
+
+        if (details == null) {
+            throw new BadRequestException("Faculty details can't be null");
+        }
+        if (StringUtil.isBlank(details.getFact_Name())) {
+            throw new BadRequestException("Name can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getFact_email())) {
+            throw new BadRequestException("Email can't be  empty");
+        }
+
+        if (StringUtil.isBlank(details.getFact_contact())) {
+            throw new BadRequestException("Contact can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getFact_address())) {
+            throw new BadRequestException("Address can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getFact_city())) {
+            throw new BadRequestException("City can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getFact_state())) {
+            throw new BadRequestException("State can't be empty");
+        }
+
+        if (StringUtil.isBlank(details.getFact_joiningDate())) {
+            throw new BadRequestException("Joining date can't be empty");
+        }
+    }
+    private void convertEntityToDto(FacultyInfo entity, FacultyInfoDto dto) {
+
+        dto.setFact_id(entity.getFact_id());
+        dto.setFact_Name(entity.getFact_Name());
+        dto.setFact_email(entity.getFact_email());
+        dto.setFact_contact(entity.getFact_contact());
+        dto.setFact_gender(entity.getFact_gender());
+        dto.setFact_address(entity.getFact_address());
+        dto.setFact_city(entity.getFact_city());
+        dto.setFact_state(entity.getFact_state());
+        dto.setFact_joiningDate(entity.getFact_joiningDate());
+        dto.setFact_leavingDate(entity.getFact_leavingDate());
+
+        List<FactQualificationDto> qualifications = new ArrayList<>();
+        FactQualificationDto qualificationDto = new FactQualificationDto();
+
+        qualificationDto.setFact_Graduation(gson.fromJson(entity.getFact_graduation(), FactGraduation.class));
+        qualificationDto.setFact_PostGraduation(gson.fromJson(entity.getFact_postGraduation(), FactPostGraduation.class));
+        qualificationDto.setFact_0ther(gson.fromJson(entity.getFact_other(), FactOther.class));
+
+        qualifications.add(qualificationDto);
+        dto.setFact_qualification(qualifications);
+
+        //dto.setFact_Cls(Facult.valueOf(entity.getFact_cls()));
+        dto.setFact_Status(entity.getFact_status());
 
     }
+
 }

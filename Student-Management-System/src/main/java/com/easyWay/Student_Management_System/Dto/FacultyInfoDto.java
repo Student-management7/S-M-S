@@ -1,6 +1,6 @@
 package com.easyWay.Student_Management_System.Dto;
 
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -22,9 +22,9 @@ public class FacultyInfoDto {
     public String fact_leavingDate;
 
     public List<FactQualificationDto> fact_qualification;
-
+    @JsonProperty("Fact_Status")
     public String Fact_Status;
 
+    @JsonProperty("Fact_Cls")
     public List<FactCls> Fact_Cls;
-
 }

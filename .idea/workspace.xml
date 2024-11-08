@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3494a89f-a3b0-4c77-b30a-d840ca5cbb1e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Controller/FacultyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Controller/FacultyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/FacultyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/FacultyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/FacultyController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/FacultyController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/FacultyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/FacultyService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.StudentManagementSystemApplication.executor": "Run",
+    "git-widget-placeholder": "Faculty-Validation"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="StudentManagementSystemApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.easyWay.Student_Management_System.StudentManagementSystemApplication" />
+      <module name="Student-Management-System" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.easyWay.Student_Management_System.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.StudentManagementSystemApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java</url>
+          <line>118</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

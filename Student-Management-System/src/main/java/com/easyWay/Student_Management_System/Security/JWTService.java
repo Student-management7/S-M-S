@@ -1,4 +1,4 @@
-package com.easyWay.Student_Management_System.Security.Service;
+package com.easyWay.Student_Management_System.Security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -15,7 +15,8 @@ import java.util.function.Function;
 
 @Service
 public class JWTService {
-    private final SecretKey secretKey;
+
+    private final SecretKey secretKey ;
 
     // Constructor: Generate the key once and store it
     public JWTService() {
@@ -23,6 +24,7 @@ public class JWTService {
         String secretKeyBase64 = "U2FsdGVkX19gZWF1Z9cA4O6qR9cB2b8sbT0t3U8IwOQ";
         this.secretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secretKeyBase64));
     }
+
     // Getter to retrieve the key for signing or verification
     public SecretKey getKey() {
         return this.secretKey;
@@ -30,7 +32,7 @@ public class JWTService {
 
     public String  generateToken(String  userName ){
         Map<String  ,Object> claims = new HashMap<>();
-        return Jwts.builder()
+       return Jwts.builder()
                 .claims()
                 .add(claims)
                 .subject(userName)
@@ -89,4 +91,3 @@ public class JWTService {
         return extractClaim(token , Claims::getExpiration);
     }
 }
-

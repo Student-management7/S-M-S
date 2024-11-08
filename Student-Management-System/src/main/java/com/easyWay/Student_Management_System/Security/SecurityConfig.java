@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -29,7 +28,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/sendMail").permitAll()
+                        .requestMatchers("auth/login", "auth/register" , "auth/forget-password").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(JwtFilter , UsernamePasswordAuthenticationFilter.class);
@@ -50,4 +49,12 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
+
+
+//    @Bean
+//    public UserDetailsService userDetailsService(){
+//
+//        UserDetails userDetails1 = User.withDefaultPasswordEncoder().username("shailendra").password("123").roles("Admin").build();
+//        return new  InMemoryUserDetailsManager( userDetails1);
+//    }
 }

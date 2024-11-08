@@ -4,30 +4,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3494a89f-a3b0-4c77-b30a-d840ca5cbb1e" name="Changes" comment="">
+    <list default="true" id="f25a183f-1a40-4618-a97b-c67efcf20844" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/S-M-S.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/FactListDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/FacultyAttendanceRequestDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Entity/FacultyAttendance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/FacultyAttendanceRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/FacultyAttendanceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Controller/FacultyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Controller/FacultyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/FacultyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/FacultyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/FacultyController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/FacultyController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/FacultyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/FacultyService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2oYv60BcK4WO7K7JEdOfoUywco0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.StudentManagementSystemApplication.executor": "Run",
-    "git-widget-placeholder": "Faculty-Validation"
+    "Application.StudentManagementSystemApplication.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Faculty-Validation",
+    "kotlin-language-version-configured": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -50,18 +77,22 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="TaskManager">
-    <servers />
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+      </set>
+    </attachedChunks>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java</url>
-          <line>118</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f25a183f-1a40-4618-a97b-c67efcf20844" name="Changes" comment="" />
+      <created>1731059146207</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731059146207</updated>
+    </task>
+    <servers />
   </component>
 </project>

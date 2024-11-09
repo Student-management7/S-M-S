@@ -9,4 +9,6 @@ public interface AttendanceService {
     String saveAttendances(AttendanceRequestDto details);
 
     List<AttendanceResponseDto> getAttendances(String cls, String subject, String fromDate, String toDate);
+
+    String attendanceUpdate(AttendanceRequestDto details);
 }

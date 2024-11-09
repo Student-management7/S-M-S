@@ -5,6 +5,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/Student-Management-System/pom.xml" />
+        <option value="$PROJECT_DIR$/../MailService/MailService/S-M-S Mail Service/pom.xml" />
       </list>
     </option>
   </component>

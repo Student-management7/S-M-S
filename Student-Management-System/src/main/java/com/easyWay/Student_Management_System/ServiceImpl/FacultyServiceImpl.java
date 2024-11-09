@@ -83,7 +83,7 @@ public class FacultyServiceImpl implements FacultyService {
     void updateFacultyDetails(FacultyInfo saveFaculty, FacultyInfoDto details) {
         saveFaculty.setFact_id(details.getFact_id());
         saveFaculty.setFact_Name(details.getFact_Name());
-        saveFaculty.setFact_cls(details.getFact_Cls().toString());
+        saveFaculty.setFact_cls(gson.toJson(details.getFact_Cls()));
         saveFaculty.setFact_state(details.getFact_state());
         saveFaculty.setFact_status(details.getFact_Status());
         saveFaculty.setFact_city(details.getFact_city());
@@ -112,7 +112,7 @@ public class FacultyServiceImpl implements FacultyService {
         entity.setFact_leavingDate(dto.getFact_leavingDate());
         entity.setFact_graduation(gson.toJson(dto.getFact_qualification()));
 
-        entity.setFact_cls(dto.getFact_Cls().toString());
+        entity.setFact_cls(gson.toJson(dto.getFact_Cls()));
         entity.setFact_status(dto.getFact_Status());
 
     }
@@ -166,7 +166,8 @@ public class FacultyServiceImpl implements FacultyService {
         Type attendanceListType = new TypeToken<List<FactQualificationDto>>() {}.getType();
         dto.setFact_qualification(gson.fromJson(entity.getFact_graduation() ,attendanceListType));
 
-        //dto.setFact_Cls(Facult.valueOf(entity.getFact_cls()));
+        Type factClass = new TypeToken<List<FactCls>>() {}.getType();
+        dto.setFact_Cls(gson.fromJson(entity.getFact_cls(), factClass));
         dto.setFact_Status(entity.getFact_status());
 
     }

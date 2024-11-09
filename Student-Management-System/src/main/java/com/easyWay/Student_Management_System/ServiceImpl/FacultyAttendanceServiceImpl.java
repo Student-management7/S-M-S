@@ -1,5 +1,8 @@
 package com.easyWay.Student_Management_System.ServiceImpl;
 
+import com.easyWay.Student_Management_System.Dto.AttendanceDto;
+import com.easyWay.Student_Management_System.Dto.FactListDto;
+import com.easyWay.Student_Management_System.Dto.FactQualificationDto;
 import com.easyWay.Student_Management_System.Dto.FacultyAttendanceRequestDto;
 import com.easyWay.Student_Management_System.Entity.FacultyAttendance;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
@@ -8,11 +11,13 @@ import com.easyWay.Student_Management_System.Service.FacultyAttendanceService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import com.google.gson.Gson;
 
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -67,20 +72,23 @@ public class FacultyAttendanceServiceImpl implements FacultyAttendanceService {
     public List<FacultyAttendanceRequestDto> getAttendance(String from, String to) {
         LocalDateTime fromDate = TimeUtils.toStartOfDay(from);
         LocalDateTime toDate = TimeUtils.toEndOfDay(to);
-        FacultyAttendance savedData = repo.findByTime(fromDate, toDate);
+        List<FacultyAttendance> savedData = repo.findAllByTimeBetween(fromDate, toDate);
 
-        if (ObjectUtils.isEmpty(savedData)){
-            throw  new BadRequestException("No record found");
+        if (ObjectUtils.isEmpty(savedData)) {
+            throw new BadRequestException("No record found");
         }
 
         List<FacultyAttendanceRequestDto> dtoList = new ArrayList<>();
-//        for (FacultyAttendance saved : savedData) {
-//            FacultyAttendanceRequestDto dto = new FacultyAttendanceRequestDto();
-//            dto.setFactList(dto.getFactList());
-//        }
+        for (FacultyAttendance saved : savedData) {
+            FacultyAttendanceRequestDto dto = new FacultyAttendanceRequestDto();
 
+            Type attendanceListType = new TypeToken<List<FactListDto>>() {}.getType();
+            List<FactListDto> data = gson.fromJson(saved.getFacultyList(), attendanceListType);
+            dto.setFactList(data);
+
+            dtoList.add(dto);
+        }
         return dtoList;
-
-
     }
+
 }

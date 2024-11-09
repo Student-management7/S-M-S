@@ -31,5 +31,9 @@ public class AttendanceController {
         return attendanceService.getAttendances(cls, subject, fromDate, toDate);
 
     }
+    @PostMapping("/update")
+    public String attendanceUpdate(@RequestBody AttendanceRequestDto details){
+        return attendanceService.attendanceUpdate(details);
+    }
 
 }

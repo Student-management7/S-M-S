@@ -7,6 +7,7 @@ import com.easyWay.Student_Management_System.Repo.FacultyAttendanceRepo;
 import com.easyWay.Student_Management_System.Service.FacultyAttendanceService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import com.google.gson.Gson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import org.springframework.util.ObjectUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class FacultyAttendanceServiceImpl implements FacultyAttendanceService {
@@ -54,9 +57,30 @@ public class FacultyAttendanceServiceImpl implements FacultyAttendanceService {
         if(ObjectUtils.isEmpty(savedData)){
             throw  new BadRequestException("No record found");
         }
-
         savedData.setFacultyList(gson.toJson(dto.getFactList()));
         repo.save(savedData);
         return "Updated successfully";
+
+    }
+
+    @Override
+    public List<FacultyAttendanceRequestDto> getAttendance(String from, String to) {
+        LocalDateTime fromDate = TimeUtils.toStartOfDay(from);
+        LocalDateTime toDate = TimeUtils.toEndOfDay(to);
+        FacultyAttendance savedData = repo.findByTime(fromDate, toDate);
+
+        if (ObjectUtils.isEmpty(savedData)){
+            throw  new BadRequestException("No record found");
+        }
+
+        List<FacultyAttendanceRequestDto> dtoList = new ArrayList<>();
+//        for (FacultyAttendance saved : savedData) {
+//            FacultyAttendanceRequestDto dto = new FacultyAttendanceRequestDto();
+//            dto.setFactList(dto.getFactList());
+//        }
+
+        return dtoList;
+
+
     }
 }

@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a3cc6ef-3ff7-4f5d-9914-09bb95cdf47c" name="Changes" comment="" />
+    <list default="true" id="9a3cc6ef-3ff7-4f5d-9914-09bb95cdf47c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/shelf/Uncommitted_changes_before_Checkout_at_05-11-2024_13_55__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/shelf/Uncommitted_changes_before_Checkout_at_05-11-2024_13_55__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +47,7 @@
     "Maven.demo [install].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging Update-Faculty",
+    "git-widget-placeholder": "Faculty-Validation",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Gauri/IdeaProjects/MailService/MailService/S-M-S Mail Service",
     "project.structure.last.edited": "Project",
@@ -74,10 +81,17 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="18ee5d00-4e19-443d-976f-8e079dcd21bb" name="Changes" comment="" />
+      <changelist id="9a3cc6ef-3ff7-4f5d-9914-09bb95cdf47c" name="Changes" comment="" />
       <created>1730033050747</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

@@ -4,8 +4,10 @@ import lombok.Data;
 
 @Data
 public class FactQualificationDto {
-
-    public FactGraduation Fact_Graduation;
-    public FactPostGraduation Fact_PostGraduation;
-    public FactOther Fact_0ther;
+    private String grd_name;
+    private String type;
+    private String grd_branch;
+    private String grd_grade;
+    private String grd_university;
+    private String grd_yearOfPassing;
 }

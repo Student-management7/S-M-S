@@ -73,6 +73,22 @@ public class AttendanceServiceImpl implements AttendanceService {
         return resultList;
     }
 
+    @Override
+    public String attendanceUpdate(AttendanceRequestDto details) {
+
+        LocalDateTime from = TimeUtils.toStartOfDay(details.getDate());
+        LocalDateTime to = TimeUtils.toEndOfDay(details.getDate());
+        List<StudentAttendance> savedData = attendanceInfoRepo.findByClassAndSubject(details.getClassName()
+                ,details.getSubject() ,from ,to);
+        if (ObjectUtils.isEmpty(savedData)){
+            throw new BadRequestException("No record found");
+        }
+        savedData.get(0).setStudentList(gson.toJson(details.getStudentList()));
+        attendanceInfoRepo.save(savedData.get(0));
+        return "Saved successfully";
+
+    }
+
     private void convertDtoToEntity(AttendanceRequestDto dto , StudentAttendance entity ){
 
         if(StringUtil.isBlank(dto.getClassName())){

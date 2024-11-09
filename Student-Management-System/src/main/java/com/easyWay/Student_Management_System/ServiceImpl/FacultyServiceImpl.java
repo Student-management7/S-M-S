@@ -6,6 +6,7 @@ import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Service.FacultyService;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.util.StringUtil;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -91,11 +93,8 @@ public class FacultyServiceImpl implements FacultyService {
         saveFaculty.setFact_joiningDate(details.getFact_joiningDate());
         saveFaculty.setFact_leavingDate(details.getFact_leavingDate());
 
-        for (FactQualificationDto qualificationDto : details.getFact_qualification()) {
-            saveFaculty.setFact_graduation(gson.toJson(qualificationDto.getFact_Graduation()));
-            saveFaculty.setFact_postGraduation(gson.toJson(qualificationDto.getFact_PostGraduation()));
-            saveFaculty.setFact_other(gson.toJson(qualificationDto.Fact_0ther));
-        }
+        saveFaculty.setFact_graduation(gson.toJson(details.getFact_qualification()));
+
         infoRepo.save(saveFaculty);
     }
 
@@ -111,11 +110,7 @@ public class FacultyServiceImpl implements FacultyService {
         entity.setFact_state(dto.getFact_state());
         entity.setFact_joiningDate(dto.getFact_joiningDate());
         entity.setFact_leavingDate(dto.getFact_leavingDate());
-        for (FactQualificationDto qualificationDto : dto.getFact_qualification()) {
-            entity.setFact_graduation(gson.toJson(qualificationDto.getFact_Graduation()));
-            entity.setFact_postGraduation(gson.toJson(qualificationDto.getFact_PostGraduation()));
-            entity.setFact_other(gson.toJson(qualificationDto.Fact_0ther));
-        }
+        entity.setFact_graduation(gson.toJson(dto.getFact_qualification()));
 
         entity.setFact_cls(dto.getFact_Cls().toString());
         entity.setFact_status(dto.getFact_Status());
@@ -168,15 +163,8 @@ public class FacultyServiceImpl implements FacultyService {
         dto.setFact_joiningDate(entity.getFact_joiningDate());
         dto.setFact_leavingDate(entity.getFact_leavingDate());
 
-        List<FactQualificationDto> qualifications = new ArrayList<>();
-        FactQualificationDto qualificationDto = new FactQualificationDto();
-
-        qualificationDto.setFact_Graduation(gson.fromJson(entity.getFact_graduation(), FactGraduation.class));
-        qualificationDto.setFact_PostGraduation(gson.fromJson(entity.getFact_postGraduation(), FactPostGraduation.class));
-        qualificationDto.setFact_0ther(gson.fromJson(entity.getFact_other(), FactOther.class));
-
-        qualifications.add(qualificationDto);
-        dto.setFact_qualification(qualifications);
+        Type attendanceListType = new TypeToken<List<FactQualificationDto>>() {}.getType();
+        dto.setFact_qualification(gson.fromJson(entity.getFact_graduation() ,attendanceListType));
 
         //dto.setFact_Cls(Facult.valueOf(entity.getFact_cls()));
         dto.setFact_Status(entity.getFact_status());

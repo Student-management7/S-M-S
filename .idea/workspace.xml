@@ -5,20 +5,82 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f25a183f-1a40-4618-a97b-c67efcf20844" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/S-M-S.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/FactListDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/FacultyAttendanceRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Entity/FacultyAttendance.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/FacultyAttendanceRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/FacultyAttendanceService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Controller/AttendanceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Controller/AttendanceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Controller/FacultyAttendanceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Controller/FacultyAttendanceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/AttendanceRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/AttendanceRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/FactQualificationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/FactQualificationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/FacultyAttendanceRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Repo/FacultyAttendanceRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/AttendanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/AttendanceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/FacultyAttendanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Service/FacultyAttendanceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/AttendanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/AttendanceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Config/WebConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/AttendanceController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/ClassController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/FacultyAttendanceController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/FacultyController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Controller/StudentController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/AttendanceDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/AttendanceRequestDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/AttendanceResponseDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/ClassAndSubjetDataDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/ClassResponseDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FactCls.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FactGraduation$FactGraduationBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FactGraduation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FactListDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FactOther$FactOtherBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FactOther.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FactPostGraduation$FactPostGraduationBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FactPostGraduation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FactQualificationDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FacultyAttendanceRequestDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FacultyInfoDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FamilyDetails$FamilyDetailsBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/FamilyDetails.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/StudentInfoDto$StudentInfoDtoBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Dto/StudentInfoDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Entity/Attendance.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Entity/BaseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Entity/CLassInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Entity/FacultyAttendance.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Entity/FacultyInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Entity/FileTracking.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Entity/StudentAttendance.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Entity/StudentInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Enums/FileStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Enums/FileType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Enums/StudendtHeader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Feign/MailServiceFeignClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Helper/BadRequestException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Helper/ExcelHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Helper/GlobalExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/AttendanceInfoRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/ClassInfoRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/FacultyAttendanceRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/FacultyInfoRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/FileTrackingRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Repo/StudentInfoRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/AttendanceService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/ClassResponseService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/FacultyAttendanceService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/FacultyService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Service/StudentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/AttendanceServiceImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/AttendanceServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/ClassResponseServiceImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/ClassResponseServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/StudentManagementSystemApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Utils/FileUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student-Management-System/target/classes/com/easyWay/Student_Management_System/Utils/TimeUtils.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,28 +97,29 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2oYv60BcK4WO7K7JEdOfoUywco0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.StudentManagementSystemApplication.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Faculty-Validation",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.StudentManagementSystemApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Faculty-Validation&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="StudentManagementSystemApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.easyWay.Student_Management_System.StudentManagementSystemApplication" />
@@ -94,5 +157,17 @@
       <updated>1731059146207</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/Student-Management-System/src/main/java/com/easyWay/Student_Management_System/Dto/FactQualificationDto.java</url>
+          <line>6</line>
+          <properties field="grdName" class="com.easyWay.Student_Management_System.Dto.FactQualificationDto" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

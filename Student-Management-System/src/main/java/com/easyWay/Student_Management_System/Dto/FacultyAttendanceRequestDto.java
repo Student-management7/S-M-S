@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class FacultyAttendanceRequestDto {
-
+    String date;
     List<FactListDto> factList;
 }

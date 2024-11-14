@@ -81,7 +81,7 @@ public class FacultyAttendanceServiceImpl implements FacultyAttendanceService {
         List<FacultyAttendanceRequestDto> dtoList = new ArrayList<>();
         for (FacultyAttendance saved : savedData) {
             FacultyAttendanceRequestDto dto = new FacultyAttendanceRequestDto();
-
+            dto.setDate(saved.getCreationDateTime().toString());
             Type attendanceListType = new TypeToken<List<FactListDto>>() {}.getType();
             List<FactListDto> data = gson.fromJson(saved.getFacultyList(), attendanceListType);
             dto.setFactList(data);

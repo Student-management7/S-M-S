@@ -11,5 +11,4 @@ public class FactListDto {
     public String attendance;
     public String name;
 
-
 }

@@ -58,9 +58,7 @@ public class StudentController {
     }
 
     @PostMapping("/delete")
-    public String deleteStudent(@RequestParam UUID id) {
-        return studentService.deleteStudent(id);
-    }
+    public String deleteStudent(@RequestParam UUID id) {return studentService.deleteStudent(id);}
 
     @PostMapping("/update")
     public String updateStudent(@RequestBody StudentInfoDto student){

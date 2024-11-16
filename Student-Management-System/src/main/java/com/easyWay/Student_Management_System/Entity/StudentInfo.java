@@ -41,5 +41,7 @@ public class StudentInfo extends BaseEntity {
     private FileTracking fileTracking;
     private String admissionClass;
     private String endDate;
+    private int totalFees;
+
 
 }

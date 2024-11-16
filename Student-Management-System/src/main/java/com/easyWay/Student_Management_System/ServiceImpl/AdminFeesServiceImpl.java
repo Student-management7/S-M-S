@@ -1,16 +1,21 @@
 package com.easyWay.Student_Management_System.ServiceImpl;
 
 import com.easyWay.Student_Management_System.Dto.AdminFeesDto;
+import com.easyWay.Student_Management_System.Dto.FactListDto;
 import com.easyWay.Student_Management_System.Dto.OtherFeesDto;
 import com.easyWay.Student_Management_System.Entity.AdminFeesStructure;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.AdminFeesRepo;
 import com.easyWay.Student_Management_System.Service.AdminFeesService;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -48,6 +53,41 @@ public class AdminFeesServiceImpl implements AdminFeesService {
 
     }
 
+    @Override
+    public String editFees(AdminFeesDto id) {
+
+        if (id == null || id.getId() == null || ObjectUtils.isEmpty(id.getId())) {
+            throw new BadRequestException("Invalid id");
+        }
+
+        AdminFeesStructure savedData = repo.getById(id.getId());
+        if(ObjectUtils.isEmpty(savedData)){
+            throw new BadRequestException("Data not found");
+        }
+        extracted(id, savedData);
+        repo.save(savedData);
+        return "Edited data successfully";
+    }
+
+    @Override
+    public List<AdminFeesDto> getFees() {
+        List<AdminFeesStructure> data = repo.findAll();
+
+        if (ObjectUtils.isEmpty(data)) {
+            throw new BadRequestException("No data found");
+        }
+
+        List<AdminFeesDto> result = new ArrayList<>();
+
+        for (AdminFeesStructure saved : data) {
+            AdminFeesDto dto = new AdminFeesDto();
+            convertEntityToDto(saved, dto);
+            result.add(dto);
+        }
+
+        return result;
+    }
+
     private void extracted(AdminFeesDto details, AdminFeesStructure entity) {
         entity.setClassName(details.getClassName());
         entity.setSchoolFee(details.getSchoolFee());
@@ -71,4 +111,16 @@ public class AdminFeesServiceImpl implements AdminFeesService {
         }
         return total;
     }
+
+    private void convertEntityToDto(AdminFeesStructure entity, AdminFeesDto details) {
+        details.setClassName(entity.getClassName());
+        details.setSchoolFee(entity.getSchoolFee());
+        details.setBookFee(entity.getBookFee());
+        details.setSportsFee(entity.getSportsFee());
+        details.setId(entity.getId());
+        details.setTransportation(entity.getTransportation());
+        Type attendanceListType = new TypeToken<List<OtherFeesDto>>() {}.getType();
+        details.setOtherAmount(gson.fromJson(entity.getOtherAmount(), attendanceListType));
+    }
+
 }

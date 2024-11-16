@@ -3,6 +3,7 @@ package com.easyWay.Student_Management_System.ServiceImpl;
 import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
 import com.easyWay.Student_Management_System.Dto.FamilyDetails;
 import com.easyWay.Student_Management_System.Dto.StudentInfoDto;
+import com.easyWay.Student_Management_System.Entity.AdminFeesStructure;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Entity.FileTracking;
 import com.easyWay.Student_Management_System.Entity.StudentInfo;
@@ -11,6 +12,7 @@ import com.easyWay.Student_Management_System.Enums.FileType;
 import com.easyWay.Student_Management_System.Enums.StudendtHeader;
 import com.easyWay.Student_Management_System.Feign.MailServiceFeignClient;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
+import com.easyWay.Student_Management_System.Repo.AdminFeesRepo;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.FileTrackingRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
@@ -26,6 +28,7 @@ import org.apache.poi.util.StringUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,7 +61,8 @@ StudentServiceImpl implements StudentService {
     @Autowired
     MailServiceFeignClient mailService;
 
-
+    @Autowired
+    AdminFeesRepo adminFeesRepo;
 
     // @Value("${chunckSize"
     //
@@ -233,6 +237,10 @@ StudentServiceImpl implements StudentService {
         entity.setAdmissionClass(dto.admissionClass);
         entity.setEndDate(dto.getEndDate());
         entity.setAdmissionClass(dto.getCls());
+        AdminFeesStructure feesStructure = adminFeesRepo.findByClass(entity.getCls());
+        if(!ObjectUtils.isEmpty(feesStructure)) {
+            entity.setTotalFees(feesStructure.getTotal());
+        }
     }
 
     private StudentInfoDto convertEntityToDto(StudentInfo entity) {

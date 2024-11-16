@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -41,7 +42,12 @@ public class StudentInfo extends BaseEntity {
     private FileTracking fileTracking;
     private String admissionClass;
     private String endDate;
+    @Column(nullable = true)
     private int totalFees;
+    @Column(nullable = true)
+    private int remainingFees;
 
+    @OneToMany(mappedBy = "studentInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<StudentFeeInfo> feeInfo;
 
 }

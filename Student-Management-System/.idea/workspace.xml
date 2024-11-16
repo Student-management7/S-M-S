@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9a3cc6ef-3ff7-4f5d-9914-09bb95cdf47c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/FacultyAttendanceRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/FacultyAttendanceRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/NotificationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/NotificationServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +38,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.StudentManagementSystemApplication.executor": "Debug",
+    "Application.StudentManagementSystemApplication.executor": "Run",
     "Maven.Student-Management-System [clean].executor": "Run",
     "Maven.Student-Management-System [install].executor": "Run",
     "Maven.demo [clean].executor": "Run",

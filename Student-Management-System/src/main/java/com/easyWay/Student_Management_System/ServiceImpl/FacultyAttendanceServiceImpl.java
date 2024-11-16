@@ -85,7 +85,7 @@ public class FacultyAttendanceServiceImpl implements FacultyAttendanceService {
             Type attendanceListType = new TypeToken<List<FactListDto>>() {}.getType();
             List<FactListDto> data = gson.fromJson(saved.getFacultyList(), attendanceListType);
             dto.setFactList(data);
-
+            dto.setId(saved.getId());
             dtoList.add(dto);
         }
         return dtoList;

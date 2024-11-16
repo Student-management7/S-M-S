@@ -7,5 +7,5 @@ import java.util.UUID;
 @Data
 public class StudentFeesDto {
     public UUID id;
-    public String fee;
+    public int fee;
 }

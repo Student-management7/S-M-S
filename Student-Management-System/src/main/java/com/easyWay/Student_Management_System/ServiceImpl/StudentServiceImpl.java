@@ -240,6 +240,7 @@ StudentServiceImpl implements StudentService {
         AdminFeesStructure feesStructure = adminFeesRepo.findByClass(entity.getCls());
         if(!ObjectUtils.isEmpty(feesStructure)) {
             entity.setTotalFees(feesStructure.getTotal());
+            entity.setRemainingFees(feesStructure.getTotal());
         }
     }
 

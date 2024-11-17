@@ -35,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -260,6 +261,9 @@ StudentServiceImpl implements StudentService {
                 .dob(entity.getDob())
                 .id(entity.getId())
                 .creationDateTime(entity.getCreationDateTime())
+                .totalFees(entity.getTotalFees())
+                .remainingFees(entity.getRemainingFees())
+                .feeInfo(entity.getFeeInfo() != null && !entity.getFeeInfo().isEmpty() ? entity.getFeeInfo() : Collections.emptyList())
                 .build();
     }
 

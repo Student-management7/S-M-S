@@ -119,15 +119,19 @@ StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentInfoDto> getStudentByClass(String cls) {
+    public List<StudentInfoDto> getStudentByClass(String cls , String name) {
 
         List<StudentInfo> savedStudent = new ArrayList<>();
 
-        if(StringUtil.isBlank(cls)) {
+        if(StringUtil.isBlank(cls) && StringUtil.isBlank(name)) {
             savedStudent = infoRepo.findAllStudent();
 
-        }else {
+        } else if (StringUtil.isNotBlank(cls) && StringUtil.isNotBlank(name)) {
+              savedStudent = infoRepo.findByClassAndName(cls ,name.toLowerCase());
+        } else if(StringUtil.isNotBlank(cls) && StringUtil.isBlank(name)){
             savedStudent = infoRepo.findByClass(cls);
+        }else {
+            savedStudent = infoRepo.findByName(name.toLowerCase());
         }
 
         List<StudentInfoDto> resultList = new ArrayList<>();
@@ -223,7 +227,7 @@ StudentServiceImpl implements StudentService {
 
     private void convertDtoToEntity(StudentInfoDto dto, StudentInfo entity) {
 
-        entity.setName(dto.getName());
+        entity.setName(dto.getName().toLowerCase());
         entity.setCity(dto.getCity());
         entity.setAddress(dto.getAddress());
         entity.setStd_state(dto.getState());

@@ -8,11 +8,13 @@ import com.easyWay.Student_Management_System.Repo.HolidayInfoRepo;
 import com.easyWay.Student_Management_System.Service.HolidayInfoService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -77,6 +79,24 @@ public class HolidayInfoServiceImpl implements HolidayInfoService {
                 .orElse("No data found for this id = " + id);
     }
 
+    @Override
+    public List<HolidayRequestDto> getAllHolidayRequestDto() {
+        List<HolidayInfo> savedData = holidayInfoRepo.findAll();
+
+        if (ObjectUtils.isEmpty(savedData)) {
+            throw new BadRequestException("No data found");
+        }
+
+        List<HolidayRequestDto> result = new ArrayList<>();
+
+        for (HolidayInfo data : savedData) {
+            HolidayRequestDto dto = new HolidayRequestDto();
+            convertEntityToDto(data, dto, new DateInfoDto());
+            result.add(dto);
+        }
+        return result;
+    }
+
 
     void convertDtoToEntity(HolidayRequestDto details, DateInfoDto dateDto, HolidayInfo entity) {
         LocalDateTime startDate = TimeUtils.toStartOfDay(dateDto.getStartDate());
@@ -85,6 +105,18 @@ public class HolidayInfoServiceImpl implements HolidayInfoService {
         entity.setDescription(dateDto.getDescription());
         entity.setStartDate(startDate);
         entity.setEndDate(endDate);
+    }
+
+    void convertEntityToDto(HolidayInfo entity, HolidayRequestDto details, DateInfoDto dateDto) {
+        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+        details.setClassName(gson.fromJson(entity.getClassName(), listType)); // Assuming className was JSON
+        List<DateInfoDto> dates = new ArrayList<>();
+        dateDto.setDescription(entity.getDescription());
+        dateDto.setStartDate(String.valueOf(entity.getStartDate()));
+        dateDto.setEndDate(String.valueOf(entity.getEndDate()));
+        dateDto.setId(entity.getId());
+        dates.add(dateDto);
+        details.setDate(dates);
     }
 
 }

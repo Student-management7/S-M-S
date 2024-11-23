@@ -2,6 +2,7 @@ package com.easyWay.Student_Management_System.Service;
 
 import com.easyWay.Student_Management_System.Dto.HolidayRequestDto;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface HolidayInfoService {
@@ -12,4 +13,5 @@ public interface HolidayInfoService {
 
     String deleteHolidayInfo(UUID id);
 
+    List<HolidayRequestDto> getAllHolidayRequestDto();
 }

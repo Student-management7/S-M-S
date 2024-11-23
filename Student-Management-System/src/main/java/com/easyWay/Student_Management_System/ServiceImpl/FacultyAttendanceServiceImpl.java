@@ -53,10 +53,9 @@ public class FacultyAttendanceServiceImpl implements FacultyAttendanceService {
 
     @Override
     public String editAttendance(FacultyAttendanceRequestDto dto) {
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime from = TimeUtils.toStartOfDay(date.format(formatter));
-        LocalDateTime to = TimeUtils.toEndOfDay(date.format(formatter));
+
+        LocalDateTime from = TimeUtils.toStartOfDay(dto.getDate());
+        LocalDateTime to = TimeUtils.toEndOfDay(dto.getDate());
         FacultyAttendance savedData = repo.findByTime(from, to);
 
         if(ObjectUtils.isEmpty(savedData)){

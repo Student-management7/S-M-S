@@ -2,7 +2,9 @@ package com.easyWay.Student_Management_System.ServiceImpl;
 
 import com.easyWay.Student_Management_System.Dto.DeductionDto;
 import com.easyWay.Student_Management_System.Dto.FacultySalaryDto;
+import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Entity.FacultySalaryEntity;
+import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.FacultySalaryRepo;
 import com.easyWay.Student_Management_System.Service.FacultySalaryService;
 import com.google.gson.Gson;
@@ -18,12 +20,16 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
     @Autowired
     FacultySalaryRepo facultySalaryRepo;
 
+    @Autowired
+    FacultyInfoRepo facultyInfoRepo;
+
     @Override
     public String saveFacultySalary(FacultySalaryDto details) {
         
         FacultySalaryEntity entity = new FacultySalaryEntity();
         extracted(details, entity);
-
+        FacultyInfo facultyInfo = facultyInfoRepo.getById(details.getFacultyID());
+        entity.setFacultyInfo(facultyInfo);
         facultySalaryRepo.save(entity);
         return "Salary saved successfully";
     }

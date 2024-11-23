@@ -170,6 +170,8 @@ public class FacultyServiceImpl implements FacultyService {
         dto.setFact_Cls(gson.fromJson(entity.getFact_cls(), factClass));
         dto.setFact_Status(entity.getFact_status());
 
+        dto.setFact_salary(entity.getSalaryInfo());
+
     }
 
 }

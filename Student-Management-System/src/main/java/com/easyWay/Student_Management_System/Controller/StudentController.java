@@ -24,7 +24,7 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "https://student-management-system-gui-3.onrender.com", allowCredentials = "true")
     @PostMapping("/save")
     public String saveStudent(@RequestBody StudentInfoDto details){
     try {

@@ -24,7 +24,6 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/save")
     public String saveStudent(@RequestBody StudentInfoDto details){
     try {

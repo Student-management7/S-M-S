@@ -5,9 +5,11 @@ import com.easyWay.Student_Management_System.Service.UserService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -22,9 +24,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UsersDto userDto) throws BadRequestException {
+    public ResponseEntity<Map<String, String>> login(@RequestBody UsersDto userDto) throws BadRequestException {
 
-        return ResponseEntity.ok(userService.loginUser(userDto));
+        String token = userService.loginUser(userDto);
+        Map<String, String> responseBody = new HashMap<>();
+        responseBody.put("token", token);
+        return ResponseEntity.ok(responseBody);
+
     }
     @PostMapping("/forget-password")
     public ResponseEntity<String> forgetPassword(@RequestBody UsersDto userDto){

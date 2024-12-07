@@ -61,12 +61,4 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-
-
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//
-//        UserDetails userDetails1 = User.withDefaultPasswordEncoder().username("shailendra").password("123").roles("Admin").build();
-//        return new  InMemoryUserDetailsManager( userDetails1);
-//    }
 }

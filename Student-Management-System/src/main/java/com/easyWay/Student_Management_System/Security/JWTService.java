@@ -16,7 +16,6 @@ public class JWTService {
     private final SecretKey secretKey ;
     private static final Set<String> BLACKLISTED_TOKENS = new HashSet<>();
 
-    // Constructor: Generate the key once and store it
     public JWTService() {
         //    @Value("${jwt.secret}")
         String secretKeyBase64 = "U2FsdGVkX19gZWF1Z9cA4O6qR9cB2b8sbT0t3U8IwOQ";

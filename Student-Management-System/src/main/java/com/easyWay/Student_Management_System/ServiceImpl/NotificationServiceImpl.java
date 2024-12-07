@@ -2,16 +2,22 @@ package com.easyWay.Student_Management_System.ServiceImpl;
 
 import com.easyWay.Student_Management_System.Dto.NotificationDto;
 import com.easyWay.Student_Management_System.Entity.NotificationEntity;
+import com.easyWay.Student_Management_System.Entity.StudentInfo;
+import com.easyWay.Student_Management_System.Feign.MailServiceFeignClient;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.NotificationRepo;
+import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
 import com.easyWay.Student_Management_System.Service.NotificationService;
+import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -26,12 +32,26 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     Gson gson;
 
+    @Autowired
+    MailServiceFeignClient mailService;
+
+    @Autowired
+    StudentInfoRepo studentInfoRepo;
+
+
 
     @Override
     public String saveNotification(NotificationDto notificationDto) {
 
         NotificationEntity entity = new NotificationEntity();
         convertDtoToEntity(notificationDto, entity);
+
+        for (String className  : notificationDto.getClassName()){
+             List<StudentInfo> data = studentInfoRepo.findByClass(className);
+             if(!data.isEmpty()){
+                 sendMail(notificationDto, data);
+             }
+        }
         repo.save(entity);
         return "Saved successfully";
     }
@@ -82,8 +102,11 @@ public class NotificationServiceImpl implements NotificationService {
 
 
     void convertDtoToEntity(NotificationDto notificationDto, NotificationEntity entity){
-        entity.setStartDate(notificationDto.getStartDate());
-        entity.setEndDate(notificationDto.getEndDate());
+        LocalDateTime startDate = TimeUtils.toStartOfDay(notificationDto.getStartDate());
+        LocalDateTime endDate = TimeUtils.toEndOfDay(notificationDto.getStartDate());
+
+        entity.setStartDate(String.valueOf(startDate));
+        entity.setEndDate(String.valueOf(endDate));
         entity.setDescription(notificationDto.getDescription());
         entity.setCato(notificationDto.getCato().toLowerCase());
         entity.setClassName(gson.toJson(notificationDto.getClassName()));
@@ -97,5 +120,11 @@ public class NotificationServiceImpl implements NotificationService {
         entity.setId(notificationDto.getId());
         Type listType = new TypeToken<ArrayList<String>>() {}.getType();
         entity.setClassName(gson.fromJson(notificationDto.getClassName(), listType));
+    }
+
+    void sendMail(NotificationDto notificationDto,  List<StudentInfo> studentInfo){
+        for (StudentInfo info :studentInfo){
+            mailService.sendEmail(info.getEmail(), "Information", notificationDto.getDescription());
+        }
     }
 }

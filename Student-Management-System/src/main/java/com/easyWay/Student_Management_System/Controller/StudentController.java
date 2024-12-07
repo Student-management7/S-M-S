@@ -24,7 +24,6 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/save")
     public String saveStudent(@RequestBody StudentInfoDto details){
     try {
@@ -52,9 +51,9 @@ public class StudentController {
     }
 
     @GetMapping("/findAllStudent")
-    public List<StudentInfoDto> findAllStudentBYClass(@RequestParam(required = false) String cls){
+    public List<StudentInfoDto> findAllStudentBYClass(@RequestParam(required = false) String cls ,@RequestParam(required = false) String name){
 
-        return studentService.getStudentByClass(cls);
+        return studentService.getStudentByClass(cls , name);
     }
 
     @PostMapping("/delete")

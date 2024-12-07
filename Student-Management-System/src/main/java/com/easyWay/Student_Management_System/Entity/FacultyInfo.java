@@ -1,11 +1,10 @@
 package com.easyWay.Student_Management_System.Entity;
 
 import com.easyWay.Student_Management_System.Dto.*;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 @Data
 @Entity
@@ -40,6 +39,7 @@ public class FacultyInfo {
    @Column(columnDefinition = "text")
    private String fact_status;
 
-
+    @OneToMany(mappedBy = "facultyInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FacultySalaryEntity> salaryInfo;
 
 }

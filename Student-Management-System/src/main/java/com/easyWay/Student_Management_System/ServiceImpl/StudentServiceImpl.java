@@ -3,6 +3,7 @@ package com.easyWay.Student_Management_System.ServiceImpl;
 import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
 import com.easyWay.Student_Management_System.Dto.FamilyDetails;
 import com.easyWay.Student_Management_System.Dto.StudentInfoDto;
+import com.easyWay.Student_Management_System.Entity.AdminFeesStructure;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Entity.FileTracking;
 import com.easyWay.Student_Management_System.Entity.StudentInfo;
@@ -11,6 +12,7 @@ import com.easyWay.Student_Management_System.Enums.FileType;
 import com.easyWay.Student_Management_System.Enums.StudendtHeader;
 import com.easyWay.Student_Management_System.Feign.MailServiceFeignClient;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
+import com.easyWay.Student_Management_System.Repo.AdminFeesRepo;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.FileTrackingRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
@@ -26,12 +28,14 @@ import org.apache.poi.util.StringUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -58,7 +62,8 @@ StudentServiceImpl implements StudentService {
     @Autowired
     MailServiceFeignClient mailService;
 
-
+    @Autowired
+    AdminFeesRepo adminFeesRepo;
 
     // @Value("${chunckSize"
     //
@@ -114,15 +119,19 @@ StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentInfoDto> getStudentByClass(String cls) {
+    public List<StudentInfoDto> getStudentByClass(String cls , String name) {
 
         List<StudentInfo> savedStudent = new ArrayList<>();
 
-        if(StringUtil.isBlank(cls)) {
+        if(StringUtil.isBlank(cls) && StringUtil.isBlank(name)) {
             savedStudent = infoRepo.findAllStudent();
 
-        }else {
+        } else if (StringUtil.isNotBlank(cls) && StringUtil.isNotBlank(name)) {
+              savedStudent = infoRepo.findByClassAndName(cls ,name.toLowerCase());
+        } else if(StringUtil.isNotBlank(cls) && StringUtil.isBlank(name)){
             savedStudent = infoRepo.findByClass(cls);
+        }else {
+            savedStudent = infoRepo.findByName(name.toLowerCase());
         }
 
         List<StudentInfoDto> resultList = new ArrayList<>();
@@ -218,7 +227,7 @@ StudentServiceImpl implements StudentService {
 
     private void convertDtoToEntity(StudentInfoDto dto, StudentInfo entity) {
 
-        entity.setName(dto.getName());
+        entity.setName(dto.getName().toLowerCase());
         entity.setCity(dto.getCity());
         entity.setAddress(dto.getAddress());
         entity.setStd_state(dto.getState());
@@ -233,6 +242,8 @@ StudentServiceImpl implements StudentService {
         entity.setAdmissionClass(dto.admissionClass);
         entity.setEndDate(dto.getEndDate());
         entity.setAdmissionClass(dto.getCls());
+        entity.setTotalFees(dto.totalFees);
+        entity.setRemainingFees(dto.totalFees);
     }
 
     private StudentInfoDto convertEntityToDto(StudentInfo entity) {
@@ -251,6 +262,9 @@ StudentServiceImpl implements StudentService {
                 .dob(entity.getDob())
                 .id(entity.getId())
                 .creationDateTime(entity.getCreationDateTime())
+                .totalFees(entity.getTotalFees())
+                .remainingFees(entity.getRemainingFees())
+                .feeInfo(entity.getFeeInfo() != null && !entity.getFeeInfo().isEmpty() ? entity.getFeeInfo() : Collections.emptyList())
                 .build();
     }
 

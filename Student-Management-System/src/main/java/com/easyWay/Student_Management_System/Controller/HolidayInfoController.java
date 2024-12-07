@@ -5,6 +5,7 @@ import com.easyWay.Student_Management_System.Service.HolidayInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -28,5 +29,11 @@ public class HolidayInfoController {
     public String deleteHolidayInfo(@RequestParam UUID id) {
         return holidayInfoService.deleteHolidayInfo(id);
     }
+
+    @GetMapping("/get")
+    public List<HolidayRequestDto> getHolidayRequestDto(){
+        return holidayInfoService.getAllHolidayRequestDto();
+    }
+
 
 }

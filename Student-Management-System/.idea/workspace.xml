@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a3cc6ef-3ff7-4f5d-9914-09bb95cdf47c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/shelf/Uncommitted_changes_before_Checkout_at_05-11-2024_13_55__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/shelf/Uncommitted_changes_before_Checkout_at_05-11-2024_13_55__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/FacultyAttendanceRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/FacultyAttendanceRequestDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyAttendanceServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/NotificationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/NotificationServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +45,7 @@
     "Maven.demo [install].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Faculty-Validation",
+    "git-widget-placeholder": "Dev",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Gauri/IdeaProjects/MailService/MailService/S-M-S Mail Service",
     "project.structure.last.edited": "Project",

@@ -44,15 +44,11 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@RequestHeader("Authorization") String authHeader) {
-        // Extract token from the Authorization header
-        String token = authHeader.substring(7); // Remove "Bearer " prefix
 
-        // Blacklist the token
+        String token = authHeader.substring(7);
+
         jwtService.blacklistToken(token);
-
-        // Clear the SecurityContext
         SecurityContextHolder.clearContext();
-
         return ResponseEntity.ok("Logged out successfully");
     }
 }

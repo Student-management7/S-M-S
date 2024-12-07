@@ -31,8 +31,6 @@ public class JWTService {
         BLACKLISTED_TOKENS.add(token);
     }
 
-
-    // Getter to retrieve the key for signing or verification
     public SecretKey getKey() {
         return this.secretKey;
     }
@@ -51,17 +49,6 @@ public class JWTService {
                 .compact();
     }
 
-
-// public Key keyGenerator(){
-//      try {
-//          KeyGenerator generator = KeyGenerator.getInstance("HmacSHA256");
-//          return Keys.hmacShaKeyFor(generator.generateKey().getEncoded());
-//      } catch (NoSuchAlgorithmException e) {
-//          throw new RuntimeException(e);
-//      }
-//
-//  }
-
     public String extractUserName(String token) {
 
         return extractClaim(token , Claims::getSubject);
@@ -78,13 +65,6 @@ public class JWTService {
 
     }
     public String getPermissionsFromToken(String token) throws SignatureException{
-//        Claims claims = Jwts.parser()
-//                .setSigningKey(getKey())
-//                .build()
-//                .parseClaimsJws(token)
-//                .getBody();
-//
-//        return (String) claims.get("permission");
 
             Claims claims = Jwts.parser()
                     .setSigningKey(getKey())
@@ -97,9 +77,6 @@ public class JWTService {
                 throw new SignatureException("sign");
             }
             return  premission;
-
-
-
     }
 
     public boolean validateToken(String token ) {

@@ -24,7 +24,6 @@ public class UserDeatilsServices implements UserDetailsService {
             System.out.println(" user not found ");
             throw  new UsernameNotFoundException("User not found "+ username );
         }
-        System.out.println(user.toString());
         return new LoggedInUser(user);
     }
 }

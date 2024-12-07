@@ -1,6 +1,10 @@
 package com.easyWay.Student_Management_System.Dto;
 
+import com.easyWay.Student_Management_System.Entity.StudentFeeInfo;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Data;
 
@@ -27,5 +31,8 @@ public class StudentInfoDto {
     public String category;
     public String admissionClass;
     public String endDate;
+    public int totalFees;
+    public int remainingFees;
 
+    public List<StudentFeeInfo> feeInfo;
 }

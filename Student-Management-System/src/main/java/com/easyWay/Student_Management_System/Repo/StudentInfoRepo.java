@@ -14,6 +14,12 @@ public interface StudentInfoRepo extends JpaRepository<StudentInfo, UUID> {
     @Query("select p from StudentInfo p where p.cls = :clss and p.isDelete = false")
     List<StudentInfo> findByClass(@Param("clss") String clss);
 
+    @Query("select p from StudentInfo p where p.cls = :clss and p.isDelete = false and p.name= :name")
+    List<StudentInfo> findByClassAndName(@Param("clss") String clss ,@Param("name") String name);
+
+    @Query("select p from StudentInfo p where p.name = :name and p.isDelete = false")
+    List<StudentInfo> findByName(@Param("name") String name);
+
     @Query("select p from StudentInfo p where p.isDelete = false")
     List<StudentInfo> findAllStudent();
 

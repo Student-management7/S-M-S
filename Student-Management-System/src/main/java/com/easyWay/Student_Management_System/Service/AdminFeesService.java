@@ -13,5 +13,5 @@ public interface AdminFeesService {
 
     String editFees(AdminFeesDto id);
 
-    List<AdminFeesDto> getFees();
+    List<AdminFeesDto> getFees(String cls);
 }

@@ -33,8 +33,8 @@ public class AdminFeesController {
     }
 
     @GetMapping("/getAll")
-    public List<AdminFeesDto> getFees(){
-        return service.getFees();
+    public List<AdminFeesDto> getFees(@RequestParam(required = false) String cls){
+        return service.getFees(cls);
     }
 
 }

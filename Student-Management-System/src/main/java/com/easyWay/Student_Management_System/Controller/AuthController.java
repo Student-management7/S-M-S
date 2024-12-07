@@ -1,6 +1,7 @@
 package com.easyWay.Student_Management_System.Controller;
 
 import com.easyWay.Student_Management_System.Dto.UsersDto;
+import com.easyWay.Student_Management_System.Security.JWTService;
 import com.easyWay.Student_Management_System.Service.UserService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,10 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JWTService jwtService;
+
 
     @PostMapping("/register")
     public ResponseEntity<String> register (@RequestBody UsersDto userDto) {
@@ -37,9 +42,17 @@ public class AuthController {
         return ResponseEntity.ok(userService.forgetUserPassword(userDto));
     }
 
-    @GetMapping("/test")
-    public String testController(){
-        return "Hello world "+ SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-    }
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String authHeader) {
+        // Extract token from the Authorization header
+        String token = authHeader.substring(7); // Remove "Bearer " prefix
 
+        // Blacklist the token
+        jwtService.blacklistToken(token);
+
+        // Clear the SecurityContext
+        SecurityContextHolder.clearContext();
+
+        return ResponseEntity.ok("Logged out successfully");
+    }
 }

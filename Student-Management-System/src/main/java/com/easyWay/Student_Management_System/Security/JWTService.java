@@ -7,16 +7,14 @@ import io.jsonwebtoken.security.SignatureException;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
 public class JWTService {
 
     private final SecretKey secretKey ;
+    private static final Set<String> BLACKLISTED_TOKENS = new HashSet<>();
 
     // Constructor: Generate the key once and store it
     public JWTService() {
@@ -24,6 +22,15 @@ public class JWTService {
         String secretKeyBase64 = "U2FsdGVkX19gZWF1Z9cA4O6qR9cB2b8sbT0t3U8IwOQ";
         this.secretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secretKeyBase64));
     }
+
+    public boolean isTokenBlacklisted(String token) {
+        return BLACKLISTED_TOKENS.contains(token);
+    }
+
+    public void blacklistToken(String token) {
+        BLACKLISTED_TOKENS.add(token);
+    }
+
 
     // Getter to retrieve the key for signing or verification
     public SecretKey getKey() {
@@ -95,22 +102,9 @@ public class JWTService {
 
     }
 
-
-
-//    public SecretKey getKey()  {
-//        try {
-//            KeyGenerator generator = KeyGenerator.getInstance("HmacSHA256");
-//            return generator.generateKey();
-//        } catch (NoSuchAlgorithmException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
     public boolean validateToken(String token ) {
         final  String userName = extractUserName(token);
-
-        return  !isTokenExpired(token);
-
+        return  !isTokenExpired(token) && !isTokenBlacklisted(token);
     }
 
     private boolean isTokenExpired(String token) {

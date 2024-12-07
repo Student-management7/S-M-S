@@ -50,7 +50,11 @@ public class JwtFilter extends OncePerRequestFilter {
                     token = authHeader.substring(7);
                     username = jwtService.extractUserName(token);
                     permission = jwtService.getPermissionsFromToken(token);
-                    System.out.println(permission);
+
+                    if (jwtService.isTokenBlacklisted(token)) {
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token has been blacklisted");
+                        return;
+                    }
 
                 }
                 if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

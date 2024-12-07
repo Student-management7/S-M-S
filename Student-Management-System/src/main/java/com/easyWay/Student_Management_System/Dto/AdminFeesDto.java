@@ -14,4 +14,5 @@ public class AdminFeesDto {
     public int bookFee;
     public int transportation;
     public List<OtherFeesDto> otherAmount;
+    public int totalFee;
 }

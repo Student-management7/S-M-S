@@ -1,5 +1,6 @@
 package com.easyWay.Student_Management_System.Dto;
 
+import com.easyWay.Student_Management_System.Entity.FacultySalaryEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -27,4 +28,6 @@ public class FacultyInfoDto {
 
     @JsonProperty("Fact_Cls")
     public List<FactCls> Fact_Cls;
+
+    public List<FacultySalaryEntity> fact_salary;
 }

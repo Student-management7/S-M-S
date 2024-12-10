@@ -119,29 +119,37 @@ StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentInfoDto> getStudentByClass(String cls , String name) {
+    public List<StudentInfoDto> getStudentByClass(String cls , String name, UUID id) {
 
-        List<StudentInfo> savedStudent = new ArrayList<>();
+        try {
+            List<StudentInfo> savedStudent = new ArrayList<>();
 
-        if(StringUtil.isBlank(cls) && StringUtil.isBlank(name)) {
-            savedStudent = infoRepo.findAllStudent();
+            if (StringUtil.isBlank(cls) && StringUtil.isBlank(name) && ObjectUtils.isEmpty(id)) {
+                savedStudent = infoRepo.findAllStudent();
 
-        } else if (StringUtil.isNotBlank(cls) && StringUtil.isNotBlank(name)) {
-              savedStudent = infoRepo.findByClassAndName(cls ,name.toLowerCase());
-        } else if(StringUtil.isNotBlank(cls) && StringUtil.isBlank(name)){
-            savedStudent = infoRepo.findByClass(cls);
-        }else {
-            savedStudent = infoRepo.findByName(name.toLowerCase());
+            } else if (StringUtil.isNotBlank(cls) && StringUtil.isNotBlank(name)) {
+                savedStudent = infoRepo.findByClassAndName(cls, name.toLowerCase());
+            } else if (StringUtil.isNotBlank(cls) && StringUtil.isBlank(name)) {
+                savedStudent = infoRepo.findByClass(cls);
+            } else if (!ObjectUtils.isEmpty(id)) {
+                StudentInfo studentInfo = infoRepo.getById(id);
+                if (ObjectUtils.isEmpty(studentInfo)) {
+                    throw new BadRequestException("Data Not Found");
+                }
+                savedStudent.add(studentInfo);
+            } else {
+                savedStudent = infoRepo.findByName(name.toLowerCase());
+            }
+
+            List<StudentInfoDto> resultList = new ArrayList<>();
+            for (StudentInfo studentInfo : savedStudent) {
+                StudentInfoDto studentInfoDto = convertEntityToDto(studentInfo);
+                resultList.add(studentInfoDto);
+            }
+            return resultList;
+        } catch (Exception e){
+            throw new BadRequestException("Data Not Found for given id");
         }
-
-        List<StudentInfoDto> resultList = new ArrayList<>();
-        for (StudentInfo studentInfo : savedStudent) {
-            StudentInfoDto studentInfoDto = convertEntityToDto(studentInfo);
-
-            resultList.add(studentInfoDto);
-        }
-        return resultList;
-
     }
 
     @Override

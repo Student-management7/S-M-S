@@ -47,8 +47,8 @@ public class FacultyController {
     }
 
     @GetMapping("/findAllFaculty")
-    public List<FacultyInfoDto> findAllFaculty(){
-        return facultyService.getAllFaculty();
+    public List<FacultyInfoDto> findAllFaculty(@RequestParam(required = false) UUID id){
+        return facultyService.getAllFaculty(id);
 
     }
 }

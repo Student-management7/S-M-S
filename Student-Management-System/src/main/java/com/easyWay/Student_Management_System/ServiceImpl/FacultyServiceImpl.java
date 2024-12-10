@@ -61,19 +61,33 @@ public class FacultyServiceImpl implements FacultyService {
         }
     }
 
-    public List<FacultyInfoDto> getAllFaculty() {
+    @Override
+    public List<FacultyInfoDto> getAllFaculty(UUID id) {
         try {
-            List<FacultyInfo> facultyList = infoRepo.findAllFaculty();
-            if (ObjectUtils.isEmpty(facultyList)) {
-                throw new BadRequestException("Data not found");
-            }
             List<FacultyInfoDto> facultyInfoDto = new ArrayList<>();
-            for (FacultyInfo facultyinfo : facultyList) {
+            if(ObjectUtils.isEmpty(id)) {
+
+                List<FacultyInfo> facultyList = infoRepo.findAllFaculty();
+                if (ObjectUtils.isEmpty(facultyList)) {
+                    throw new BadRequestException("Data not found");
+                }
+
+                for (FacultyInfo facultyinfo : facultyList) {
+                    FacultyInfoDto dto = new FacultyInfoDto();
+                    convertEntityToDto(facultyinfo, dto);
+                    facultyInfoDto.add(dto);
+                }
+                return facultyInfoDto;
+            } else {
+                FacultyInfo facultyInfo = infoRepo.getById(id);
+                if (ObjectUtils.isEmpty(facultyInfo)) {
+                    throw new BadRequestException("Data not found");
+                }
                 FacultyInfoDto dto = new FacultyInfoDto();
-                convertEntityToDto(facultyinfo, dto);
+                convertEntityToDto(facultyInfo, dto);
                 facultyInfoDto.add(dto);
+                return  facultyInfoDto;
             }
-            return facultyInfoDto;
         } catch (Exception e) {
 
             throw new BadRequestException("Data not found");

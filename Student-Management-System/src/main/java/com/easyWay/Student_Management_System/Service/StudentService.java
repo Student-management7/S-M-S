@@ -16,7 +16,7 @@ public interface StudentService{
 
     String studentBulkUpload(MultipartFile file) ;
 
-    List<StudentInfoDto> getStudentByClass(String cls , String name);
+    List<StudentInfoDto> getStudentByClass(String cls , String name, UUID id);
 
 
     String deleteStudent(UUID id);

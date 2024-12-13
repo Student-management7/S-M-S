@@ -100,7 +100,7 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     void updateFacultyDetails(FacultyInfo saveFaculty, FacultyInfoDto details) {
-        saveFaculty.setFact_id(details.getFact_id());
+        saveFaculty.setId(details.getFact_id());
         saveFaculty.setFact_Name(details.getFact_Name());
         saveFaculty.setFact_cls(gson.toJson(details.getFact_Cls()));
         saveFaculty.setFact_state(details.getFact_state());

@@ -20,7 +20,7 @@ public interface FacultyAttendanceRepo extends JpaRepository<FacultyAttendance, 
                                  @Param("code") String code);
 
 
-    @Query("SELECT f FROM FacultyAttendance f WHERE f.creationDateTime BETWEEN :fromDate AND :toDate and a.schoolCode = :code")
+    @Query("SELECT f FROM FacultyAttendance f WHERE f.creationDateTime BETWEEN :fromDate AND :toDate and f.schoolCode = :code")
     List<FacultyAttendance> findAllByTimeBetween(LocalDateTime fromDate, LocalDateTime toDate, @Param("code") String code);
 
 }

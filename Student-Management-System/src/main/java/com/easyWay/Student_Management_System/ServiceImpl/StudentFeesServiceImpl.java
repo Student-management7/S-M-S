@@ -6,6 +6,7 @@ import com.easyWay.Student_Management_System.Entity.StudentInfo;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.StudentFeesInfoRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.StudentFeesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class StudentFeesServiceImpl implements StudentFeesService {
 
     @Autowired
     StudentFeesInfoRepo studentFeesInfoRepo;
+
+    @Autowired
+    ClaimService claimService;
 
     @Override
     public String saveStudentFees(StudentFeesDto studentFees) {
@@ -39,6 +43,7 @@ public class StudentFeesServiceImpl implements StudentFeesService {
             int remaining = studentInfo.get().getRemainingFees();
             remaining = remaining- studentFees.getFee();
             studentInfo.get().setRemainingFees(remaining);
+            studentFeeInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
             studentInfoRepo.save(studentInfo.get());
         }
         return "Fees Added successfully";

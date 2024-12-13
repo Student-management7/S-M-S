@@ -4,6 +4,7 @@ import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ public class FacultyController {
 
     @Autowired
     FacultyInfoRepo infoRepo;
+
 
     @PostMapping("/save")
     public String saveFaculty(@RequestBody FacultyInfoDto details) {

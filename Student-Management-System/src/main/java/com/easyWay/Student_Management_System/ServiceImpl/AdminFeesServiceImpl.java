@@ -6,6 +6,7 @@ import com.easyWay.Student_Management_System.Dto.OtherFeesDto;
 import com.easyWay.Student_Management_System.Entity.AdminFeesStructure;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.AdminFeesRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.AdminFeesService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,9 +28,12 @@ public class AdminFeesServiceImpl implements AdminFeesService {
     @Autowired
     Gson gson;
 
+    @Autowired
+    ClaimService claimService;
+
     @Override
     public String saveFees(AdminFeesDto details) {
-        AdminFeesStructure savedData = repo.findByClass(details.getClassName());
+        AdminFeesStructure savedData = repo.findByClass(details.getClassName(), claimService.getLoggedInUserSchoolCode());
         if(!ObjectUtils.isEmpty(savedData)){
             throw new BadRequestException("Class Already Present");
         }
@@ -78,7 +82,7 @@ public class AdminFeesServiceImpl implements AdminFeesService {
 
            data  = repo.findAll();
         } else {
-           AdminFeesStructure clsINfo = repo.findByClass(cls);
+           AdminFeesStructure clsINfo = repo.findByClass(cls, claimService.getLoggedInUserSchoolCode());
 
             if (ObjectUtils.isEmpty(clsINfo)) {
                 throw new BadRequestException("No data found for the given class");

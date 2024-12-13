@@ -14,11 +14,13 @@ import java.util.UUID;
 @Repository
 public interface FacultyAttendanceRepo extends JpaRepository<FacultyAttendance, UUID> {
 
-    @Query("select a from FacultyAttendance a where a.creationDateTime Between :from AND :to ")
+    @Query("select a from FacultyAttendance a where a.creationDateTime Between :from AND :to and a.schoolCode = :code")
     FacultyAttendance findByTime(@Param("from") LocalDateTime from,
-                                 @Param("to") LocalDateTime to);
+                                 @Param("to") LocalDateTime to,
+                                 @Param("code") String code);
 
-    @Query("SELECT f FROM FacultyAttendance f WHERE f.creationDateTime BETWEEN :fromDate AND :toDate")
-    List<FacultyAttendance> findAllByTimeBetween(LocalDateTime fromDate, LocalDateTime toDate);
+
+    @Query("SELECT f FROM FacultyAttendance f WHERE f.creationDateTime BETWEEN :fromDate AND :toDate and a.schoolCode = :code")
+    List<FacultyAttendance> findAllByTimeBetween(LocalDateTime fromDate, LocalDateTime toDate, @Param("code") String code);
 
 }

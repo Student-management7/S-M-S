@@ -48,8 +48,7 @@ import static com.easyWay.Student_Management_System.Helper.ExcelHelper.setColumn
 
 @Service
 @Slf4j
-public class
-StudentServiceImpl implements StudentService {
+public class StudentServiceImpl implements StudentService {
 
     @Autowired
     StudentInfoRepo infoRepo;
@@ -451,9 +450,7 @@ StudentServiceImpl implements StudentService {
         if (StringUtil.isBlank(details.getCategory())){
             throw new BadRequestException("Category can't be empty");
         }
-//        if (StringUtil.isBlank(details.getAdmissionClass())){
-//            throw new BadRequestException("AdmissionDate can't be empty");
-//        }
+
 
     }
 

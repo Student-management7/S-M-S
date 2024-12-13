@@ -13,8 +13,8 @@ import java.util.UUID;
 @Repository
 public interface FacultyInfoRepo extends JpaRepository<FacultyInfo , UUID> {
 
-    @Query("select a from FacultyInfo a where a.isDelete = false")
-    List<FacultyInfo> findAllFaculty();
+    @Query("select a from FacultyInfo a where a.isDelete = false and p.schoolCode = :code")
+    List<FacultyInfo> findAllFaculty(@Param("code") String code);
 
     @Query("select p from FacultyInfo p where p.isDelete = false and p.schoolCode = :code and p.id = :id")
     FacultyInfo getById(@Param("code") String code, @Param("id") UUID id);

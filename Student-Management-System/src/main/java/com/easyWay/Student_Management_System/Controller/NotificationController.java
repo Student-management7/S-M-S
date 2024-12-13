@@ -1,6 +1,7 @@
 package com.easyWay.Student_Management_System.Controller;
 
 import com.easyWay.Student_Management_System.Dto.NotificationDto;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class NotificationController {
 
     @Autowired
     private NotificationService notificationService;
+
 
     @PostMapping("/save")
     public String saveNotification(@RequestBody NotificationDto details) {

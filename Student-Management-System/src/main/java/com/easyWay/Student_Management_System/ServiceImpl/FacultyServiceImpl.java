@@ -56,7 +56,7 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public String deleteFaculty(UUID id) {
         try {
-            FacultyInfo entity = infoRepo.getById(id);
+            FacultyInfo entity = infoRepo.getById(claimService.getLoggedInUserSchoolCode(), id);
             entity.setDelete(true);
             infoRepo.save(entity);
             return "Deleted successfully";
@@ -72,7 +72,7 @@ public class FacultyServiceImpl implements FacultyService {
             List<FacultyInfoDto> facultyInfoDto = new ArrayList<>();
             if(ObjectUtils.isEmpty(id)) {
 
-                List<FacultyInfo> facultyList = infoRepo.findAllFaculty();
+                List<FacultyInfo> facultyList = infoRepo.findAllFaculty(claimService.getLoggedInUserSchoolCode());
                 if (ObjectUtils.isEmpty(facultyList)) {
                     throw new BadRequestException("Data not found");
                 }
@@ -84,7 +84,7 @@ public class FacultyServiceImpl implements FacultyService {
                 }
                 return facultyInfoDto;
             } else {
-                FacultyInfo facultyInfo = infoRepo.getById(id);
+                FacultyInfo facultyInfo = infoRepo.getById(claimService.getLoggedInUserSchoolCode(), id);
                 if (ObjectUtils.isEmpty(facultyInfo)) {
                     throw new BadRequestException("Data not found");
                 }
@@ -94,7 +94,6 @@ public class FacultyServiceImpl implements FacultyService {
                 return  facultyInfoDto;
             }
         } catch (Exception e) {
-
             throw new BadRequestException("Data not found");
         }
     }
@@ -119,7 +118,6 @@ public class FacultyServiceImpl implements FacultyService {
 
     private void convertDtoToEntity(FacultyInfoDto dto, FacultyInfo entity) {
 
-        entity.setFact_id(UUID.randomUUID());
         entity.setFact_Name(dto.getFact_Name());
         entity.setFact_email(dto.getFact_email());
         entity.setFact_contact(dto.getFact_contact());
@@ -171,7 +169,7 @@ public class FacultyServiceImpl implements FacultyService {
     }
     private void convertEntityToDto(FacultyInfo entity, FacultyInfoDto dto) {
 
-        dto.setFact_id(entity.getFact_id());
+        dto.setFact_id(entity.getId());
         dto.setFact_Name(entity.getFact_Name());
         dto.setFact_email(entity.getFact_email());
         dto.setFact_contact(entity.getFact_contact());

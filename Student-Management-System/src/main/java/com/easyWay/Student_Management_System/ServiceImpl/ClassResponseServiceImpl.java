@@ -5,6 +5,7 @@ import com.easyWay.Student_Management_System.Dto.ClassResponseDto;
 import com.easyWay.Student_Management_System.Entity.CLassInfo;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.ClassInfoRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.ClassResponseService;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -25,20 +26,22 @@ public class ClassResponseServiceImpl implements ClassResponseService {
     @Autowired
     Gson gson;
 
+    @Autowired
+    ClaimService claimService;
+
     @Override
     public ClassResponseDto getData() {
-        String schoolName = "ITM";
+
         ClassResponseDto result = new ClassResponseDto();
-        List<CLassInfo> classData = classInfoRepo.getBySchoolName(schoolName);
+        List<CLassInfo> classData = classInfoRepo.getBySchoolName(claimService.getLoggedInUserSchoolCode());
         List<ClassAndSubjetDataDto> dataList = new ArrayList<>();
         for (CLassInfo classInfo : classData) {
             ClassAndSubjetDataDto data = new ClassAndSubjetDataDto();
             try {
                 ArrayList<String> subjectList = gson.fromJson(classInfo.getSubject(), new TypeToken<ArrayList<String>>(){}.getType());
-                data.setClassName(classInfo.getClassName());
+                data.setClassName(classInfo.getSchoolCode());
                 data.setSubject(subjectList);
             } catch (JsonSyntaxException e) {
-                System.err.println("Failed to parse subjects for class: " + classInfo.getClassName());
                 e.printStackTrace();
             }
             dataList.add(data);
@@ -54,7 +57,7 @@ public class ClassResponseServiceImpl implements ClassResponseService {
                 CLassInfo classInfo = new CLassInfo();
                 classInfo.setClassName(data.getClassName());
                 classInfo.setSubject(gson.toJson(data.getSubject()));
-                classInfo.setSchoolName("ITM");
+                classInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
                 classInfoRepo.save(classInfo);
             }
         }

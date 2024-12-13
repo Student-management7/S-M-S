@@ -5,6 +5,7 @@ import com.easyWay.Student_Management_System.Dto.HolidayRequestDto;
 import com.easyWay.Student_Management_System.Entity.HolidayInfo;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.HolidayInfoRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.HolidayInfoService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import com.google.gson.Gson;
@@ -30,11 +31,15 @@ public class HolidayInfoServiceImpl implements HolidayInfoService {
     @Autowired
     HolidayInfoRepo holidayInfoRepo;
 
+    @Autowired
+    ClaimService claimService;
+
     @Override
     public String saveHolidayInfo(HolidayRequestDto details) {
         for (DateInfoDto dateDto : details.getDate()) {
             HolidayInfo entity = new HolidayInfo();
             convertDtoToEntity(details, dateDto, entity);
+            entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
             holidayInfoRepo.save(entity);
         }
         return "Saved successfully";
@@ -53,6 +58,7 @@ public class HolidayInfoServiceImpl implements HolidayInfoService {
             try {
                 HolidayInfo entity = holidayInfoRepo.getById(dateDto.getId());
                 convertDtoToEntity(details, dateDto, entity);
+
                 holidayInfoRepo.save(entity);
             } catch (Exception e) {
                 errorList.add("No data found for this id = " + dateDto.getId());

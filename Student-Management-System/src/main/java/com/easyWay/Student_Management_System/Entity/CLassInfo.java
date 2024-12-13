@@ -8,8 +8,6 @@ import lombok.Data;
 @Data
 public class CLassInfo extends BaseEntity {
 
-    private String schoolName;
-
     private String className;
 
     private String subject;

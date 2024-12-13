@@ -7,12 +7,12 @@ import com.easyWay.Student_Management_System.Feign.MailServiceFeignClient;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.NotificationRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.NotificationService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -38,6 +38,8 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     StudentInfoRepo studentInfoRepo;
 
+    @Autowired
+    ClaimService claimService;
 
 
     @Override
@@ -47,9 +49,9 @@ public class NotificationServiceImpl implements NotificationService {
         convertDtoToEntity(notificationDto, entity);
 
         for (String className  : notificationDto.getClassName()){
-             List<StudentInfo> data = studentInfoRepo.findByClass(className);
+             List<StudentInfo> data = studentInfoRepo.findByClass(className, claimService.getLoggedInUserSchoolCode());
              if(!data.isEmpty()){
-                 sendMail(notificationDto, data);
+                // sendMail(notificationDto, data);
              }
         }
         repo.save(entity);
@@ -84,7 +86,8 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public List<NotificationDto> getAllNotification() {
 
-        List<NotificationEntity> savedData = repo.findAll();
+        List<NotificationEntity> savedData = repo.getAll(claimService.getLoggedInUserSchoolCode());
+
         if (ObjectUtils.isEmpty(savedData)) {
             throw new BadRequestException("No data found");
         }

@@ -6,6 +6,7 @@ import com.easyWay.Student_Management_System.Dto.AttendanceResponseDto;
 import com.easyWay.Student_Management_System.Entity.StudentAttendance;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.AttendanceInfoRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.AttendanceService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import com.google.gson.Gson;
@@ -34,6 +35,9 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Autowired
     Gson gson;
 
+    @Autowired
+    ClaimService claimService;
+
     @Override
     public String saveAttendances(AttendanceRequestDto details) {
             StudentAttendance studentAttendance = new StudentAttendance();
@@ -42,7 +46,7 @@ public class AttendanceServiceImpl implements AttendanceService {
             LocalDateTime from = TimeUtils.toStartOfDay(date.format(formatter));
             LocalDateTime to = TimeUtils.toEndOfDay(date.format(formatter));
             List<StudentAttendance> savedData = attendanceInfoRepo.findByClassAndSubject(details.getClassName() ,
-                    details.getSubject() ,from ,to);
+                    details.getSubject() ,from ,to, claimService.getLoggedInUserSchoolCode());
             if (!ObjectUtils.isEmpty(savedData)){
                 throw new BadRequestException("Attendance is already present");
             }
@@ -55,7 +59,8 @@ public class AttendanceServiceImpl implements AttendanceService {
     public List<AttendanceResponseDto> getAttendances(String cls, String subject, String fromDate, String toDate) {
         LocalDateTime from = TimeUtils.toStartOfDay(fromDate);
         LocalDateTime to = TimeUtils.toEndOfDay(toDate);
-        List<StudentAttendance> savedStudent = attendanceInfoRepo.findByClassAndSubject(cls, subject, from, to);
+        List<StudentAttendance> savedStudent = attendanceInfoRepo.findByClassAndSubject(cls, subject, from, to
+        ,claimService.getLoggedInUserSchoolCode());
         if(ObjectUtils.isEmpty(savedStudent)){
             throw new BadRequestException("No data found for the given period");
         }
@@ -79,7 +84,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         LocalDateTime from = TimeUtils.toStartOfDay(details.getDate());
         LocalDateTime to = TimeUtils.toEndOfDay(details.getDate());
         List<StudentAttendance> savedData = attendanceInfoRepo.findByClassAndSubject(details.getClassName()
-                ,details.getSubject() ,from ,to);
+                ,details.getSubject() ,from ,to, claimService.getLoggedInUserSchoolCode());
         if (ObjectUtils.isEmpty(savedData)){
             throw new BadRequestException("No record found");
         }

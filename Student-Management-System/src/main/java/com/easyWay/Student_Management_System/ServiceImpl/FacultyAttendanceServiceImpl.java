@@ -7,6 +7,7 @@ import com.easyWay.Student_Management_System.Dto.FacultyAttendanceRequestDto;
 import com.easyWay.Student_Management_System.Entity.FacultyAttendance;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.FacultyAttendanceRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.FacultyAttendanceService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import com.google.gson.Gson;
@@ -33,13 +34,16 @@ public class FacultyAttendanceServiceImpl implements FacultyAttendanceService {
     @Autowired
     FacultyAttendanceRepo repo;
 
+    @Autowired
+    ClaimService claimService;
+
     @Override
     public String saveAttendance(FacultyAttendanceRequestDto dto) {
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime from = TimeUtils.toStartOfDay(date.format(formatter));
         LocalDateTime to = TimeUtils.toEndOfDay(date.format(formatter));
-        FacultyAttendance savedData = repo.findByTime(from, to);
+        FacultyAttendance savedData = repo.findByTime(from, to, claimService.getLoggedInUserSchoolCode());
 
         if(!ObjectUtils.isEmpty(savedData)){
             throw new BadRequestException("Attendance already present");
@@ -56,7 +60,7 @@ public class FacultyAttendanceServiceImpl implements FacultyAttendanceService {
 
         LocalDateTime from = TimeUtils.toStartOfDay(dto.getDate());
         LocalDateTime to = TimeUtils.toEndOfDay(dto.getDate());
-        FacultyAttendance savedData = repo.findByTime(from, to);
+        FacultyAttendance savedData = repo.findByTime(from, to, claimService.getLoggedInUserSchoolCode());
 
         if(ObjectUtils.isEmpty(savedData)){
             throw  new BadRequestException("No record found");
@@ -71,7 +75,7 @@ public class FacultyAttendanceServiceImpl implements FacultyAttendanceService {
     public List<FacultyAttendanceRequestDto> getAttendance(String from, String to) {
         LocalDateTime fromDate = TimeUtils.toStartOfDay(from);
         LocalDateTime toDate = TimeUtils.toEndOfDay(to);
-        List<FacultyAttendance> savedData = repo.findAllByTimeBetween(fromDate, toDate);
+        List<FacultyAttendance> savedData = repo.findAllByTimeBetween(fromDate, toDate, claimService.getLoggedInUserSchoolCode());
 
         if (ObjectUtils.isEmpty(savedData)) {
             throw new BadRequestException("No record found");

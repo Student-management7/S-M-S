@@ -6,6 +6,7 @@ import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Entity.FacultySalaryEntity;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.FacultySalaryRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.FacultySalaryService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
     @Autowired
     FacultyInfoRepo facultyInfoRepo;
 
+    @Autowired
+    ClaimService claimService;
+
     @Override
     public String saveFacultySalary(FacultySalaryDto details) {
         
@@ -30,10 +34,11 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
         extracted(details, entity);
         FacultyInfo facultyInfo = facultyInfoRepo.getById(details.getFacultyID());
         entity.setFacultyInfo(facultyInfo);
+        entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         facultySalaryRepo.save(entity);
         return "Salary saved successfully";
     }
-    int calcTotal(FacultySalaryDto dto){
+    int calcTotal(FacultySalaryDto dto) {
 
         int total = 0;
         int tax = (dto.getFacultySalary() * dto.getFacultyTax()) / 100;

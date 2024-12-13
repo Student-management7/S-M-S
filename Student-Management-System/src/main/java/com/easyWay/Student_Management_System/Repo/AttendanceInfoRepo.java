@@ -16,11 +16,12 @@ public interface AttendanceInfoRepo extends JpaRepository<StudentAttendance,UUID
     @Query("SELECT c FROM StudentAttendance c " +
             "WHERE c.className = :cls " +
             "AND c.subject = :subject " +
-            "AND c.creationDateTime BETWEEN :fromDate AND :toDate")
+            "AND c.creationDateTime BETWEEN :fromDate AND :toDate and schoolCode = :code")
     List<StudentAttendance> findByClassAndSubject(
             @Param("cls") String cls,
             @Param("subject") String subject,
             @Param("fromDate") LocalDateTime fromDate,
-            @Param("toDate") LocalDateTime toDate);
+            @Param("toDate") LocalDateTime toDate,
+            @Param("code") String code);
 
 }

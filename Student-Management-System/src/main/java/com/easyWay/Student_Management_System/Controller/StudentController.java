@@ -31,7 +31,6 @@ public class StudentController {
     } catch (com.easyWay.Student_Management_System.Helper.BadRequestException e) {
         throw e;
     } catch (Exception e) {
-        // Wrap other exceptions to be handled by GlobalExceptionHandler
         throw new RuntimeException("An error occurred while saving the student: " + e.getMessage());
     }
     }
@@ -51,9 +50,10 @@ public class StudentController {
     }
 
     @GetMapping("/findAllStudent")
-    public List<StudentInfoDto> findAllStudentBYClass(@RequestParam(required = false) String cls ,@RequestParam(required = false) String name){
+    public List<StudentInfoDto> findAllStudentBYClass(@RequestParam(required = false) String cls
+            ,@RequestParam(required = false) String name, @RequestParam(required = false) UUID id){
 
-        return studentService.getStudentByClass(cls , name);
+        return studentService.getStudentByClass(cls , name, id);
     }
 
     @PostMapping("/delete")

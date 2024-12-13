@@ -16,7 +16,7 @@ public interface FacultyService {
 
     String deleteFaculty(UUID id);
 
-    List<FacultyInfoDto> getAllFaculty();
+    List<FacultyInfoDto> getAllFaculty(UUID id);
 
 
 }

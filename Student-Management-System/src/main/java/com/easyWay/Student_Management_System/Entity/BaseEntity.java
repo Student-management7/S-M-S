@@ -22,4 +22,6 @@ public class BaseEntity {
     private UUID id;
 
     private LocalDateTime creationDateTime = LocalDateTime.now();
+
+    private String schoolCode;
 }

@@ -46,7 +46,6 @@ public class AuthController {
     public ResponseEntity<String> logout(@RequestHeader("Authorization") String authHeader) {
 
         String token = authHeader.substring(7);
-
         jwtService.blacklistToken(token);
         SecurityContextHolder.clearContext();
         return ResponseEntity.ok("Logged out successfully");

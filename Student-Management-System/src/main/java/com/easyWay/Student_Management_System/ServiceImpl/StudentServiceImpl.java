@@ -16,6 +16,7 @@ import com.easyWay.Student_Management_System.Repo.AdminFeesRepo;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.FileTrackingRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.StudentService;
 import com.easyWay.Student_Management_System.Utils.FileUtils;
 import com.google.gson.Gson;
@@ -65,6 +66,9 @@ StudentServiceImpl implements StudentService {
     @Autowired
     AdminFeesRepo adminFeesRepo;
 
+    @Autowired
+    ClaimService claimService;
+
     // @Value("${chunckSize"
     //
     static int size = 1000;
@@ -75,6 +79,7 @@ StudentServiceImpl implements StudentService {
         checkStudentValidations(details);
         StudentInfo studentInfo = new StudentInfo();
         convertDtoToEntity(details, studentInfo);
+        studentInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         infoRepo.save(studentInfo);
       //  mailService.sendEmail(details.getFamilyDetails().getStdo_email(),"Tesing 2", "Test");
         return "Saved Successfully";
@@ -125,20 +130,20 @@ StudentServiceImpl implements StudentService {
             List<StudentInfo> savedStudent = new ArrayList<>();
 
             if (StringUtil.isBlank(cls) && StringUtil.isBlank(name) && ObjectUtils.isEmpty(id)) {
-                savedStudent = infoRepo.findAllStudent();
+                savedStudent = infoRepo.findAllStudent(claimService.getLoggedInUserSchoolCode());
 
             } else if (StringUtil.isNotBlank(cls) && StringUtil.isNotBlank(name)) {
-                savedStudent = infoRepo.findByClassAndName(cls, name.toLowerCase());
+                savedStudent = infoRepo.findByClassAndName(cls, name.toLowerCase(), claimService.getLoggedInUserSchoolCode());
             } else if (StringUtil.isNotBlank(cls) && StringUtil.isBlank(name)) {
-                savedStudent = infoRepo.findByClass(cls);
+                savedStudent = infoRepo.findByClass(cls, claimService.getLoggedInUserSchoolCode());
             } else if (!ObjectUtils.isEmpty(id)) {
-                StudentInfo studentInfo = infoRepo.getById(id);
+                StudentInfo studentInfo = infoRepo.getById(claimService.getLoggedInUserSchoolCode(), id);
                 if (ObjectUtils.isEmpty(studentInfo)) {
                     throw new BadRequestException("Data Not Found");
                 }
                 savedStudent.add(studentInfo);
             } else {
-                savedStudent = infoRepo.findByName(name.toLowerCase());
+                savedStudent = infoRepo.findByName(name.toLowerCase(), claimService.getLoggedInUserSchoolCode());
             }
 
             List<StudentInfoDto> resultList = new ArrayList<>();
@@ -156,7 +161,7 @@ StudentServiceImpl implements StudentService {
     public String deleteStudent(UUID id) {
         try {
 
-            StudentInfo entity = infoRepo.getById(id);
+            StudentInfo entity = infoRepo.getById(claimService.getLoggedInUserSchoolCode(),id);
             entity.setDelete(true);
             infoRepo.save(entity);
             return "Deleted successfully";
@@ -169,7 +174,7 @@ StudentServiceImpl implements StudentService {
     @Override
     public String updateStudent(StudentInfoDto student) {
         try {
-            StudentInfo savedStudent = infoRepo.getById(student.getId());
+            StudentInfo savedStudent = infoRepo.getById(claimService.getLoggedInUserSchoolCode(), student.getId());
             updateStudentDetails(savedStudent, student);
             return "Student saved successfully";
         }catch (Exception e){

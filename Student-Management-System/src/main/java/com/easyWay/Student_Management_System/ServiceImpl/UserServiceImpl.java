@@ -63,11 +63,10 @@ public class UserServiceImpl implements UserService {
     public String registerUser(UsersDto userDto) {
         Users users = new Users();
         users.setEmail(userDto.getEmail());
-        users.setSchoolCode(userDto.getSchoolCode());
+        users.setSchoolCode(userDto.getEmail().substring(1,4).toUpperCase()+RANDOM.nextInt(9999));
         users.setPassword(encoder.encode(userDto.getPassword()));
         users.setPermission(userDto.getPermission());
         usersRepo.save(users);
-//        usersRepo.save(users);
         return "Register Successfully !";
     }
 
@@ -75,9 +74,8 @@ public class UserServiceImpl implements UserService {
     public String loginUser(UsersDto dto) throws BadRequestException {
         Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
         System.out.println(authentication.getAuthorities().toString());
-        String token = jwtService.generateToken(dto.getEmail() , String.valueOf(authentication.getAuthorities().stream().toList().get(0)));
-        System.out.println(token);
-        return token;
+        return jwtService.generateToken(dto.getEmail() , String.valueOf(authentication.getAuthorities().stream().toList().get(0)));
+
     }
 
     @Override

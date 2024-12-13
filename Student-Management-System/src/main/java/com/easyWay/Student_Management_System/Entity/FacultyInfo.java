@@ -8,10 +8,8 @@ import java.util.List;
 import java.util.UUID;
 @Data
 @Entity
-public class FacultyInfo {
+public class FacultyInfo extends BaseEntity{
 
-    @Id
-    private UUID fact_id;
     private String fact_Name;
     private String fact_email;
     private String fact_contact;

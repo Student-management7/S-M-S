@@ -4,6 +4,7 @@ import com.easyWay.Student_Management_System.Dto.*;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.FacultyService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,11 +29,15 @@ public class FacultyServiceImpl implements FacultyService {
     @Autowired
     FacultyInfoRepo infoRepo;
 
+    @Autowired
+    ClaimService claimService;
+
     @Override
     public String saveFaculty(FacultyInfoDto details) {
         checkFacultyValidations(details);
         FacultyInfo facultyInfo = new FacultyInfo();
         convertDtoToEntity(details, facultyInfo);
+        facultyInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         infoRepo.save(facultyInfo);
         return "Saved Successfully";
     }
@@ -40,7 +45,7 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public String updateFaculty(FacultyInfoDto faculty) {
         try {
-            FacultyInfo saveFaculty = infoRepo.getById(faculty.getFact_id());
+            FacultyInfo saveFaculty = infoRepo.getById(claimService.getLoggedInUserSchoolCode(), faculty.getFact_id());
             updateFacultyDetails(saveFaculty, faculty);
             return "Faculty saved successfully";
         } catch (Exception e) {

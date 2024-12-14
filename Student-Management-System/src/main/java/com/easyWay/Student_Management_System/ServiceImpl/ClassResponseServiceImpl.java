@@ -39,7 +39,7 @@ public class ClassResponseServiceImpl implements ClassResponseService {
             ClassAndSubjetDataDto data = new ClassAndSubjetDataDto();
             try {
                 ArrayList<String> subjectList = gson.fromJson(classInfo.getSubject(), new TypeToken<ArrayList<String>>(){}.getType());
-                data.setClassName(classInfo.getSchoolCode());
+                data.setClassName(classInfo.getClassName());
                 data.setSubject(subjectList);
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();

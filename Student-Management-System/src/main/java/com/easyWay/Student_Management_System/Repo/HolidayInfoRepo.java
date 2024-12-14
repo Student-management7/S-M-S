@@ -12,7 +12,7 @@ import java.util.UUID;
 @Repository
 public interface HolidayInfoRepo extends JpaRepository<HolidayInfo, UUID> {
 
-    @Query("select a from HolidayInfo a a.schoolCode = :code")
+    @Query("select a from HolidayInfo a where a.schoolCode = :code")
     List<HolidayInfo> findAll(@Param("code") String code);
 
 }

@@ -86,7 +86,7 @@ public class ClassResponseServiceImpl implements ClassResponseService {
                 dto.getClassName().equalsIgnoreCase("11") ||
                 dto.getClassName().equalsIgnoreCase("12"))){
 
-                List<CLassInfo> savedData = classInfoRepo.findAll();
+                List<CLassInfo> savedData = classInfoRepo.getBySchoolName(claimService.getLoggedInUserSchoolCode());
                 if(ObjectUtils.isEmpty(savedData)){
                     return true;
                 }

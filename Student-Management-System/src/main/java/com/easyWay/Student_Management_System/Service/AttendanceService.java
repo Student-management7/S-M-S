@@ -8,7 +8,7 @@ import java.util.List;
 public interface AttendanceService {
     String saveAttendances(AttendanceRequestDto details);
 
-    List<AttendanceResponseDto> getAttendances(String cls, String subject, String fromDate, String toDate);
+    List<AttendanceResponseDto> getAttendances(String cls, String subject, String fromDate, String toDate, boolean masterAttendance);
 
-    String attendanceUpdate(AttendanceRequestDto details);
+    String attendanceUpdate(AttendanceRequestDto details ,boolean masterAttendance);
 }

@@ -56,11 +56,20 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public List<AttendanceResponseDto> getAttendances(String cls, String subject, String fromDate, String toDate) {
+    public List<AttendanceResponseDto> getAttendances(String cls, String subject, String fromDate, String toDate,
+                                                      boolean masterAttendance) {
         LocalDateTime from = TimeUtils.toStartOfDay(fromDate);
         LocalDateTime to = TimeUtils.toEndOfDay(toDate);
-        List<StudentAttendance> savedStudent = attendanceInfoRepo.findByClassAndSubject(cls, subject, from, to
-        ,claimService.getLoggedInUserSchoolCode());
+        List<StudentAttendance> savedStudent = new ArrayList<>();
+
+        if(!masterAttendance) {
+            savedStudent = attendanceInfoRepo.findByClassAndSubject(cls, subject, from, to
+                    , claimService.getLoggedInUserSchoolCode());
+        } else {
+            savedStudent = attendanceInfoRepo.findByClassAndSubjectMaster(cls, from, to,
+                    claimService.getLoggedInUserSchoolCode());
+        }
+
         if(ObjectUtils.isEmpty(savedStudent)){
             throw new BadRequestException("No data found for the given period");
         }
@@ -79,12 +88,23 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public String attendanceUpdate(AttendanceRequestDto details) {
+    public String attendanceUpdate(AttendanceRequestDto details , boolean masterAttendance) {
 
         LocalDateTime from = TimeUtils.toStartOfDay(details.getDate());
         LocalDateTime to = TimeUtils.toEndOfDay(details.getDate());
-        List<StudentAttendance> savedData = attendanceInfoRepo.findByClassAndSubject(details.getClassName()
-                ,details.getSubject() ,from ,to, claimService.getLoggedInUserSchoolCode());
+        List<StudentAttendance> savedData = new ArrayList<>();
+        if (!masterAttendance){
+
+            if(StringUtil.isBlank(details.getSubject())){
+                throw new BadRequestException("Subject can't be null");
+            }
+
+            savedData = attendanceInfoRepo.findByClassAndSubject(details.getClassName()
+                    ,details.getSubject() ,from ,to, claimService.getLoggedInUserSchoolCode());
+        }else {
+            savedData = attendanceInfoRepo.findByClassAndSubjectMaster(details.getClassName(),from , to ,claimService.getLoggedInUserSchoolCode());
+        }
+
         if (ObjectUtils.isEmpty(savedData)){
             throw new BadRequestException("No record found");
         }
@@ -100,13 +120,11 @@ public class AttendanceServiceImpl implements AttendanceService {
             throw new BadRequestException("Class Can't be blank");
         }
 
-        if(StringUtil.isBlank(dto.getSubject())){
-            throw new BadRequestException("Subject Can't be blank");
-        }
 
         entity.setClassName(dto.getClassName());
         entity.setSubject(dto.getSubject());
         entity.setStudentList(gson.toJson(dto.getStudentList()));
+        entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
     }
 
 }

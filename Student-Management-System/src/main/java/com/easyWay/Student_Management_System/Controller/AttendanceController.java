@@ -26,14 +26,15 @@ public class AttendanceController {
 
     @PostMapping("/getAttendance")
     public List<AttendanceResponseDto> getAttendances(@RequestParam String cls, @RequestParam String fromDate,
-                                                      @RequestParam String toDate, @RequestParam String subject) {
+                                                      @RequestParam String toDate, @RequestParam String subject
+            , @RequestParam boolean masterAttendance) {
 
-        return attendanceService.getAttendances(cls, subject, fromDate, toDate);
+        return attendanceService.getAttendances(cls, subject, fromDate, toDate, masterAttendance);
 
     }
     @PostMapping("/update")
-    public String attendanceUpdate(@RequestBody AttendanceRequestDto details){
-        return attendanceService.attendanceUpdate(details);
+    public String attendanceUpdate(@RequestBody AttendanceRequestDto details , @RequestParam boolean masterAttendance){
+        return attendanceService.attendanceUpdate(details ,masterAttendance);
     }
 
 }

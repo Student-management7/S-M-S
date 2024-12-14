@@ -87,7 +87,7 @@ public class HolidayInfoServiceImpl implements HolidayInfoService {
 
     @Override
     public List<HolidayRequestDto> getAllHolidayRequestDto() {
-        List<HolidayInfo> savedData = holidayInfoRepo.findAll();
+        List<HolidayInfo> savedData = holidayInfoRepo.findAll(claimService.getLoggedInUserSchoolCode());
 
         if (ObjectUtils.isEmpty(savedData)) {
             throw new BadRequestException("No data found");

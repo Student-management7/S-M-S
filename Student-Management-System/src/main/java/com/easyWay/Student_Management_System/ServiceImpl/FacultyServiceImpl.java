@@ -2,8 +2,10 @@ package com.easyWay.Student_Management_System.ServiceImpl;
 
 import com.easyWay.Student_Management_System.Dto.*;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
+import com.easyWay.Student_Management_System.Entity.Users;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
+import com.easyWay.Student_Management_System.Repo.UsersRepo;
 import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.FacultyService;
 import com.google.gson.Gson;
@@ -12,6 +14,7 @@ import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -31,6 +34,9 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Autowired
     ClaimService claimService;
+
+    @Autowired
+    UsersRepo usersRepo;
 
     @Override
     public String saveFaculty(FacultyInfoDto details) {
@@ -131,6 +137,10 @@ public class FacultyServiceImpl implements FacultyService {
 
         entity.setFact_cls(gson.toJson(dto.getFact_Cls()));
         entity.setFact_status(dto.getFact_Status());
+
+        Users user = new Users();
+        user = usersRepo.save(user);
+        entity.setUserInfo(user);
 
     }
 

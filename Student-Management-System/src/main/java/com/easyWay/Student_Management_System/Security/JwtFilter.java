@@ -1,6 +1,7 @@
 package com.easyWay.Student_Management_System.Security;
 
-
+import com.easyWay.Student_Management_System.Entity.Users;
+import com.easyWay.Student_Management_System.Repo.UsersRepo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -27,9 +29,13 @@ public class JwtFilter extends OncePerRequestFilter {
     private JWTService jwtService;
 
     @Autowired
-    ApplicationContext context;
+    private UsersRepo usersRepository; // Assuming you have a repository for Users
+
+    @Autowired
+    private ApplicationContext context;
 
     private HandlerExceptionResolver handlerExceptionResolver;
+
     @Autowired
     public JwtFilter(@Qualifier("handlerExceptionResolver") HandlerExceptionResolver exceptionResolver) {
         this.handlerExceptionResolver = exceptionResolver;
@@ -38,37 +44,44 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        String authHeader = request.getHeader("Authorization");
+        String token = null;
+        String username = null;
+        String permission = null;
+        try {
+            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                token = authHeader.substring(7);
+                username = jwtService.extractUserName(token);
+                permission = jwtService.getPermissionsFromToken(token);
 
-            String authHeader = request.getHeader("Authorization");
-            String token = null;
-            String username = null;
-            String permission = null;
-            try {
-                if (authHeader != null && authHeader.startsWith("Bearer ")) {
-                    token = authHeader.substring(7);
-                    username = jwtService.extractUserName(token);
-                    permission = jwtService.getPermissionsFromToken(token);
-
-                    if (jwtService.isTokenBlacklisted(token)) {
-                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token has been blacklisted");
-                        return;
-                    }
-
+                if (jwtService.isTokenBlacklisted(token)) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token has been blacklisted");
+                    return;
                 }
-                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-                    List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(permission));
-
-                    UsernamePasswordAuthenticationToken authenticationToken =
-                            new UsernamePasswordAuthenticationToken(username, null, authorities);
-                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                }
-                filterChain.doFilter(request, response);
             }
-            catch (Exception ex){
-                handlerExceptionResolver.resolveException(request, response ,null , ex);
+
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                // Retrieve the user from the database (or another source)
+                Users user = usersRepository.findUsersByEmail(username);
+
+                // Create a LoggedInUser instance
+                LoggedInUser loggedInUser = new LoggedInUser(user);
+
+                // Set the authorities (permissions)
+                List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(permission));
+
+                // Set the Authentication object with the LoggedInUser as the principal
+                UsernamePasswordAuthenticationToken authenticationToken =
+                        new UsernamePasswordAuthenticationToken(loggedInUser, null, authorities);
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                // Set the authentication in the SecurityContextHolder
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
+
+            filterChain.doFilter(request, response);
+        } catch (Exception ex) {
+            handlerExceptionResolver.resolveException(request, response, null, ex);
+        }
     }
 }

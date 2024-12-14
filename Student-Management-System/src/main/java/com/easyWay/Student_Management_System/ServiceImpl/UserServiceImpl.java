@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
     public String loginUser(UsersDto dto) throws BadRequestException {
         Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
         System.out.println(authentication.getAuthorities().toString());
-        return jwtService.generateToken(dto.getEmail() , String.valueOf(authentication.getAuthorities().stream().toList().get(0)));
+        return jwtService.generateToken(dto.getEmail() , String.valueOf(authentication.getAuthorities().stream().toList().get(0)), dto.getSchoolCode());
 
     }
 

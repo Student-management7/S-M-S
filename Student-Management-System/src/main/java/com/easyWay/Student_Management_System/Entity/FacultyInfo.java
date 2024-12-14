@@ -1,6 +1,7 @@
 package com.easyWay.Student_Management_System.Entity;
 
 import com.easyWay.Student_Management_System.Dto.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -39,5 +40,10 @@ public class FacultyInfo extends BaseEntity{
 
     @OneToMany(mappedBy = "facultyInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FacultySalaryEntity> salaryInfo;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_info_id", nullable = false)
+    @JsonIgnore
+    private Users userInfo;
 
 }

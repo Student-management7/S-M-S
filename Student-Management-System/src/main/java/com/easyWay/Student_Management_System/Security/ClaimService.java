@@ -31,11 +31,6 @@ public class ClaimService {
         return Optional.empty();
     }
 
-    /**
-     * Get the roles/authorities of the logged-in user.
-     *
-     * @return List of roles or an empty list if not available.
-     */
     public List<String> getLoggedInUserRoles() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -52,16 +47,19 @@ public class ClaimService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
-            return "";
+            return ""; // If no authentication, return empty
         }
 
         Object principal = authentication.getPrincipal();
 
-        if (!(principal instanceof Users)) {
-          return principal.toString();
+        // Check if the principal is of type LoggedInUser
+        if (principal instanceof LoggedInUser) {
+            return ((LoggedInUser) principal).getSchoolCode(); // Return schoolCode if it's an instance of LoggedInUser
         }
 
-        return "";
+        return ""; // Return empty string if it's not an instance of LoggedInUser
     }
+
+
 
 }

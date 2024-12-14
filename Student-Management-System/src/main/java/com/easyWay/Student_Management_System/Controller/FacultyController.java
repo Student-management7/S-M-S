@@ -37,12 +37,6 @@ public class FacultyController {
         return facultyService.updateFaculty(faculty);
     }
 
-    @GetMapping("/all")
-    public List<FacultyInfo>a()
-    {
-        return infoRepo.findAll();
-    }
-
     @PostMapping("/delete")
     public String deleteFaculty(@RequestParam UUID id){
         return facultyService.deleteFaculty(id);

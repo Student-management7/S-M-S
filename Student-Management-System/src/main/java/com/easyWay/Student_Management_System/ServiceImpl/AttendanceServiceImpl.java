@@ -102,7 +102,8 @@ public class AttendanceServiceImpl implements AttendanceService {
             savedData = attendanceInfoRepo.findByClassAndSubject(details.getClassName()
                     ,details.getSubject() ,from ,to, claimService.getLoggedInUserSchoolCode());
         }else {
-            savedData = attendanceInfoRepo.findByClassAndSubjectMaster(details.getClassName(),from , to ,claimService.getLoggedInUserSchoolCode());
+            savedData = attendanceInfoRepo.findByClassAndSubjectMaster(details.getClassName(),from , to
+                    ,claimService.getLoggedInUserSchoolCode());
         }
 
         if (ObjectUtils.isEmpty(savedData)){

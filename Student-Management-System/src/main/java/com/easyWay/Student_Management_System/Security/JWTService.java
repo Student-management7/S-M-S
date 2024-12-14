@@ -34,15 +34,16 @@ public class JWTService {
         return this.secretKey;
     }
 
-    public String  generateToken(String  userName  , String permission){
+    public String  generateToken(String  userName  , String permission, String schoolCode){
         Map<String  ,Object> claims = new HashMap<>();
         claims.put("permission" , permission);
+        claims.put("schoolCode", schoolCode);
        return Jwts.builder()
                 .claims()
                 .add(claims)
                 .subject(userName)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + ( 15 * 60 * 1000)))
+                .expiration(new Date(System.currentTimeMillis() + ( 60 * 60 * 1000)))
                 .and()
                 .signWith(getKey())
                 .compact();

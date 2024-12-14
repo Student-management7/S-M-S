@@ -8,17 +8,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-
 public class LoggedInUser implements UserDetails {
 
     private Users users;
 
-     LoggedInUser(Users users){
+    public LoggedInUser(Users users) {
         this.users = users;
     }
 
-    public  Users getUsers(){
-         return users;
+    public Users getUsers() {
+        return users;
+    }
+
+    // Method to get schoolCode
+    public String getSchoolCode() {
+        return users.getSchoolCode();
     }
 
     @Override

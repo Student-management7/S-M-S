@@ -113,6 +113,7 @@ public class NotificationServiceImpl implements NotificationService {
         entity.setDescription(notificationDto.getDescription());
         entity.setCato(notificationDto.getCato().toLowerCase());
         entity.setClassName(gson.toJson(notificationDto.getClassName()));
+        entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
     }
 
     void convertEntityToDto(NotificationDto entity, NotificationEntity notificationDto){

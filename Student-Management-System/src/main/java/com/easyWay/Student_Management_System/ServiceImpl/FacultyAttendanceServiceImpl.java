@@ -51,6 +51,7 @@ public class FacultyAttendanceServiceImpl implements FacultyAttendanceService {
 
         FacultyAttendance entity = new FacultyAttendance();
         entity.setFacultyList(gson.toJson(dto.getFactList()));
+        entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         repo.save(entity);
         return "Saved Successfully";
     }

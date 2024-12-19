@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String registerUser(UsersDto userDto) {
         Users users = new Users();
-        users.setEmail(userDto.getEmail());
+        users.setEmail(userDto.getEmail().toLowerCase());
         users.setSchoolCode(userDto.getEmail().substring(1,4).toUpperCase()+RANDOM.nextInt(9999));
         users.setPassword(encoder.encode(userDto.getPassword()));
         users.setPermission(userDto.getPermission());
@@ -72,9 +72,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String loginUser(UsersDto dto) throws BadRequestException {
-        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail().toLowerCase(), dto.getPassword()));
         System.out.println(authentication.getAuthorities().toString());
-        return jwtService.generateToken(dto.getEmail() , String.valueOf(authentication.getAuthorities().stream().toList().get(0)), dto.getSchoolCode());
+        return jwtService.generateToken(dto.getEmail().toLowerCase() , String.valueOf(authentication.getAuthorities().stream().toList().get(0)), dto.getSchoolCode());
 
     }
 

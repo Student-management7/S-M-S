@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -37,6 +38,8 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Autowired
     UsersRepo usersRepo;
+
+    private BCryptPasswordEncoder encoder  = new BCryptPasswordEncoder(11);
 
     @Override
     public String saveFaculty(FacultyInfoDto details) {
@@ -139,6 +142,9 @@ public class FacultyServiceImpl implements FacultyService {
         entity.setFact_status(dto.getFact_Status());
 
         Users user = new Users();
+        user.setSchoolCode(claimService.getLoggedInUserSchoolCode());
+        user.setEmail(dto.getEmail());
+        user.setPassword(encoder.encode(dto.getPassword()));
         user = usersRepo.save(user);
         entity.setUserInfo(user);
 

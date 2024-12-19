@@ -30,4 +30,7 @@ public class FacultyInfoDto {
     public List<FactCls> Fact_Cls;
 
     public List<FacultySalaryEntity> fact_salary;
+
+    public String email;
+    public String password;
 }

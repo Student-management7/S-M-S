@@ -14,6 +14,8 @@ public class Users extends  BaseEntity{
     private String email;
     private String password;
     private String schoolCode;
+
+    @Column(columnDefinition = "Text")
     private String permission ;
 
     @OneToOne(mappedBy = "userInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

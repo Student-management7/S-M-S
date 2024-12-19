@@ -52,14 +52,11 @@ public class ClaimService {
 
         Object principal = authentication.getPrincipal();
 
-        // Check if the principal is of type LoggedInUser
         if (principal instanceof LoggedInUser) {
-            return ((LoggedInUser) principal).getSchoolCode(); // Return schoolCode if it's an instance of LoggedInUser
+            return ((LoggedInUser) principal).getSchoolCode();
         }
 
-        return ""; // Return empty string if it's not an instance of LoggedInUser
+        return "";
     }
-
-
 
 }

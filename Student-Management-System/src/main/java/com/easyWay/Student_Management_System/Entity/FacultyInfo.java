@@ -3,12 +3,15 @@ package com.easyWay.Student_Management_System.Entity;
 import com.easyWay.Student_Management_System.Dto.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
-@Data
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class FacultyInfo extends BaseEntity{
 
     private String fact_Name;

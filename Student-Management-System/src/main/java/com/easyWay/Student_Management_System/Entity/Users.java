@@ -1,13 +1,15 @@
 package com.easyWay.Student_Management_System.Entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Users extends  BaseEntity{
 

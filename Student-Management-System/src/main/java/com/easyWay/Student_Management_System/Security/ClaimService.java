@@ -47,7 +47,7 @@ public class ClaimService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
-            return ""; // If no authentication, return empty
+            return "";
         }
 
         Object principal = authentication.getPrincipal();
@@ -58,5 +58,21 @@ public class ClaimService {
 
         return "";
     }
+
+//    public String getLoggedInUserEmail() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        if (authentication == null || !authentication.isAuthenticated()) {
+//            return "";
+//        }
+//
+//        Object principal = authentication.getPrincipal();
+//
+//        if (principal instanceof LoggedInUser) {
+//            return ((LoggedInUser) principal).getUsername();
+//        }
+//
+//        return "";
+//    }
 
 }

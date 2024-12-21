@@ -27,12 +27,13 @@ public class SelfServiceImpl implements SelfService {
 
         Users users = usersRepo.findUsersByEmail(claimService.getLoggedInUserEmail().get());
         SelfDto selfDto = new SelfDto();
-        selfDto.setPermission(gson.fromJson(users.getPermission(), PermissionsDto.class));
         PermissionsDto permissionsDto = new PermissionsDto();
         permissions perms = new permissions();
         perms.setFaculty(gson.fromJson(users.getPermission(), FacultyPersmissionsDto.class));
         perms.setStudent(gson.fromJson(users.getPermission(), StudentPermissionsDto.class));
         perms.setFinance(gson.fromJson(users.getPermission(), FinancePermissionsDto.class));
+        permissionsDto.setPermissions(perms);
+        selfDto.setPermission(gson.fromJson(users.getPermission(), PermissionsDto.class));
         selfDto.setEmail(users.getEmail());
         selfDto.setFacultyInfo(users.getFacultyInfo());
         selfDto.setSchoolCode(users.getSchoolCode());

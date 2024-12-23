@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class SelfServiceImpl implements SelfService {
 
@@ -31,16 +32,29 @@ public class SelfServiceImpl implements SelfService {
         return selfDto;
     }
 
-    void convertEntityToDto(SelfDto selfDto, Users users){
+//    void convertEntityToDto(SelfDto selfDto, Users users){
+//        PermissionsDto permissionsDto = new PermissionsDto();
+//        permissions perms = new permissions();
+//        perms.setFaculty(gson.fromJson(users.getPermission(), FacultyPersmissionsDto.class));
+//        perms.setStudent(gson.fromJson(users.getPermission(), StudentPermissionsDto.class));
+//        perms.setFinance(gson.fromJson(users.getPermission(), FinancePermissionsDto.class));
+//        permissionsDto.setPermissions(perms);
+//        selfDto.setPermission(permissionsDto);
+//        selfDto.setEmail(users.getEmail());
+//        selfDto.setFacultyInfo(users.getFacultyInfo());
+//        selfDto.setSchoolCode(users.getSchoolCode());
+//    }
+    void convertEntityToDto(SelfDto selfDto, Users users) {
+        // Deserialize only once
+        permissions permissions = gson.fromJson(users.getPermission(), permissions.class);
+
         PermissionsDto permissionsDto = new PermissionsDto();
-        permissions perms = new permissions();
-        perms.setFaculty(gson.fromJson(users.getPermission(), FacultyPersmissionsDto.class));
-        perms.setStudent(gson.fromJson(users.getPermission(), StudentPermissionsDto.class));
-        perms.setFinance(gson.fromJson(users.getPermission(), FinancePermissionsDto.class));
-        permissionsDto.setPermissions(perms);
+        permissionsDto.setPermissions(permissions);
+
         selfDto.setPermission(permissionsDto);
         selfDto.setEmail(users.getEmail());
         selfDto.setFacultyInfo(users.getFacultyInfo());
         selfDto.setSchoolCode(users.getSchoolCode());
     }
+
 }

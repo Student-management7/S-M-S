@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a3cc6ef-3ff7-4f5d-9914-09bb95cdf47c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/SelfDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Service/SelfService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/permissions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/permissions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Security/ClaimService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Security/ClaimService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/permissions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/permissions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Repo/AdminFeesRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Repo/AdminFeesRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/AdminFeesServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/AdminFeesServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,8 +119,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.java</url>
-          <line>27</line>
+          <line>28</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

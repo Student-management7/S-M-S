@@ -80,7 +80,7 @@ public class AdminFeesServiceImpl implements AdminFeesService {
         List<AdminFeesStructure> data = new ArrayList<>();
         if(StringUtil.isBlank(cls)) {
 
-           data  = repo.findAll();
+           data  = repo.findAllClass(claimService.getLoggedInUserSchoolCode());
         } else {
            AdminFeesStructure clsINfo = repo.findByClass(cls, claimService.getLoggedInUserSchoolCode());
 

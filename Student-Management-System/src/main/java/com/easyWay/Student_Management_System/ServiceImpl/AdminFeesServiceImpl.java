@@ -39,6 +39,7 @@ public class AdminFeesServiceImpl implements AdminFeesService {
         }
         AdminFeesStructure entity = new AdminFeesStructure();
         extracted(details, entity);
+        entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         repo.save(entity);
         return "Saved successfully";
     }

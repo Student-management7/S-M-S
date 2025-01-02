@@ -39,7 +39,12 @@ public class AttendanceServiceImpl implements AttendanceService {
     ClaimService claimService;
 
     @Override
-    public String saveAttendances(AttendanceRequestDto details) {
+    public String saveAttendances(AttendanceRequestDto details,  boolean masterAttendance) {
+            if (!masterAttendance){
+                if (StringUtil.isBlank(details.getSubject())){
+                    throw new BadRequestException("Subject is mandatory");
+                }
+            }
             StudentAttendance studentAttendance = new StudentAttendance();
             LocalDate date = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Entity
 @Data
 public class CLassInfo extends BaseEntity {
@@ -11,5 +13,6 @@ public class CLassInfo extends BaseEntity {
     private String className;
 
     private String subject;
+
 
 }

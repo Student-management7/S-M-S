@@ -4,5 +4,11 @@ import lombok.Data;
 
 @Data
 public class FacultyPersmissionsDto {
-    public boolean facultySalary;
+    public boolean FacultySalaryDetails;
+    public boolean FacultySalaryController;
+    public boolean FacultyAttendanceEditSave;
+    public boolean FacultyAttendanceEdit;
+    public boolean FacultyAttendanceShow;
+    public boolean FacultyAttendanceSave;
+    public boolean FacultyRegistrationForm;
 }

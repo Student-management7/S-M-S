@@ -8,6 +8,7 @@ import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.SelfService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,12 +32,14 @@ public class SelfServiceImpl implements SelfService {
         return selfDto;
     }
 
-    void convertEntityToDto(SelfDto selfDto, Users users){
+    void convertEntityToDto(SelfDto selfDto, Users users) {
         PermissionsDto permissionsDto = new PermissionsDto();
         permissions perms = new permissions();
         perms.setFaculty(gson.fromJson(users.getPermission(), FacultyPersmissionsDto.class));
         perms.setStudent(gson.fromJson(users.getPermission(), StudentPermissionsDto.class));
         perms.setFinance(gson.fromJson(users.getPermission(), FinancePermissionsDto.class));
+        perms.setNotification(gson.fromJson(users.getPermission(), NotificationPermissionDto.class));
+        perms.setSubject(gson.fromJson(users.getPermission(), SubjectPermissionDto.class));
         permissionsDto.setPermissions(perms);
         selfDto.setPermission(permissionsDto);
         selfDto.setEmail(users.getEmail());

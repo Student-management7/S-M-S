@@ -3,6 +3,7 @@ package com.easyWay.Student_Management_System.ServiceImpl;
 import com.easyWay.Student_Management_System.Dto.ClassAndSubjetDataDto;
 import com.easyWay.Student_Management_System.Dto.ClassResponseDto;
 import com.easyWay.Student_Management_System.Entity.CLassInfo;
+import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.ClassInfoRepo;
 import com.easyWay.Student_Management_System.Security.ClaimService;
@@ -14,8 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.security.auth.Subject;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.awt.SystemColor.info;
 
 @Service
 public class ClassResponseServiceImpl implements ClassResponseService {
@@ -64,6 +68,20 @@ public class ClassResponseServiceImpl implements ClassResponseService {
 
         return "Data saved successfully";
     }
+
+    @Override
+    public String editSubjectInClass(ClassResponseDto details) {
+
+        CLassInfo savedata = classInfoRepo.findByClass(details.getClassData().get(0).getClassName());
+        if (ObjectUtils.isEmpty(savedata)){
+            return "data not found";
+        }
+
+
+    }
+
+
+
     boolean checkClassValidation(ClassAndSubjetDataDto dto) {
 
         if (dto.getClassName() == null) {
@@ -106,6 +124,7 @@ public class ClassResponseServiceImpl implements ClassResponseService {
         }
 
     }
+
 }
 
 

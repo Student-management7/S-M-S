@@ -9,4 +9,6 @@ public interface ClassResponseService {
     ClassResponseDto getData();
 
     String saveData(ClassResponseDto response);
+
+    String editSubjectInClass(ClassResponseDto details);
 }

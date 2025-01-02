@@ -87,6 +87,7 @@ public class FacultyServiceImpl implements FacultyService {
                 }
 
                 for (FacultyInfo facultyinfo : facultyList) {
+
                     FacultyInfoDto dto = new FacultyInfoDto();
                     convertEntityToDto(facultyinfo, dto);
                     facultyInfoDto.add(dto);

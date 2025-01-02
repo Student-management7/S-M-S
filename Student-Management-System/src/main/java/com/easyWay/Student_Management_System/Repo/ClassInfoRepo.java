@@ -1,6 +1,7 @@
 package com.easyWay.Student_Management_System.Repo;
 
 import com.easyWay.Student_Management_System.Entity.CLassInfo;
+import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import org.springframework.cglib.core.ClassInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,11 @@ public interface ClassInfoRepo extends JpaRepository<CLassInfo, UUID> {
 
     @Query("select v from CLassInfo v where v.schoolCode = :code ")
     List<CLassInfo> getBySchoolName(@Param("code") String name);
+
+    @Query("SELECT p FROM ClassInfo p WHERE p.cls = :clss and p.schoolCode = :code")
+    List<ClassInfo> findByClass(@Param("clss") String clss, );
+
+    @Query("select p from CLassInfo p where  p.schoolCode = :code and p.id = :id")
+    CLassInfo getById(@Param("code") String code, @Param("id") UUID id);
+
 }

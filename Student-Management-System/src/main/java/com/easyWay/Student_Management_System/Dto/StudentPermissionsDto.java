@@ -8,4 +8,8 @@ public class StudentPermissionsDto {
     public boolean studentAttendance;
     public boolean StudentAttendanceEdit;
     public boolean StudentFees;
+    public boolean StudentAttendenceManagement;
+    public boolean StudentAttendanceEditSave;
+    public boolean StudentRegistrationController;
+    public boolean StudentAttendanceShow;
 }

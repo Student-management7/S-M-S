@@ -24,5 +24,11 @@ public class ClassController {
     public void saveClassResponse(@RequestBody ClassResponseDto classResponseDto){
         classResponseService.saveData(classResponseDto);
     }
+    @PostMapping("/edit")
+    public void editSubjectInClass(@RequestBody ClassResponseDto details){
+        classResponseService.editSubjectInClass(details);
+
+    }
+
 
 }

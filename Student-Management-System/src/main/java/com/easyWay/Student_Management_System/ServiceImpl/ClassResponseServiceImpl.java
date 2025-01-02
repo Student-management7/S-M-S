@@ -42,7 +42,8 @@ public class ClassResponseServiceImpl implements ClassResponseService {
         for (CLassInfo classInfo : classData) {
             ClassAndSubjetDataDto data = new ClassAndSubjetDataDto();
             try {
-                ArrayList<String> subjectList = gson.fromJson(classInfo.getSubject(), new TypeToken<ArrayList<String>>(){}.getType());
+                ArrayList<String> subjectList = gson.fromJson(classInfo.getSubject(), new TypeToken<ArrayList<String>>() {
+                }.getType());
                 data.setClassName(classInfo.getClassName());
                 data.setSubject(subjectList);
             } catch (JsonSyntaxException e) {
@@ -72,58 +73,62 @@ public class ClassResponseServiceImpl implements ClassResponseService {
     @Override
     public String editSubjectInClass(ClassResponseDto details) {
 
-        CLassInfo savedata = classInfoRepo.findByClass(details.getClassData().get(0).getClassName());
-        if (ObjectUtils.isEmpty(savedata)){
+        CLassInfo savedata = classInfoRepo.findByClass(details.getClassData().get(0).getClassName(), claimService.getLoggedInUserSchoolCode());
+        if (ObjectUtils.isEmpty(savedata)) {
             return "data not found";
         }
 
-
+        try {
+            savedata.setSubject(gson.toJson(details.getClassData().get(0).getSubject()));
+            classInfoRepo.save(savedata);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
+        return "edit successfully";
     }
 
 
+boolean checkClassValidation(ClassAndSubjetDataDto dto) {
 
-    boolean checkClassValidation(ClassAndSubjetDataDto dto) {
-
-        if (dto.getClassName() == null) {
-            throw new BadRequestException("Class name cannot be null");
-
-        }
-           if ((dto.getClassName().equalsIgnoreCase("Nursary") ||
-                dto.getClassName().equalsIgnoreCase("LKG") ||
-                dto.getClassName().equalsIgnoreCase("UKG") ||
-                dto.getClassName().equalsIgnoreCase("1") ||
-                dto.getClassName().equalsIgnoreCase("2") ||
-                dto.getClassName().equalsIgnoreCase("3") ||
-                dto.getClassName().equalsIgnoreCase("4") ||
-                dto.getClassName().equalsIgnoreCase("5") ||
-                dto.getClassName().equalsIgnoreCase("6") ||
-                dto.getClassName().equalsIgnoreCase("7") ||
-                dto.getClassName().equalsIgnoreCase("8") ||
-                dto.getClassName().equalsIgnoreCase("9") ||
-                dto.getClassName().equalsIgnoreCase("10") ||
-                dto.getClassName().equalsIgnoreCase("11") ||
-                dto.getClassName().equalsIgnoreCase("12"))){
-
-                List<CLassInfo> savedData = classInfoRepo.getBySchoolName(claimService.getLoggedInUserSchoolCode());
-                if(ObjectUtils.isEmpty(savedData)){
-                    return true;
-                }
-                boolean check = false;
-                for (CLassInfo cls: savedData){
-                   if (cls.getClassName().equalsIgnoreCase(dto.getClassName())){
-                       throw new BadRequestException("Class is already present");
-                   }
-                   else {
-                       check = true;
-                   }
-                }
-               return check;
-
-        }else {
-            throw new BadRequestException("This is not a valid class");
-        }
+    if (dto.getClassName() == null) {
+        throw new BadRequestException("Class name cannot be null");
 
     }
+    if ((dto.getClassName().equalsIgnoreCase("Nursary") ||
+            dto.getClassName().equalsIgnoreCase("LKG") ||
+            dto.getClassName().equalsIgnoreCase("UKG") ||
+            dto.getClassName().equalsIgnoreCase("1") ||
+            dto.getClassName().equalsIgnoreCase("2") ||
+            dto.getClassName().equalsIgnoreCase("3") ||
+            dto.getClassName().equalsIgnoreCase("4") ||
+            dto.getClassName().equalsIgnoreCase("5") ||
+            dto.getClassName().equalsIgnoreCase("6") ||
+            dto.getClassName().equalsIgnoreCase("7") ||
+            dto.getClassName().equalsIgnoreCase("8") ||
+            dto.getClassName().equalsIgnoreCase("9") ||
+            dto.getClassName().equalsIgnoreCase("10") ||
+            dto.getClassName().equalsIgnoreCase("11") ||
+            dto.getClassName().equalsIgnoreCase("12"))) {
+
+        List<CLassInfo> savedData = classInfoRepo.getBySchoolName(claimService.getLoggedInUserSchoolCode());
+        if (ObjectUtils.isEmpty(savedData)) {
+            return true;
+        }
+        boolean check = false;
+        for (CLassInfo cls : savedData) {
+            if (cls.getClassName().equalsIgnoreCase(dto.getClassName())) {
+                throw new BadRequestException("Class is already present");
+            } else {
+                check = true;
+            }
+        }
+        return check;
+
+    } else {
+        throw new BadRequestException("This is not a valid class");
+    }
+
+}
 
 }
 

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class SelfServiceImpl implements SelfService {
 
@@ -41,9 +42,7 @@ public class SelfServiceImpl implements SelfService {
         perms.setNotification(gson.fromJson(users.getPermission(), NotificationPermissionDto.class));
         perms.setSubject(gson.fromJson(users.getPermission(), SubjectPermissionDto.class));
         permissionsDto.setPermissions(perms);
-        selfDto.setPermission(permissionsDto);
-        selfDto.setEmail(users.getEmail());
-        selfDto.setFacultyInfo(users.getFacultyInfo());
-        selfDto.setSchoolCode(users.getSchoolCode());
+
+
     }
 }

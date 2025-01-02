@@ -30,7 +30,7 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
     @Override
     public String saveFacultySalary(FacultySalaryDto details) {
         
-        FacultySalaryEntity entity = new FacultySalaryEntity();
+         FacultySalaryEntity entity = new FacultySalaryEntity();
         extracted(details, entity);
         FacultyInfo facultyInfo = facultyInfoRepo.getById(details.getFacultyID());
         entity.setFacultyInfo(facultyInfo);

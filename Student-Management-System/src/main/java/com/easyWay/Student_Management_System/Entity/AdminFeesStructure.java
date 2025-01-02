@@ -13,11 +13,11 @@ import java.util.List;
 public class AdminFeesStructure extends BaseEntity{
 
     private String className;
-    private int schoolFee;
-    private int sportsFee;
-    private int bookFee;
-    private int transportation;
+    private float schoolFee;
+    private float sportsFee;
+    private float bookFee;
+    private float transportation;
     @Column(columnDefinition = "Text")
     private String otherAmount;
-    private int total;
+    private float total;
 }

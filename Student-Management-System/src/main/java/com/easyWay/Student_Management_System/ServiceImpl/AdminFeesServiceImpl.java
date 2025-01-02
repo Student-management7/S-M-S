@@ -39,6 +39,7 @@ public class AdminFeesServiceImpl implements AdminFeesService {
         }
         AdminFeesStructure entity = new AdminFeesStructure();
         extracted(details, entity);
+        entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         repo.save(entity);
         return "Saved successfully";
     }
@@ -80,7 +81,7 @@ public class AdminFeesServiceImpl implements AdminFeesService {
         List<AdminFeesStructure> data = new ArrayList<>();
         if(StringUtil.isBlank(cls)) {
 
-           data  = repo.findAll();
+           data  = repo.findAllClass(claimService.getLoggedInUserSchoolCode());
         } else {
            AdminFeesStructure clsINfo = repo.findByClass(cls, claimService.getLoggedInUserSchoolCode());
 
@@ -112,12 +113,12 @@ public class AdminFeesServiceImpl implements AdminFeesService {
         entity.setSportsFee(details.getSportsFee());
         entity.setTransportation(details.getTransportation());
         entity.setOtherAmount(gson.toJson(details.getOtherAmount()));
-        int total = findTotal(details);
+        float total = findTotal(details);
         entity.setTotal(total);
     }
 
-    public int findTotal(AdminFeesDto dto){
-        int total = 0;
+    public float findTotal(AdminFeesDto dto){
+        float total = 0.0f;
         total = total+dto.getBookFee();
         total = total+dto.getSchoolFee();
         total = total+dto.getSportsFee();

@@ -15,8 +15,8 @@ public interface ClassInfoRepo extends JpaRepository<CLassInfo, UUID> {
     @Query("select v from CLassInfo v where v.schoolCode = :code ")
     List<CLassInfo> getBySchoolName(@Param("code") String name);
 
-    @Query("SELECT p FROM ClassInfo p WHERE p.cls = :clss and p.schoolCode = :code")
-    List<ClassInfo> findByClass(@Param("clss") String clss, );
+    @Query("SELECT p FROM CLassInfo p WHERE p.className = :clss and p.schoolCode = :code")
+    CLassInfo findByClass(@Param("clss") String clss, @Param("code") String code);
 
     @Query("select p from CLassInfo p where  p.schoolCode = :code and p.id = :id")
     CLassInfo getById(@Param("code") String code, @Param("id") UUID id);

@@ -9,10 +9,10 @@ import java.util.UUID;
 public class AdminFeesDto {
     public UUID id;
     public String className;
-    public int schoolFee;
-    public int sportsFee;
-    public int bookFee;
-    public int transportation;
+    public float schoolFee;
+    public float sportsFee;
+    public float bookFee;
+    public float transportation;
     public List<OtherFeesDto> otherAmount;
-    public int totalFee;
+    public float totalFee;
 }

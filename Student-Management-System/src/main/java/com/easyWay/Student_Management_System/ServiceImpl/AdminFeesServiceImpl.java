@@ -113,12 +113,13 @@ public class AdminFeesServiceImpl implements AdminFeesService {
         entity.setTransportation(details.getTransportation());
         entity.setOtherAmount(gson.toJson(details.getOtherAmount()));
         entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
-        int total = findTotal(details);
+
+        float total = findTotal(details);
         entity.setTotal(total);
     }
 
-    public int findTotal(AdminFeesDto dto){
-        int total = 0;
+    public float findTotal(AdminFeesDto dto){
+        float total = 0.0f;
         total = total+dto.getBookFee();
         total = total+dto.getSchoolFee();
         total = total+dto.getSportsFee();

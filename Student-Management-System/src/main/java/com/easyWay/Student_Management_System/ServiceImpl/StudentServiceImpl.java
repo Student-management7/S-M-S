@@ -254,8 +254,8 @@ public class StudentServiceImpl implements StudentService {
         entity.setAdmissionClass(dto.admissionClass);
         entity.setEndDate(dto.getEndDate());
         entity.setAdmissionClass(dto.getCls());
-        entity.setTotalFees(dto.totalFees);
-        entity.setRemainingFees(dto.totalFees);
+        entity.setTotalFees(dto.totalFee);
+        entity.setRemainingFees(dto.totalFee);
     }
 
     private StudentInfoDto convertEntityToDto(StudentInfo entity) {

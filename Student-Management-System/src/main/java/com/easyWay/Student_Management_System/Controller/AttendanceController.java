@@ -19,8 +19,8 @@ public class AttendanceController {
 
 
     @PostMapping("/save")
-    public String saveAttendances(@RequestBody AttendanceRequestDto details) {
-         return attendanceService.saveAttendances(details);
+    public String saveAttendances(@RequestBody AttendanceRequestDto details, @RequestParam boolean masterAttendance) {
+         return attendanceService.saveAttendances(details, masterAttendance);
 
     }
 

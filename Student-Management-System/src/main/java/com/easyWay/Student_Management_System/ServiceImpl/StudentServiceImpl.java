@@ -274,7 +274,7 @@ public class StudentServiceImpl implements StudentService {
                 .dob(entity.getDob())
                 .id(entity.getId())
                 .creationDateTime(entity.getCreationDateTime())
-                .totalFees(entity.getTotalFees())
+                .totalFee(entity.getTotalFees())
                 .remainingFees(entity.getRemainingFees())
                 .feeInfo(entity.getFeeInfo() != null && !entity.getFeeInfo().isEmpty() ? entity.getFeeInfo() : Collections.emptyList())
                 .build();

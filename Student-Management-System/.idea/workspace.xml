@@ -4,72 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a3cc6ef-3ff7-4f5d-9914-09bb95cdf47c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Controller/SchoolCreationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/NotificationPermissionDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/SchoolCreationDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/SubjectPermissionDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Entity/SchoolCreationEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Repo/SchoolCreationRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Service/SchoolCreationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/SchoolCreationImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Controller/SchoolCreationController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/NotificationPermissionDto.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/SchoolCreationDto$SchoolCreationDtoBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/SchoolCreationDto.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/SubjectPermissionDto.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Entity/SchoolCreationEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Repo/SchoolCreationRepo.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Service/SchoolCreationService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/SchoolCreationImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Controller/AttendanceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Controller/AttendanceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Controller/ClassController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Controller/ClassController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Controller/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/AdminFeesDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/AdminFeesDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/ClassResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/ClassResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/FacultyPersmissionsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/FacultyPersmissionsDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/StudentPermissionsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/StudentPermissionsDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/permissions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/permissions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Entity/AdminFeesStructure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Entity/AdminFeesStructure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Entity/CLassInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Entity/CLassInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Repo/ClassInfoRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Repo/ClassInfoRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Service/AttendanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Service/AttendanceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Service/ClassResponseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Service/ClassResponseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/AdminFeesServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/AdminFeesServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/AttendanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/AttendanceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/ClassResponseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/ClassResponseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Student-Management-System-0.0.1-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Student-Management-System-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Controller/ClassController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Controller/ClassController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Controller/StudentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/AdminFeesDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/AdminFeesDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/ClassResponseDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/ClassResponseDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/FacultyPersmissionsDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/FacultyPersmissionsDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/StudentPermissionsDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/StudentPermissionsDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/permissions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Dto/permissions.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Entity/AdminFeesStructure.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Entity/AdminFeesStructure.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Entity/CLassInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Entity/CLassInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Repo/ClassInfoRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Repo/ClassInfoRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Service/ClassResponseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/Service/ClassResponseService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/AdminFeesServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/AdminFeesServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/ClassResponseServiceImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/ClassResponseServiceImpl$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/ClassResponseServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/ClassResponseServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/FacultyServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/SelfServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.easyWay.Student_Management_System.StudentManagementSystemApplicationTests.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.easyWay.Student_Management_System.StudentManagementSystemApplicationTests.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/easyWay/Student_Management_System/StudentManagementSystemApplicationTests.class" beforeDir="false" />
-    </list>
+    <list default="true" id="9a3cc6ef-3ff7-4f5d-9914-09bb95cdf47c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,7 +41,7 @@
     "Maven.demo [install].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging sc",
+    "git-widget-placeholder": "sc",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Gauri/IdeaProjects/MailService/MailService/S-M-S Mail Service",
     "project.structure.last.edited": "Project",

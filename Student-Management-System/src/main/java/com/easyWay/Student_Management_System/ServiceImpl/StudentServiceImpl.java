@@ -1,8 +1,6 @@
 package com.easyWay.Student_Management_System.ServiceImpl;
 
-import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
-import com.easyWay.Student_Management_System.Dto.FamilyDetails;
-import com.easyWay.Student_Management_System.Dto.StudentInfoDto;
+import com.easyWay.Student_Management_System.Dto.*;
 import com.easyWay.Student_Management_System.Entity.AdminFeesStructure;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Entity.FileTracking;
@@ -20,6 +18,7 @@ import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.StudentService;
 import com.easyWay.Student_Management_System.Utils.FileUtils;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
@@ -35,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -259,6 +259,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     private StudentInfoDto convertEntityToDto(StudentInfo entity) {
+
+
         return StudentInfoDto.builder()
                 .name(entity.getName())
                 .city(entity.getCity())
@@ -277,6 +279,9 @@ public class StudentServiceImpl implements StudentService {
                 .totalFees(entity.getTotalFees())
                 .remainingFees(entity.getRemainingFees())
                 .feeInfo(entity.getFeeInfo() != null && !entity.getFeeInfo().isEmpty() ? entity.getFeeInfo() : Collections.emptyList())
+                .reportCardEntities(entity.getReportCard() != null && !entity.getReportCard().isEmpty() ?
+                        entity.getReportCard() : Collections.emptyList())
+
                 .build();
     }
 

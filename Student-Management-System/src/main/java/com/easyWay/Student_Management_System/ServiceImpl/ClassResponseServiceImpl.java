@@ -18,6 +18,7 @@ import org.springframework.util.ObjectUtils;
 import javax.security.auth.Subject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static java.awt.SystemColor.info;
 
@@ -87,8 +88,19 @@ public class ClassResponseServiceImpl implements ClassResponseService {
         return "edit successfully";
     }
 
+    @Override
+    public String deleteClass(UUID id) {
+        if (classInfoRepo.existsById(id)) {
+            classInfoRepo.deleteById(id);
+            return  " Class is deleted successfully.";
+        } else {
+            return  " Class not found.";
+        }
 
-boolean checkClassValidation(ClassAndSubjetDataDto dto) {
+    }
+
+
+    boolean checkClassValidation(ClassAndSubjetDataDto dto) {
 
     if (dto.getClassName() == null) {
         throw new BadRequestException("Class name cannot be null");

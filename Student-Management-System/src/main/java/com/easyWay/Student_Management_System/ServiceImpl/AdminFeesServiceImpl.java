@@ -39,7 +39,6 @@ public class AdminFeesServiceImpl implements AdminFeesService {
         }
         AdminFeesStructure entity = new AdminFeesStructure();
         extracted(details, entity);
-        entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         repo.save(entity);
         return "Saved successfully";
     }
@@ -113,6 +112,8 @@ public class AdminFeesServiceImpl implements AdminFeesService {
         entity.setSportsFee(details.getSportsFee());
         entity.setTransportation(details.getTransportation());
         entity.setOtherAmount(gson.toJson(details.getOtherAmount()));
+        entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
+
         float total = findTotal(details);
         entity.setTotal(total);
     }

@@ -254,8 +254,8 @@ public class StudentServiceImpl implements StudentService {
         entity.setAdmissionClass(dto.admissionClass);
         entity.setEndDate(dto.getEndDate());
         entity.setAdmissionClass(dto.getCls());
-        entity.setTotalFees(dto.totalFees);
-        entity.setRemainingFees(dto.totalFees);
+        entity.setTotalFees(dto.totalFee);
+        entity.setRemainingFees(dto.totalFee);
     }
 
     private StudentInfoDto convertEntityToDto(StudentInfo entity) {
@@ -276,7 +276,7 @@ public class StudentServiceImpl implements StudentService {
                 .dob(entity.getDob())
                 .id(entity.getId())
                 .creationDateTime(entity.getCreationDateTime())
-                .totalFees(entity.getTotalFees())
+                .totalFee(entity.getTotalFees())
                 .remainingFees(entity.getRemainingFees())
                 .feeInfo(entity.getFeeInfo() != null && !entity.getFeeInfo().isEmpty() ? entity.getFeeInfo() : Collections.emptyList())
                 .reportCardEntities(entity.getReportCard() != null && !entity.getReportCard().isEmpty() ?

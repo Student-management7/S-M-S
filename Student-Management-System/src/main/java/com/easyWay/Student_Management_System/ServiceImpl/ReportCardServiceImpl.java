@@ -62,7 +62,7 @@ public class ReportCardServiceImpl implements ReportCardService {
     public String editReportService(ReportCardDto dto) {
 
 
-        ReportCardEntity entity = infoRepo.getById(dto.getId());
+        ReportCardEntity entity = infoRepo.getById(dto.getReportId());
 
         entity.setAverage(dto.getAverage());
         entity.setGrade(dto.getGrade());
@@ -88,7 +88,8 @@ public class ReportCardServiceImpl implements ReportCardService {
             throw new BadRequestException("enter a valid id");
         }
         ReportCardDto dto = new ReportCardDto();
-        dto.setId(entity.getId());
+        dto.setId(entity.getStudentInfo().getId());
+        dto.setReportId(entity.getId());
 
         Type studentReportCard = new TypeToken<List<StudentReportCardDto>>() {}.getType();
         dto.setSubjects(gson.fromJson(entity.getSubjects() , studentReportCard));

@@ -9,6 +9,7 @@ import java.util.UUID;
 public class ReportCardDto {
 
    public UUID id;
+   public UUID reportId;
    public String examType;
    public String examDate;
 

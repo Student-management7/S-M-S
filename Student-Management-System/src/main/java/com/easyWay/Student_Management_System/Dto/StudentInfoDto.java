@@ -1,5 +1,6 @@
 package com.easyWay.Student_Management_System.Dto;
 
+import com.easyWay.Student_Management_System.Entity.ReportCardEntity;
 import com.easyWay.Student_Management_System.Entity.StudentFeeInfo;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -35,4 +36,5 @@ public class StudentInfoDto {
     public int remainingFees;
 
     public List<StudentFeeInfo> feeInfo;
+    public List<ReportCardEntity> reportCardEntities;
 }

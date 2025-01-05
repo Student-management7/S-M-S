@@ -50,4 +50,8 @@ public class StudentInfo extends BaseEntity {
     @OneToMany(mappedBy = "studentInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<StudentFeeInfo> feeInfo;
 
+    @OneToMany(mappedBy = "studentInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<ReportCardEntity> reportCard;
+
 }

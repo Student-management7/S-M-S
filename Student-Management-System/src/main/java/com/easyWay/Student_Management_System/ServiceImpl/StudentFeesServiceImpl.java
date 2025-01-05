@@ -33,6 +33,7 @@ public class StudentFeesServiceImpl implements StudentFeesService {
               throw new BadRequestException("Invalid student fees id");
         }
 
+
         Optional<StudentInfo> studentInfo = studentInfoRepo.findById(studentFees.getId());
 
         if(studentInfo.isPresent()) {

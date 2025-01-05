@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/class")
@@ -25,9 +26,13 @@ public class ClassController {
         classResponseService.saveData(classResponseDto);
     }
     @PostMapping("/edit")
-    public void editSubjectInClass(@RequestBody ClassResponseDto details){
-        classResponseService.editSubjectInClass(details);
+    public String editSubjectInClass(@RequestBody ClassResponseDto details){
+       return classResponseService.editSubjectInClass(details);
 
+    }
+    @PostMapping("/delete")
+    public String deleteClass(@RequestParam UUID id){
+        return classResponseService.deleteClass(id);
     }
 
 

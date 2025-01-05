@@ -58,9 +58,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     Gson gson;
-
-    @Autowired
-    MailServiceFeignClient mailService;
+//
+//    @Autowired
+//    MailServiceFeignClient mailService;
 
     @Autowired
     AdminFeesRepo adminFeesRepo;

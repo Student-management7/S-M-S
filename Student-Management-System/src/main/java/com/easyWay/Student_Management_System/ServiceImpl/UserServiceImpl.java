@@ -1,8 +1,13 @@
 package com.easyWay.Student_Management_System.ServiceImpl;
 
-import com.easyWay.Student_Management_System.Dto.UsersDto;
+import com.easyWay.Student_Management_System.Dto.*;
+import com.easyWay.Student_Management_System.Entity.SchoolCreationEntity;
 import com.easyWay.Student_Management_System.Entity.Users;
+import com.easyWay.Student_Management_System.Enums.Role;
+import com.easyWay.Student_Management_System.Helper.EmailHelper;
+import com.easyWay.Student_Management_System.Repo.SchoolCreationRepo;
 import com.easyWay.Student_Management_System.Repo.UsersRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Security.JWTService;
 import com.easyWay.Student_Management_System.Security.LoggedInUser;
 import com.easyWay.Student_Management_System.Security.UserDeatilsServices;
@@ -19,10 +24,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
+import java.security.Permission;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,6 +54,12 @@ public class UserServiceImpl implements UserService {
     JWTService jwtService ;
     @Autowired
     private UserDeatilsServices userDeatilsServices;
+
+    @Autowired
+    ClaimService claimService;
+
+    @Autowired
+    SchoolCreationRepo schoolCreationRepo;
 
 //    @Autowired
 //    private  MailService mailService;
@@ -71,6 +85,87 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String registerSchool(SchoolDto schoolDto) throws BadRequestException {
+
+       Users exist = usersRepo.findUsersByEmail(schoolDto.getEmail());
+       if(exist!=null){
+               throw new RuntimeException("Email already exist ");
+       }
+       if(!EmailHelper.isValidEmail(schoolDto.getEmail())){
+           throw new BadRequestException("Invalid email format");
+       }
+
+        Optional<String> loggedInUserEmail = claimService.getLoggedInUserEmail();
+        Users admin = null;
+        if (loggedInUserEmail.isPresent()) {
+            admin = usersRepo.findUsersByEmail(loggedInUserEmail.get());
+       }else {
+            throw new RuntimeException("Illegal user");
+        }
+//        if(!admin.getRole().equals(Role.SUPERUSER)) throw new BadRequestException("Not authorized to create school");
+
+        Users users = new Users();
+        Permissions permissions= new Permissions();
+        SchoolCreationEntity schoolCreation = new SchoolCreationEntity();
+
+
+         StudentPermissionsDto student = new StudentPermissionsDto();
+         FinancePermissionsDto finance = new FinancePermissionsDto();
+         FacultyPersmissionsDto faculty = new FacultyPersmissionsDto();
+         NotificationPermissionDto notification = new NotificationPermissionDto();
+         SubjectPermissionDto subject = new SubjectPermissionDto();
+
+        subjectPermission(subject);
+        studentPermission(student);
+        financePermission(finance);
+        facultyPermission(faculty);
+        notificationPermission(notification);
+
+        permissions.setStudent(student);
+        permissions.setFinance(finance);
+        permissions.setFaculty(faculty);
+        permissions.setNotification(notification);
+        permissions.setSubject(subject);
+
+        convertDtoToEntity(schoolDto,schoolCreation);
+
+        users.setEmail(schoolDto.getEmail().toLowerCase());
+        users.setSchoolCode(schoolDto.getEmail().substring(1,4).toUpperCase()+RANDOM.nextInt(9999));
+        users.setPassword(encoder.encode(schoolDto.getPassword()));
+        users.setRole(Role.USER);
+        users.setPermission(gson.toJson(permissions));
+        users.setSchoolCreation(schoolCreation);
+       users = usersRepo.save(users);
+       schoolCreation.setSchoolCode(users.getSchoolCode());
+       schoolCreation.setUsersInfo(users);
+       schoolCreationRepo.save(schoolCreation);
+
+        return "School Register Successfully !";
+    }
+    public void convertDtoToEntity(SchoolDto dto, SchoolCreationEntity entity) {
+
+        entity.setSchoolName(dto.getSchoolName());
+        entity.setRegistrationNumber(dto.getRegistrationNumber());
+        entity.setGstNumber(dto.getGstNumber());
+        entity.setEstablishmentYear(dto.getEstablishmentYear());
+        entity.setSchoolAddress(dto.getSchoolAddress());
+        entity.setCity(dto.getCity());
+        entity.setState(dto.getState());
+        entity.setPincode(dto.getPincode());
+        entity.setContactNumber(dto.getContactNumber());
+        entity.setAffiliationBoard(dto.getAffiliationBoard());
+        entity.setPanNumber(dto.getPanNumber());
+        entity.setMediumOfInstruction(dto.getMediumOfInstruction());
+        entity.setSchoolType(dto.getSchoolType());
+
+    }
+
+
+    private static void subjectPermission(SubjectPermissionDto subject) {
+        subject.setSaveSubjectsToClasses(true);
+    }
+
+    @Override
     public String loginUser(UsersDto dto) throws BadRequestException {
         Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail().toLowerCase(), dto.getPassword()));
         System.out.println(authentication.getAuthorities().toString());
@@ -91,6 +186,36 @@ public class UserServiceImpl implements UserService {
     }
 
 
+
+    private static void notificationPermission(NotificationPermissionDto notification) {
+        notification.setCreateNotification(true);
+        notification.setNotificationList(true);
+        notification.setHolidayFormController(true);
+    }
+
+    private static void facultyPermission(FacultyPersmissionsDto faculty) {
+        faculty.setFacultyAttendanceEdit(true);
+        faculty.setFacultyAttendanceSave(true);
+        faculty.setFacultyAttendanceShow(true);
+        faculty.setFacultySalaryController(true);
+        faculty.setFacultyRegistrationForm(true);
+        faculty.setFacultySalaryDetails(true);
+        faculty.setFacultyAttendanceEditSave(true);
+    }
+
+    private static void financePermission(FinancePermissionsDto finance) {
+        finance.setAdminFees(true);
+    }
+
+    private static void studentPermission(StudentPermissionsDto student) {
+        student.setStudentAttendance(true);
+        student.setStudentFees(true);
+        student.setStudentAttendanceEdit(true);
+        student.setStudentAttendenceManagement(true);
+        student.setStudentAttendanceShow(true);
+        student.setStudentRegistrationController(true);
+        student.setStudentAttendanceEditSave(true);
+    }
 
     public static String generatePassword() {
         StringBuilder password = new StringBuilder(10); // Fixed length: 10

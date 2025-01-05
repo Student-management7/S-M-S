@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface NotificationRepo extends JpaRepository<NotificationEntity, UUID> {
 
     @Query("SELECT g FROM NotificationEntity g where g.endDate = :time and g.schoolCode = :code")
-    List<NotificationEntity> getByEndDate(String time, @Param("code") String code);
+    List<NotificationEntity> getByEndDate(@Param("time") String time, @Param("code") String code);
 
     @Query("SELECT g FROM NotificationEntity g where g.schoolCode = :code")
     List<NotificationEntity> getAll(@Param("code") String code);

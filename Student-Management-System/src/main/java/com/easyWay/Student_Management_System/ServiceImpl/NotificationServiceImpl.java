@@ -31,9 +31,9 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     Gson gson;
-
-    @Autowired
-    MailServiceFeignClient mailService;
+//
+//    @Autowired
+//    MailServiceFeignClient mailService;
 
     @Autowired
     StudentInfoRepo studentInfoRepo;
@@ -128,7 +128,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     void sendMail(NotificationDto notificationDto,  List<StudentInfo> studentInfo){
         for (StudentInfo info :studentInfo){
-            mailService.sendEmail(info.getEmail(), "Information", notificationDto.getDescription());
+          //  mailService.sendEmail(info.getEmail(), "Information", notificationDto.getDescription());
         }
     }
 }

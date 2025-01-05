@@ -1,5 +1,6 @@
 package com.easyWay.Student_Management_System.Controller;
 
+import com.easyWay.Student_Management_System.Dto.SchoolDto;
 import com.easyWay.Student_Management_System.Dto.UsersDto;
 import com.easyWay.Student_Management_System.Security.JWTService;
 import com.easyWay.Student_Management_System.Service.UserService;
@@ -26,6 +27,10 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<String> register (@RequestBody UsersDto userDto) {
          return ResponseEntity.ok(userService.registerUser(userDto));
+    }
+    @PostMapping("school/register")
+    public ResponseEntity<String> schoolRegister (@RequestBody SchoolDto schoolDto) throws BadRequestException {
+        return ResponseEntity.ok(userService.registerSchool(schoolDto));
     }
 
     @PostMapping("/login")

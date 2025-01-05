@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface AdminFeesRepo extends JpaRepository<AdminFeesStructure , UUID> {
 
     @Query("select a from AdminFeesStructure a where a.className = :cls and schoolCode = :schoolCode")
-    AdminFeesStructure findByClass(String cls, @Param("schoolCode") String schoolCode);
+    AdminFeesStructure findByClass(@Param("cls") String cls, @Param("schoolCode") String schoolCode);
 
     @Query("select a from AdminFeesStructure a where schoolCode = :schoolCode")
     List<AdminFeesStructure> findAllClass(@Param("schoolCode") String schoolCode);

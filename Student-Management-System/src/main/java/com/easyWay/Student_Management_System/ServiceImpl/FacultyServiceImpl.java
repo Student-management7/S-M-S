@@ -3,6 +3,7 @@ package com.easyWay.Student_Management_System.ServiceImpl;
 import com.easyWay.Student_Management_System.Dto.*;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
 import com.easyWay.Student_Management_System.Entity.Users;
+import com.easyWay.Student_Management_System.Enums.Role;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.UsersRepo;
@@ -146,6 +147,7 @@ public class FacultyServiceImpl implements FacultyService {
         user.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         user.setEmail(dto.getEmail());
         user.setPassword(encoder.encode(dto.getPassword()));
+        user.setRole(Role.SUBUSER);
         user = usersRepo.save(user);
         entity.setUserInfo(user);
 

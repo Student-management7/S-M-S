@@ -41,6 +41,9 @@ public class SelfServiceImpl implements SelfService {
         perms.setNotification(gson.fromJson(users.getPermission(), NotificationPermissionDto.class));
         perms.setSubject(gson.fromJson(users.getPermission(), SubjectPermissionDto.class));
         permissionsDto.setPermissions(perms);
+        selfDto.setSchoolCreation(users.getSchoolCreation());
+        selfDto.setEmail(users.getEmail());
+        selfDto.setSchoolCode(users.getSchoolCode());
 
 
     }

@@ -2,6 +2,7 @@ package com.easyWay.Student_Management_System.Service;
 
 import com.easyWay.Student_Management_System.Dto.ReportCardDto;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ReportCardService {
@@ -9,5 +10,5 @@ public interface ReportCardService {
 
     String editReportService(ReportCardDto dto);
 
-    ReportCardDto getReportCard(UUID id);
+    List<ReportCardDto> getReportCard(UUID id);
 }

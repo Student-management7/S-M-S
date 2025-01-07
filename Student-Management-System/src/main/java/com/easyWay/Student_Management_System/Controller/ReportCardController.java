@@ -5,6 +5,7 @@ import com.easyWay.Student_Management_System.Service.ReportCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,7 +25,7 @@ public class ReportCardController {
     }
 
     @GetMapping("/getStudentReport")
-    public ReportCardDto getReportCard(@RequestParam(required = false) UUID id){
+    public List<ReportCardDto> getReportCard(@RequestParam(required = false) UUID id){
         return reportCardService.getReportCard(id);
     }
 

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,6 +65,11 @@ public class ReportCardServiceImpl implements ReportCardService {
 
         ReportCardEntity entity = infoRepo.getById(dto.getReportId());
 
+
+        if(ObjectUtils.isEmpty(entity)){
+            throw new BadRequestException("No Data found for the given id");
+        }
+
         entity.setAverage(dto.getAverage());
         entity.setGrade(dto.getGrade());
         entity.setSubjects(gson.toJson(dto.getSubjects()));
@@ -75,29 +81,35 @@ public class ReportCardServiceImpl implements ReportCardService {
     }
 
     @Override
-    public ReportCardDto getReportCard(UUID id) {
+    public List<ReportCardDto> getReportCard(UUID id) {
 
-        ReportCardEntity entity;
+       List<ReportCardEntity> savedEntity;
 
         if(ObjectUtils.isEmpty(id)){
-            entity = infoRepo.findAll(claimService.getLoggedInUserSchoolCode());
+            savedEntity = infoRepo.findAll(claimService.getLoggedInUserSchoolCode());
         }else {
-            entity = infoRepo.getById(id);
+            savedEntity = infoRepo.findBySchoolCodeAndStudentInfoId(claimService.getLoggedInUserSchoolCode(), id);
         }
-        if (ObjectUtils.isEmpty(entity)){
+        if (ObjectUtils.isEmpty(savedEntity)){
             throw new BadRequestException("enter a valid id");
         }
-        ReportCardDto dto = new ReportCardDto();
-        dto.setId(entity.getStudentInfo().getId());
-        dto.setReportId(entity.getId());
 
-        Type studentReportCard = new TypeToken<List<StudentReportCardDto>>() {}.getType();
-        dto.setSubjects(gson.fromJson(entity.getSubjects() , studentReportCard));
-        dto.setGrade(entity.getGrade());
-        dto.setExamType(entity.getExamType());
-        dto.setAverage(entity.getAverage());
-        dto.setTotalMarks(entity.getTotalMarks());
-        dto.setStudentInfo(entity.getStudentInfo());
-        return dto;
+        List<ReportCardDto> dtos = new ArrayList<>();
+        for (ReportCardEntity entity : savedEntity) {
+            ReportCardDto dto = new ReportCardDto();
+            dto.setId(entity.getStudentInfo().getId());
+            dto.setReportId(entity.getId());
+
+            Type studentReportCard = new TypeToken<List<StudentReportCardDto>>() {
+            }.getType();
+            dto.setSubjects(gson.fromJson(entity.getSubjects(), studentReportCard));
+            dto.setGrade(entity.getGrade());
+            dto.setExamType(entity.getExamType());
+            dto.setAverage(entity.getAverage());
+            dto.setTotalMarks(entity.getTotalMarks());
+            dto.setStudentInfo(entity.getStudentInfo());
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }

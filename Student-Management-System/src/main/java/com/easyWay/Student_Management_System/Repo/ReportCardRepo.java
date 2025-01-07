@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ReportCardRepo extends JpaRepository<ReportCardEntity , UUID> {
@@ -14,5 +15,10 @@ public interface ReportCardRepo extends JpaRepository<ReportCardEntity , UUID> {
     ReportCardEntity getById(@Param("code") String code, @Param("id") UUID id);
 
     @Query("select a from ReportCardEntity a where a.schoolCode = :code")
-    ReportCardEntity findAll(@Param("code") String code);
+    List<ReportCardEntity> findAll(@Param("code") String code);
+
+    @Query("SELECT a FROM ReportCardEntity a WHERE a.schoolCode = :code AND a.studentInfo.id = :studentInfoId")
+    List<ReportCardEntity> findBySchoolCodeAndStudentInfoId(@Param("code") String schoolCode, @Param("studentInfoId") UUID studentInfoId);
+
+
 }

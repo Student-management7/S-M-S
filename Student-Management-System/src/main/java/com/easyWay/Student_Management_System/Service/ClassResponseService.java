@@ -2,9 +2,6 @@ package com.easyWay.Student_Management_System.Service;
 
 import com.easyWay.Student_Management_System.Dto.ClassResponseDto;
 
-import java.util.List;
-import java.util.UUID;
-
 public interface ClassResponseService {
 
     ClassResponseDto getData();
@@ -13,5 +10,5 @@ public interface ClassResponseService {
 
     String editSubjectInClass(ClassResponseDto details);
 
-    String deleteClass(UUID id);
+    String deleteClass(String  className);
 }

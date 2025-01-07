@@ -9,5 +9,5 @@ public class StudentReportCardDto {
     public float marksObtained;
     public float maxMarks;
     public String remarks;
-    public String comments;
+
 }

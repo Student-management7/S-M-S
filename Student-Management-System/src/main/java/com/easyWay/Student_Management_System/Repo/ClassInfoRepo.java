@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ClassInfoRepo extends JpaRepository<CLassInfo, UUID> {
@@ -20,5 +21,6 @@ public interface ClassInfoRepo extends JpaRepository<CLassInfo, UUID> {
 
     @Query("select p from CLassInfo p where  p.schoolCode = :code and p.id = :id")
     CLassInfo getById(@Param("code") String code, @Param("id") UUID id);
+
 
 }

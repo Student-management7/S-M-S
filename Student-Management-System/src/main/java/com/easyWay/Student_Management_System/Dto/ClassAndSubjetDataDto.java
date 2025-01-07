@@ -3,10 +3,12 @@ package com.easyWay.Student_Management_System.Dto;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class ClassAndSubjetDataDto {
 
+    public UUID id;
     private String className;
     private List<String> subject;
 

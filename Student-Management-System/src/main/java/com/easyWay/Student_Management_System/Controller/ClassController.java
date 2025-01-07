@@ -22,8 +22,8 @@ public class ClassController {
     }
 
     @PostMapping("/save")
-    public void saveClassResponse(@RequestBody ClassResponseDto classResponseDto){
-        classResponseService.saveData(classResponseDto);
+    public String saveClassResponse(@RequestBody ClassResponseDto classResponseDto){
+        return classResponseService.saveData(classResponseDto);
     }
     @PostMapping("/edit")
     public String editSubjectInClass(@RequestBody ClassResponseDto details){
@@ -31,8 +31,8 @@ public class ClassController {
 
     }
     @PostMapping("/delete")
-    public String deleteClass(@RequestParam UUID id){
-        return classResponseService.deleteClass(id);
+    public String deleteClass(@RequestParam String className ){
+        return classResponseService.deleteClass(className);
     }
 
 

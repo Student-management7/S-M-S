@@ -47,6 +47,7 @@ public class ClassResponseServiceImpl implements ClassResponseService {
                 }.getType());
                 data.setClassName(classInfo.getClassName());
                 data.setSubject(subjectList);
+                data.setId(classInfo.getId());
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
             }
@@ -58,6 +59,11 @@ public class ClassResponseServiceImpl implements ClassResponseService {
 
     @Override
     public String saveData(ClassResponseDto response) {
+
+        if(ObjectUtils.isEmpty(response)){
+            throw new BadRequestException("No data found");
+        }
+
         for (ClassAndSubjetDataDto data : response.getClassData()) {
             if (checkClassValidation(data)) {
                 CLassInfo classInfo = new CLassInfo();
@@ -89,14 +95,18 @@ public class ClassResponseServiceImpl implements ClassResponseService {
     }
 
     @Override
-    public String deleteClass(UUID id) {
-        if (classInfoRepo.existsById(id)) {
-            classInfoRepo.deleteById(id);
-            return  " Class is deleted successfully.";
-        } else {
-            return  " Class not found.";
+    public String deleteClass(String className) {
+        if (className == null ){
+            throw new BadRequestException("enter valid className ");
+        }
+        CLassInfo entity = classInfoRepo.findByClass(className, claimService.getLoggedInUserSchoolCode());
+
+        if(ObjectUtils.isEmpty(entity)){
+            throw new BadRequestException("No such class found");
         }
 
+       classInfoRepo.deleteById(entity.getId());
+        return "deleted successfully";
     }
 
 
@@ -106,7 +116,7 @@ public class ClassResponseServiceImpl implements ClassResponseService {
         throw new BadRequestException("Class name cannot be null");
 
     }
-    if ((dto.getClassName().equalsIgnoreCase("Nursary") ||
+    if ((dto.getClassName().equalsIgnoreCase("Nursery") ||
             dto.getClassName().equalsIgnoreCase("LKG") ||
             dto.getClassName().equalsIgnoreCase("UKG") ||
             dto.getClassName().equalsIgnoreCase("1") ||

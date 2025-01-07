@@ -83,33 +83,34 @@ public class ReportCardServiceImpl implements ReportCardService {
     @Override
     public List<ReportCardDto> getReportCard(UUID id) {
 
-       List<ReportCardEntity> savedEntity;
+        List<ReportCardEntity> entity;
 
         if(ObjectUtils.isEmpty(id)){
-            savedEntity = infoRepo.findAll(claimService.getLoggedInUserSchoolCode());
+            entity = infoRepo.findAll(claimService.getLoggedInUserSchoolCode());
         }else {
-            savedEntity = infoRepo.findBySchoolCodeAndStudentInfoId(claimService.getLoggedInUserSchoolCode(), id);
+            entity = infoRepo.findBySchoolCodeAndStudentInfoId(claimService.getLoggedInUserSchoolCode(), id);
         }
-        if (ObjectUtils.isEmpty(savedEntity)){
+
+        if (ObjectUtils.isEmpty(entity)){
             throw new BadRequestException("enter a valid id");
         }
-
         List<ReportCardDto> dtos = new ArrayList<>();
-        for (ReportCardEntity entity : savedEntity) {
-            ReportCardDto dto = new ReportCardDto();
-            dto.setId(entity.getStudentInfo().getId());
-            dto.setReportId(entity.getId());
+        for (ReportCardEntity entity1: entity){
 
-            Type studentReportCard = new TypeToken<List<StudentReportCardDto>>() {
-            }.getType();
-            dto.setSubjects(gson.fromJson(entity.getSubjects(), studentReportCard));
-            dto.setGrade(entity.getGrade());
-            dto.setExamType(entity.getExamType());
-            dto.setAverage(entity.getAverage());
-            dto.setTotalMarks(entity.getTotalMarks());
-            dto.setStudentInfo(entity.getStudentInfo());
+            ReportCardDto dto = new ReportCardDto();
+            dto.setId(entity1.getStudentInfo().getId());
+            dto.setReportId(entity1.getId());
+
+            Type studentReportCard = new TypeToken<List<StudentReportCardDto>>() {}.getType();
+            dto.setSubjects(gson.fromJson(entity1.getSubjects() , studentReportCard));
+            dto.setGrade(entity1.getGrade());
+            dto.setExamType(entity1.getExamType());
+            dto.setAverage(entity1.getAverage());
+            dto.setTotalMarks(entity1.getTotalMarks());
+            dto.setStudentInfo(entity1.getStudentInfo());
             dtos.add(dto);
         }
+
         return dtos;
     }
 }

@@ -20,7 +20,8 @@ public class SchoolCreationEntity extends BaseEntity{
     private String adminContact;
     private LocalDateTime serviceStartDate;
     private String currentPlan;
-    private LocalDateTime expiryDate;
+    private LocalDateTime renewalDate;
+    private String status;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_info_id", nullable = false)

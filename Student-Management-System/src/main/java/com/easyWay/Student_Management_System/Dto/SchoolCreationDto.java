@@ -15,5 +15,6 @@ public class SchoolCreationDto extends BaseEntity {
     public String currentPlan;
     public String email;
     public String password;
-    public String expiryDate;
+    public String renewalDate;
+    public String status;
 }

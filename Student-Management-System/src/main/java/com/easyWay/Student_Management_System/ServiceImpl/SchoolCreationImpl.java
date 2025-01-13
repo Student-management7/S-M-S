@@ -95,9 +95,9 @@ public class SchoolCreationImpl implements SchoolCreationService {
             dto.setAdminContact(entity.getAdminContact());
             dto.setSchoolCode(entity.getSchoolCode());
             dto.setCurrentPlan(entity.getCurrentPlan());
-            dto.setExpiryDate(entity.getExpiryDate().toString());
+            dto.setRenewalDate(entity.getRenewalDate().toString());
             dto.setServiceStartDate(entity.getServiceStartDate().toString());
-
+            dto.setStatus(entity.getStatus());
             dtos.add(dto);
 
         }
@@ -111,7 +111,8 @@ public class SchoolCreationImpl implements SchoolCreationService {
         entity.setCurrentPlan(dto.getCurrentPlan());
         entity.setAdminContact(dto.getAdminContact());
         entity.setServiceStartDate(TimeUtils.toStartOfDay(dto.getServiceStartDate()));
-        entity.setExpiryDate(TimeUtils.toEndOfDay(dto.getServiceStartDate()).plusDays(28));
+        entity.setRenewalDate(TimeUtils.toEndOfDay(dto.getServiceStartDate()).plusDays(28));
+        entity.setStatus(dto.getStatus());
     }
 
     public void updateSchoolDetails(SchoolCreationEntity saveSchool , SchoolCreationDto details){
@@ -119,6 +120,7 @@ public class SchoolCreationImpl implements SchoolCreationService {
         saveSchool.setSchoolAddress(details.getSchoolAddress());
         saveSchool.setAdminContact(details.getAdminContact());
         saveSchool.setCurrentPlan(details.getCurrentPlan());
+        saveSchool.setStatus(details.getStatus());
 
         infoRepo.save(saveSchool);
     }

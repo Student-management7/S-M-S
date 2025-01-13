@@ -29,4 +29,9 @@ public class SchoolCreationController {
        return schoolCreationService.updateSchool(school);
     }
 
+    @GetMapping("/get")
+    public  List<SchoolCreationDto> getSchoolDetails(){
+        return schoolCreationService.getSchoolDetails();
+    }
+
 }

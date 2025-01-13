@@ -68,13 +68,40 @@ public class SchoolCreationImpl implements SchoolCreationService {
     @Override
     public String updateSchool(SchoolCreationDto details) {
         try {
-            SchoolCreationEntity saveSchool = infoRepo.getById(claimService.getLoggedInUserSchoolCode() , details.getId());
+            SchoolCreationEntity saveSchool = infoRepo.getById( details.getId());
             updateSchoolDetails(saveSchool , details);
-            return "School saved successfully";
+            return "School edited successfully";
 
         }catch (Exception e){
             throw new BadRequestException("Data not found");
         }
+    }
+
+    @Override
+    public  List<SchoolCreationDto> getSchoolDetails() {
+        List<SchoolCreationEntity> entities = infoRepo.findAll();
+
+        if (ObjectUtils.isEmpty(entities)){
+            throw new BadRequestException("No data found");
+        }
+
+        List<SchoolCreationDto> dtos = new ArrayList<>();
+        for (SchoolCreationEntity entity :entities){
+            SchoolCreationDto dto = new SchoolCreationDto();
+            dto.setSchoolName(entity.getSchoolName());
+            dto.setSchoolAddress(entity.getSchoolAddress());
+            dto.setEmail(entity.getUserInfo2().getEmail());
+            dto.setId(entity.getId());
+            dto.setAdminContact(entity.getAdminContact());
+            dto.setSchoolCode(entity.getSchoolCode());
+            dto.setCurrentPlan(entity.getCurrentPlan());
+            dto.setExpiryDate(entity.getExpiryDate().toString());
+            dto.setServiceStartDate(entity.getServiceStartDate().toString());
+
+            dtos.add(dto);
+
+        }
+        return dtos;
     }
 
 
@@ -90,6 +117,10 @@ public class SchoolCreationImpl implements SchoolCreationService {
     public void updateSchoolDetails(SchoolCreationEntity saveSchool , SchoolCreationDto details){
         saveSchool.setSchoolName(details.getSchoolName());
         saveSchool.setSchoolAddress(details.getSchoolAddress());
+        saveSchool.setAdminContact(details.getAdminContact());
+        saveSchool.setCurrentPlan(details.getCurrentPlan());
+
+        infoRepo.save(saveSchool);
     }
 
 }

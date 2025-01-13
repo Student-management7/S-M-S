@@ -7,7 +7,6 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-@Builder
 public class SchoolCreationDto extends BaseEntity {
     public String schoolName;
     public String schoolAddress;
@@ -16,4 +15,5 @@ public class SchoolCreationDto extends BaseEntity {
     public String currentPlan;
     public String email;
     public String password;
+    public String expiryDate;
 }

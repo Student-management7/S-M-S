@@ -1,10 +1,12 @@
 package com.easyWay.Student_Management_System.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -14,5 +16,15 @@ import lombok.NoArgsConstructor;
 public class SchoolCreationEntity extends BaseEntity{
     private String schoolName;
     private String schoolAddress;
+    private String address;
+    private String adminContact;
+    private LocalDateTime serviceStartDate;
+    private String currentPlan;
+    private LocalDateTime expiryDate;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_info_id", nullable = false)
+    @JsonIgnore
+    private Users userInfo2;
 
 }

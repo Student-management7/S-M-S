@@ -23,6 +23,7 @@ public class SchoolCreationController {
     public String deleteSchool(@RequestParam UUID id){
         return schoolCreationService.deleteSchool(id);
     }
+
     @PostMapping("/update")
     public String updateSchool(@RequestBody SchoolCreationDto school){
        return schoolCreationService.updateSchool(school);

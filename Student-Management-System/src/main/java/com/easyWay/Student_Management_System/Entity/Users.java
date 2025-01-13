@@ -22,4 +22,7 @@ public class Users extends  BaseEntity{
 
     @OneToOne(mappedBy = "userInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private FacultyInfo facultyInfo;
+
+    @OneToOne(mappedBy = "userInfo2", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private SchoolCreationEntity schoolCreationEntity;
 }

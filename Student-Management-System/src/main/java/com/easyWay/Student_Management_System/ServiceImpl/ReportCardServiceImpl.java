@@ -105,9 +105,10 @@ public class ReportCardServiceImpl implements ReportCardService {
             dto.setSubjects(gson.fromJson(entity1.getSubjects() , studentReportCard));
             dto.setGrade(entity1.getGrade());
             dto.setExamType(entity1.getExamType());
+            dto.setExamDate(entity1.getExamDate().toString());
             dto.setAverage(entity1.getAverage());
             dto.setTotalMarks(entity1.getTotalMarks());
-            dto.setStudentInfo(entity1.getStudentInfo());
+
             dtos.add(dto);
         }
 

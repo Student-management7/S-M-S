@@ -28,4 +28,9 @@ public class SchoolCreationEntity extends BaseEntity{
     @JsonIgnore
     private Users userInfo2;
 
+
+//    @OneToOne(mappedBy = "adminCreation_info", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private AdminCreationEntity adminCreationEntity;
+
+
 }

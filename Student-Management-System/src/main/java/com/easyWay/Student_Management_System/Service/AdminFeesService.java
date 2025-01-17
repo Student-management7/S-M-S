@@ -1,5 +1,6 @@
 package com.easyWay.Student_Management_System.Service;
 
+import com.easyWay.Student_Management_System.Dto.AdminCreationDto;
 import com.easyWay.Student_Management_System.Dto.AdminFeesDto;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface AdminFeesService {
     String editFees(AdminFeesDto id);
 
     List<AdminFeesDto> getFees(String cls);
+
+
 }

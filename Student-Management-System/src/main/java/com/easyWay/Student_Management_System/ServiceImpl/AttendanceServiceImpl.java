@@ -3,6 +3,7 @@ package com.easyWay.Student_Management_System.ServiceImpl;
 import com.easyWay.Student_Management_System.Dto.AttendanceDto;
 import com.easyWay.Student_Management_System.Dto.AttendanceRequestDto;
 import com.easyWay.Student_Management_System.Dto.AttendanceResponseDto;
+import com.easyWay.Student_Management_System.Dto.DetailAttendanceDto;
 import com.easyWay.Student_Management_System.Entity.StudentAttendance;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.AttendanceInfoRepo;
@@ -100,7 +101,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         List<StudentAttendance> savedData = new ArrayList<>();
         if (!masterAttendance){
 
-            if(StringUtil.isBlank(details.getSubject())){
+            if(StringUtil.isBlank(details.getSubject())) {
                 throw new BadRequestException("Subject can't be null");
             }
 
@@ -118,6 +119,43 @@ public class AttendanceServiceImpl implements AttendanceService {
         attendanceInfoRepo.save(savedData.get(0));
         return "Saved successfully";
 
+    }
+
+    @Override
+    public DetailAttendanceDto detailAttendance(UUID id, String startDate, String endDate, String cls, String subject) {
+        LocalDateTime from = TimeUtils.toStartOfDay(startDate);
+        LocalDateTime to = TimeUtils.toEndOfDay(endDate);
+        List<StudentAttendance> list = attendanceInfoRepo.findByClassAndSubject(cls, subject, from, to,
+                claimService.getLoggedInUserSchoolCode());
+
+        if(ObjectUtils.isEmpty(list)){
+            throw new BadRequestException("No record found");
+        }
+
+        int total = 0;
+        int presentDays = 0;
+        int absentDays = 0;
+        float attendancePercentage = 0;
+        for (StudentAttendance student:list){
+            Type attendanceListType = new TypeToken<List<AttendanceDto>>() {}.getType();
+            List<AttendanceDto> data = gson.fromJson(student.getStudentList(), attendanceListType);
+            for (AttendanceDto data2: data){
+                if(data2.getStdId().equals(id)){
+                    total++;
+                   if(data2.getAttendance().equalsIgnoreCase("present")){
+                       presentDays++;
+                    }
+                }
+            }
+        }
+        absentDays = total - presentDays;
+        attendancePercentage = ((float) presentDays /total) * 100f;
+        DetailAttendanceDto result = new DetailAttendanceDto();
+        result.setAttendancePercentage(attendancePercentage);
+        result.setAbsentDays(absentDays);
+        result.setTotalDays(total);
+        result.setPresentDays(presentDays);
+        return result;
     }
 
     private void convertDtoToEntity(AttendanceRequestDto dto , StudentAttendance entity ){

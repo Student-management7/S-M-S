@@ -40,7 +40,7 @@ public class AttendanceController {
         return attendanceService.attendanceUpdate(details ,masterAttendance);
     }
 
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     public DetailAttendanceDto detailAttendance(@RequestParam UUID id, @RequestParam String startDate,
                                                 @RequestParam String endDate, @RequestParam String cls,
                                                 @RequestParam String subject){

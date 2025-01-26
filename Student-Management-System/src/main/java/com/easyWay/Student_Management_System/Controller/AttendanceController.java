@@ -43,8 +43,8 @@ public class AttendanceController {
     @GetMapping("/detail")
     public DetailAttendanceDto detailAttendance(@RequestParam UUID id, @RequestParam String startDate,
                                                 @RequestParam String endDate, @RequestParam String cls,
-                                                @RequestParam String subject){
-        return attendanceService.detailAttendance(id, startDate, endDate, cls, subject);
+                                                @RequestParam String subject, @RequestParam boolean masterAttendance){
+        return attendanceService.detailAttendance(id, startDate, endDate, cls, subject, masterAttendance);
 
     }
 

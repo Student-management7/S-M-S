@@ -14,5 +14,5 @@ public interface AttendanceService {
 
     String attendanceUpdate(AttendanceRequestDto details ,boolean masterAttendance);
 
-    DetailAttendanceDto detailAttendance(UUID id, String startDate, String endDate, String cls, String subject);
+    DetailAttendanceDto detailAttendance(UUID id, String startDate, String endDate, String cls, String subject, boolean masterAttendance);
 }

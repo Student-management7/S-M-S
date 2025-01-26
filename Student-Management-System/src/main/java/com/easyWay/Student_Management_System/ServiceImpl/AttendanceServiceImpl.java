@@ -122,12 +122,17 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public DetailAttendanceDto detailAttendance(UUID id, String startDate, String endDate, String cls, String subject) {
+    public DetailAttendanceDto detailAttendance(UUID id, String startDate, String endDate, String cls, String subject
+    ,boolean masterAttendance) {
         LocalDateTime from = TimeUtils.toStartOfDay(startDate);
         LocalDateTime to = TimeUtils.toEndOfDay(endDate);
-        List<StudentAttendance> list = attendanceInfoRepo.findByClassAndSubject(cls, subject, from, to,
-                claimService.getLoggedInUserSchoolCode());
-
+        List<StudentAttendance> list = new ArrayList<>();
+        if(!masterAttendance) {
+            list = attendanceInfoRepo.findByClassAndSubject(cls, subject, from, to,
+                    claimService.getLoggedInUserSchoolCode());
+        }else {
+            list = attendanceInfoRepo.findByClassAndSubjectMaster(cls, from, to, claimService.getLoggedInUserSchoolCode());
+        }
         if(ObjectUtils.isEmpty(list)){
             throw new BadRequestException("No record found");
         }

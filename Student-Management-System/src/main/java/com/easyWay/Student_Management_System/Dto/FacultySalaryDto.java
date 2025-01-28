@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 @Data
 public class FacultySalaryDto {
+    private UUID id;
     private UUID facultyID;
     private int facultySalary;
     private int facultyTax;

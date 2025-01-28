@@ -5,10 +5,9 @@ import com.easyWay.Student_Management_System.Service.StudentFeesService;
 import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/student")
@@ -21,6 +20,16 @@ public class StudentFeesController {
     public String saveFees(@RequestBody StudentFeesDto studentFeesDto) {
         studentFeesService.saveStudentFees(studentFeesDto);
         return "Fees saved successfully";
+    }
+
+    @PostMapping("/deleteFees")
+    public String deleteFees(@RequestParam UUID id){
+       return studentFeesService.deleteFees(id);
+
+    }
+    @PostMapping("/editFees")
+    public String editFees(@RequestBody StudentFeesDto dto){
+        return studentFeesService.editFees(dto);
     }
 
 }

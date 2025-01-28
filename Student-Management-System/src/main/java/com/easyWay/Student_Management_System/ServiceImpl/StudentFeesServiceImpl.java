@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class StudentFeesServiceImpl implements StudentFeesService {
@@ -49,4 +50,24 @@ public class StudentFeesServiceImpl implements StudentFeesService {
         }
         return "Fees Added successfully";
     }
+
+    @Override
+    public String deleteFees(UUID id) {
+        studentFeesInfoRepo.deleteById(id);
+        return "deleted successfully";
+    }
+
+    @Override
+    public String editFees(StudentFeesDto dto) {
+        StudentFeeInfo entity = studentFeesInfoRepo.getById(dto.getId());
+
+        if (ObjectUtils.isEmpty(entity)){
+            throw new BadRequestException("Not data found");
+        }
+        entity.setFee(dto.getFee());
+        studentFeesInfoRepo.save(entity);
+        return "data edit successfully";
+    }
+
+
 }

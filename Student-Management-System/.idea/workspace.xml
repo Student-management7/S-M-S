@@ -34,7 +34,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.StudentManagementSystemApplication.executor": "Debug",
+    "Application.StudentManagementSystemApplication.executor": "Run",
     "Maven.Student-Management-System [clean].executor": "Run",
     "Maven.Student-Management-System [install].executor": "Run",
     "Maven.demo [clean].executor": "Run",
@@ -128,7 +128,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultySalaryServiceImpl.java</url>
-          <line>32</line>
+          <line>36</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -138,12 +138,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Controller/AttendanceController.java</url>
-          <line>31</line>
+          <line>33</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/AttendanceServiceImpl.java</url>
-          <line>67</line>
+          <line>68</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

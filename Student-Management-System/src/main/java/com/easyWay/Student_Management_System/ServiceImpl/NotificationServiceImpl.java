@@ -106,7 +106,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     void convertDtoToEntity(NotificationDto notificationDto, NotificationEntity entity){
         LocalDateTime startDate = TimeUtils.toStartOfDay(notificationDto.getStartDate());
-        LocalDateTime endDate = TimeUtils.toEndOfDay(notificationDto.getStartDate());
+        LocalDateTime endDate = TimeUtils.toEndOfDay(notificationDto.getEndDate());
 
         entity.setStartDate(String.valueOf(startDate));
         entity.setEndDate(String.valueOf(endDate));

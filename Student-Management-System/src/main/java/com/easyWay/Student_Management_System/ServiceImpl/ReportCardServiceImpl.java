@@ -83,13 +83,12 @@ public class ReportCardServiceImpl implements ReportCardService {
     @Override
     public List<ReportCardDto> getReportCard(UUID id) {
 
-        List<ReportCardEntity> entity = new ArrayList<>();
+        List<ReportCardEntity> entity  ;
 
         if(ObjectUtils.isEmpty(id)){
             entity = infoRepo.findAll(claimService.getLoggedInUserSchoolCode());
         }else {
-            ReportCardEntity entity1 = infoRepo.getById(id);
-            entity.add(entity1);
+            entity = infoRepo.findBySchoolCodeAndStudentInfoId(claimService.getLoggedInUserSchoolCode(), id);
         }
 
         if (ObjectUtils.isEmpty(entity)){

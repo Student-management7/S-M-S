@@ -23,6 +23,16 @@ public class SchoolCreationEntity extends BaseEntity{
     private LocalDateTime renewalDate;
     private String status;
 
+    private String city;
+    private String state;
+    private String schoolLandlineNo;
+    private String ownerName;
+    private String gst;
+    private String boardType;
+    private String subscriptionType;
+    private String roll;
+
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_info_id", nullable = false)
     @JsonIgnore

@@ -96,8 +96,19 @@ public class SchoolCreationImpl implements SchoolCreationService {
             dto.setSchoolCode(entity.getSchoolCode());
             dto.setCurrentPlan(entity.getCurrentPlan());
 //            dto.setRenewalDate(entity.getRenewalDate().toString());
+            dto.setRenewalDate(entity.getRenewalDate().toString());
+
             dto.setServiceStartDate(entity.getServiceStartDate().toString());
             dto.setStatus(entity.getStatus());
+
+            dto.setCity(entity.getCity());
+            dto.setState(entity.getState());
+            dto.setSchoolLandlineNo(entity.getSchoolLandlineNo());
+            dto.setOwnerName(entity.getOwnerName());
+            dto.setGst(entity.getGst());
+            dto.setBoardType(entity.getBoardType());
+            dto.setSubscriptionType(entity.getSubscriptionType());
+            dto.setRoll(entity.getRoll());
             dtos.add(dto);
 
         }
@@ -111,9 +122,21 @@ public class SchoolCreationImpl implements SchoolCreationService {
         entity.setCurrentPlan(dto.getCurrentPlan());
         entity.setAdminContact(dto.getAdminContact());
         entity.setServiceStartDate(TimeUtils.toStartOfDay(dto.getServiceStartDate()));
-//        entity.setRenewalDate(TimeUtils.toEndOfDay(dto.getServiceStartDate()).plusDays(28));
+        entity.setRenewalDate(TimeUtils.toEndOfDay(dto.getServiceStartDate()).plusDays(28));
+
         entity.setStatus(dto.getStatus());
+        entity.setCity(dto.getCity());
+        entity.setState(dto.getState());
+        entity.setSchoolLandlineNo(dto.getSchoolLandlineNo());
+        entity.setOwnerName(dto.getOwnerName());
+        entity.setGst(dto.getGst());
+        entity.setBoardType(dto.getBoardType());
+        entity.setSubscriptionType(dto.getSubscriptionType());
+
+
     }
+
+
 
     public void updateSchoolDetails(SchoolCreationEntity saveSchool , SchoolCreationDto details){
         saveSchool.setSchoolName(details.getSchoolName());
@@ -121,6 +144,15 @@ public class SchoolCreationImpl implements SchoolCreationService {
         saveSchool.setAdminContact(details.getAdminContact());
         saveSchool.setCurrentPlan(details.getCurrentPlan());
         saveSchool.setStatus(details.getStatus());
+
+        saveSchool.setSchoolLandlineNo(details.getSchoolLandlineNo());
+        saveSchool.setCity(details.getCity());
+        saveSchool.setState(details.getState());
+        saveSchool.setOwnerName(details.getOwnerName());
+        saveSchool.setGst(details.getGst());
+        saveSchool.setBoardType(details.getBoardType());
+        saveSchool.setSubscriptionType(details.getSubscriptionType());
+        saveSchool.setRoll(details.getRoll());
 
         infoRepo.save(saveSchool);
     }

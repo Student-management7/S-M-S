@@ -17,4 +17,14 @@ public class SchoolCreationDto extends BaseEntity {
     public String password;
     public String renewalDate;
     public String status;
+
+    public String city;
+    public String state;
+    public String schoolLandlineNo;
+    public String ownerName;
+    public String gst;
+    public String boardType;
+    public String subscriptionType;
+    public String roll;
+
 }

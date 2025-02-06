@@ -11,6 +11,7 @@ import com.easyWay.Student_Management_System.Service.SchoolCreationService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -33,6 +34,7 @@ public class SchoolCreationImpl implements SchoolCreationService {
 
     @Autowired
     UsersRepo usersRepo;
+    private BCryptPasswordEncoder encoder  = new BCryptPasswordEncoder(11);
 
     private static final SecureRandom RANDOM = new SecureRandom();
 
@@ -42,7 +44,7 @@ public class SchoolCreationImpl implements SchoolCreationService {
         convertDtoToEntity(details, schoolCreationEntity);
         Users users = new Users();
         users.setEmail(details.getEmail());
-        users.setPassword(details.getPassword());
+        users.setPassword(encoder.encode(details.getPassword()));
         String schoolCode = details.getEmail().substring(1,4).toUpperCase()+RANDOM.nextInt(9999);
         users.setSchoolCode(schoolCode);
         users.setPermission("");

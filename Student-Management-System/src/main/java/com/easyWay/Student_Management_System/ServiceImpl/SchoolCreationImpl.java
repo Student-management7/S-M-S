@@ -10,6 +10,7 @@ import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.SchoolCreationService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,7 @@ public class SchoolCreationImpl implements SchoolCreationService {
 
     @Override
     public String saveSchool(SchoolCreationDto details) {
+        checkSchoolCreationValidation(details);
         SchoolCreationEntity schoolCreationEntity = new SchoolCreationEntity();
         convertDtoToEntity(details, schoolCreationEntity);
         Users users = new Users();
@@ -53,6 +55,30 @@ public class SchoolCreationImpl implements SchoolCreationService {
         schoolCreationEntity.setSchoolCode(schoolCode);
         infoRepo.save(schoolCreationEntity);
         return "Saved Successfully";
+    }
+
+    void checkSchoolCreationValidation(SchoolCreationDto details ){
+        if (details == null){
+            throw new BadRequestException("School creation details can't be null");
+        }
+        if (StringUtil.isBlank(details.getSchoolName())) {
+            throw new BadRequestException("School name can't be empty");
+        }
+        if (StringUtil.isBlank(details.getSchoolAddress())){
+            throw new BadRequestException("School address can't be empty");
+        }
+        if (StringUtil.isBlank(details.getAdminContact())){
+            throw new BadRequestException("Admin contact can't be empty");
+        }
+        if (StringUtil.isBlank(details.getServiceStartDate())){
+            throw new BadRequestException("Service start date can't be empty");
+        }
+        if (StringUtil.isBlank(details.getEmail())){
+            throw new BadRequestException("Email can't be empty");
+        }
+        if (StringUtil.isBlank(details.getPassword())){
+            throw new BadRequestException("PassWord can't be empty");
+        }
     }
 
     @Override

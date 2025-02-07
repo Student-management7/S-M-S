@@ -38,6 +38,9 @@ public class StudentFeesServiceImpl implements StudentFeesService {
         Optional<StudentInfo> studentInfo = studentInfoRepo.findById(studentFees.getId());
 
         if(studentInfo.isPresent()) {
+            if(studentInfo.get().getRemainingFees() == 0){
+                throw new BadRequestException("No remaining fees");
+            }
             StudentFeeInfo studentFeeInfo = new StudentFeeInfo();
             studentFeeInfo.setFee(studentFees.getFee());
             studentFeeInfo.setStudentInfo(studentInfo.get());

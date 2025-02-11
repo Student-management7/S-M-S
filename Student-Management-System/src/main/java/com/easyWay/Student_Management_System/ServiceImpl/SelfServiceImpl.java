@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 
 @Service
@@ -42,7 +43,18 @@ public class SelfServiceImpl implements SelfService {
         perms.setNotification(gson.fromJson(users.getPermission(), NotificationPermissionDto.class));
         perms.setSubject(gson.fromJson(users.getPermission(), SubjectPermissionDto.class));
         permissionsDto.setPermissions(perms);
-
-
+        selfDto.setAdminCreationEntity(users.getAdminCreationEntity());
+        selfDto.setSchoolCreationEntity(users.getSchoolCreationEntity());
+        selfDto.setFacultyInfo(users.getFacultyInfo());
+        selfDto.setSchoolCode(users.getSchoolCode());
+        selfDto.setEmail(users.getEmail());
+        selfDto.setPermission(permissionsDto);
+        if(!ObjectUtils.isEmpty(users.getSchoolCreationEntity())){
+            selfDto.setRole("user");
+        } else if (!ObjectUtils.isEmpty(users.getAdminCreationEntity())) {
+            selfDto.setRole("admin");
+        } else if (!ObjectUtils.isEmpty(users.getFacultyInfo())) {
+            selfDto.setRole("sub-user");
+        }
     }
 }

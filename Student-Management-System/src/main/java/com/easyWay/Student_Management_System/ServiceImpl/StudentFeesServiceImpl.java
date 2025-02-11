@@ -56,6 +56,7 @@ public class StudentFeesServiceImpl implements StudentFeesService {
 
     @Override
     public String deleteFees(UUID id) {
+
         studentFeesInfoRepo.deleteById(id);
         return "deleted successfully";
     }

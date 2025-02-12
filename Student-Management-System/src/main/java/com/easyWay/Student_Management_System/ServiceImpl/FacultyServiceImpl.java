@@ -8,6 +8,7 @@ import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.UsersRepo;
 import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.FacultyService;
+import com.easyWay.Student_Management_System.Utils.EmailCheckUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.Builder;
@@ -20,9 +21,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Type;
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 
 @Slf4j
 @Service
@@ -38,6 +41,7 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Autowired
     UsersRepo usersRepo;
+
 
     private BCryptPasswordEncoder encoder  = new BCryptPasswordEncoder(11);
 
@@ -128,6 +132,10 @@ public class FacultyServiceImpl implements FacultyService {
 
     private void convertDtoToEntity(FacultyInfoDto dto, FacultyInfo entity) {
 
+        if(isEmailAlreadyRegistered(dto.getEmail(), claimService.getLoggedInUserSchoolCode())){
+            throw new BadRequestException("Email already registered");
+        }
+
         entity.setFact_Name(dto.getFact_Name());
         entity.setFact_email(dto.getFact_email());
         entity.setFact_contact(dto.getFact_contact());
@@ -141,11 +149,12 @@ public class FacultyServiceImpl implements FacultyService {
 
         entity.setFact_cls(gson.toJson(dto.getFact_Cls()));
         entity.setFact_status(dto.getFact_Status());
-
         Users user = new Users();
         user.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         user.setEmail(dto.getEmail());
         user.setPassword(encoder.encode(dto.getPassword()));
+       // user.setRole("sub-user");
+        user.setPermission("{\"Student\":{\"studentAttendance\":true,\"StudentAttendanceEdit\":true,\"StudentFees\":false,\"StudentAttendenceManagement\":true,\"StudentAttendanceEditSave\":false,\"StudentRegistrationController\":false,\"StudentAttendanceShow\":false},\"finance\":{\"adminFees\":false},\"faculty\":{\"FacultySalaryDetails\":false,\"FacultySalaryController\":false,\"FacultyAttendanceEditSave\":false,\"FacultyAttendanceEdit\":false,\"FacultyAttendanceShow\":false,\"FacultyAttendanceSave\":false,\"FacultyRegistrationForm\":false},\"Notification\":{\"CreateNotification\":false,\"NotificationList\":false,\"HolidayFormController\":false},\"Subject\":{\"SaveSubjectsToClasses\":false}}");
         user = usersRepo.save(user);
         entity.setUserInfo(user);
 
@@ -207,5 +216,13 @@ public class FacultyServiceImpl implements FacultyService {
         dto.setFact_salary(entity.getSalaryInfo());
 
     }
+    public boolean isEmailAlreadyRegistered(String email, String code ) {
+        Users user = usersRepo.findUsersByEmail(email, code);
 
+        if (ObjectUtils.isEmpty(user)){
+            return false;
+        }else {
+            return true;
+        }
+    }
 }

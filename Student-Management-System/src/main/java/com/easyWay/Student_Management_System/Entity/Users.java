@@ -16,6 +16,7 @@ public class Users extends  BaseEntity{
     private String email;
     private String password;
     private String schoolCode;
+    private String role;
 
     @Column(columnDefinition = "Text")
     private String permission ;

@@ -12,4 +12,7 @@ public interface UsersRepo extends JpaRepository<Users , UUID> {
 
   @Query("select g from Users g where g.schoolCode is null")
   List<Users> getAdminDetail();
+
+  @Query("select g from Users g where g.email = :email and g.schoolCode  = :code")
+  Users findUsersByEmail(String email, String code);
 }

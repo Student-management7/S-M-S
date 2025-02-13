@@ -36,12 +36,9 @@ public class SelfServiceImpl implements SelfService {
 
     void convertEntityToDto(SelfDto selfDto, Users users) {
         PermissionsDto permissionsDto = new PermissionsDto();
-        permissions perms = new permissions();
-        perms.setFaculty(gson.fromJson(users.getPermission(), FacultyPersmissionsDto.class));
-        perms.setStudent(gson.fromJson(users.getPermission(), StudentPermissionsDto.class));
-        perms.setFinance(gson.fromJson(users.getPermission(), FinancePermissionsDto.class));
-        perms.setNotification(gson.fromJson(users.getPermission(), NotificationPermissionDto.class));
-        perms.setSubject(gson.fromJson(users.getPermission(), SubjectPermissionDto.class));
+
+        permissions perms = gson.fromJson(users.getPermission(), permissions.class);
+
         permissionsDto.setPermissions(perms);
         selfDto.setAdminCreationEntity(users.getAdminCreationEntity());
         selfDto.setSchoolCreationEntity(users.getSchoolCreationEntity());

@@ -257,10 +257,11 @@ public class StudentServiceImpl implements StudentService {
             entity.setTotalFees(dto.totalFee);
             entity.setRemainingFees(dto.totalFee);
         } else {
-            AdminFeesStructure fees = adminFeesRepo.findByClass(dto.getCls(), claimService.getLoggedInUserSchoolCode());
-            entity.setTotalFees((int)fees.getTotal());
+            AdminFeesStructure fees = adminFeesRepo.findByClass(dto.getAdmissionClass(), claimService.getLoggedInUserSchoolCode());
+            entity.setTotalFees(ObjectUtils.isEmpty((int)fees.getTotal()) ?  0 : (int)fees.getTotal());
             entity.setRemainingFees((int)fees.getTotal());
         }
+        entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
     }
 
     private StudentInfoDto convertEntityToDto(StudentInfo entity) {

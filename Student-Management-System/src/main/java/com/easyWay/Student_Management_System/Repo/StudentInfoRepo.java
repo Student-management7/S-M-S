@@ -12,19 +12,19 @@ import java.util.UUID;
 
 public interface StudentInfoRepo extends JpaRepository<StudentInfo, UUID> {
 
-    @Query("select p from StudentInfo p where p.isDelete = false and p.schoolCode = :code and p.id = :id")
+    @Query("select p from StudentInfo p where p.isDelete = false and p.schoolCode = :code and p.id = :id and p.errorDescription is null")
     StudentInfo getById(@Param("code") String code, @Param("id") UUID id);
 
-    @Query("select p from StudentInfo p where p.cls = :clss and p.isDelete = false and p.schoolCode = :code")
+    @Query("select p from StudentInfo p where p.cls = :clss and p.isDelete = false and p.schoolCode = :code and p.errorDescription is null")
     List<StudentInfo> findByClass(@Param("clss") String clss, @Param("code") String code);
 
-    @Query("select p from StudentInfo p where p.cls = :clss and p.isDelete = false and p.name= :name and p.schoolCode = :code")
+    @Query("select p from StudentInfo p where p.cls = :clss and p.isDelete = false and p.name= :name and p.schoolCode = :code and p.errorDescription is null")
     List<StudentInfo> findByClassAndName(@Param("clss") String clss ,@Param("name") String name, @Param("code") String code);
 
-    @Query("select p from StudentInfo p where p.name = :name and p.isDelete = false and p.schoolCode = :code")
+    @Query("select p from StudentInfo p where p.name = :name and p.isDelete = false and p.schoolCode = :code and p.errorDescription is null")
     List<StudentInfo> findByName(@Param("name") String name, @Param("code") String code);
 
-    @Query("select p from StudentInfo p where p.isDelete = false and p.schoolCode = :code")
+    @Query("select p from StudentInfo p where p.isDelete = false and p.schoolCode = :code and p.errorDescription is null")
     List<StudentInfo> findAllStudent(@Param("code") String code);
 
 

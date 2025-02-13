@@ -22,7 +22,8 @@ public enum StudendtHeader {
     EMAIL(15, "Email"),
     CLASS(16, "Class"),
     DEPARTMENT(17, "Department"),
-    CATEGORY(18, "Category");
+    CATEGORY(18, "Category"),
+    ADMISSIONCLASS(19, "Admission Class*");
 
 
     int index;

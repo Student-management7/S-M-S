@@ -77,7 +77,7 @@ public class StudentServiceImpl implements StudentService {
     public String saveStudent(StudentInfoDto details)  {
         checkStudentValidations(details);
         StudentInfo studentInfo = new StudentInfo();
-        convertDtoToEntity(details, studentInfo);
+        convertDtoToEntity(details, studentInfo, false);
         studentInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         infoRepo.save(studentInfo);
       //  mailService.sendEmail(details.getFamilyDetails().getStdo_email(),"Tesing 2", "Test");
@@ -87,7 +87,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public String studentBulkUpload(MultipartFile file) {
         try {
-
             String filename = file.getOriginalFilename();
             log.info("Uploading file : {}", filename);
             FileTracking fileTracking = new FileTracking();
@@ -209,7 +208,7 @@ public class StudentServiceImpl implements StudentService {
             validateMaditeryField(studentDto, errorDescription, errorCodes);
             StudentInfo studentInfo = new StudentInfo();
             studentInfo.setFileTracking(fileTracking);
-            convertDtoToEntity(studentDto, studentInfo);
+            convertDtoToEntity(studentDto, studentInfo, true);
 
             if (!errorCodes.isEmpty() && !errorDescription.isEmpty()) {
                 studentInfo.setErrorCode(String.join(", ", errorCodes));
@@ -237,7 +236,7 @@ public class StudentServiceImpl implements StudentService {
         fileTrackingRepo.save(fileTracking);
     }
 
-    private void convertDtoToEntity(StudentInfoDto dto, StudentInfo entity) {
+    private void convertDtoToEntity(StudentInfoDto dto, StudentInfo entity,boolean isUpload) {
 
         entity.setName(dto.getName().toLowerCase());
         entity.setCity(dto.getCity());
@@ -254,8 +253,14 @@ public class StudentServiceImpl implements StudentService {
         entity.setAdmissionClass(dto.admissionClass);
         entity.setEndDate(dto.getEndDate());
         entity.setAdmissionClass(dto.getCls());
-        entity.setTotalFees(dto.totalFee);
-        entity.setRemainingFees(dto.totalFee);
+        if(!isUpload) {
+            entity.setTotalFees(dto.totalFee);
+            entity.setRemainingFees(dto.totalFee);
+        } else {
+            AdminFeesStructure fees = adminFeesRepo.findByClass(dto.getCls(), claimService.getLoggedInUserSchoolCode());
+            entity.setTotalFees((int)fees.getTotal());
+            entity.setRemainingFees((int)fees.getTotal());
+        }
     }
 
     private StudentInfoDto convertEntityToDto(StudentInfo entity) {
@@ -327,6 +332,7 @@ public class StudentServiceImpl implements StudentService {
                         studentInfoDto.cls(setColumnValue(row.getCell(k++)));
                         studentInfoDto.department(setColumnValue(row.getCell(k++)));
                         studentInfoDto.category(setColumnValue(row.getCell(k++)));
+                        studentInfoDto.admissionClass(setColumnValue(row.getCell(k++)));
                         studentList.add(studentInfoDto.build());
                     }
                 }, executorService);
@@ -397,11 +403,11 @@ public class StudentServiceImpl implements StudentService {
         Row headerRow = sheet.getRow(0);
         List<String> headList = new ArrayList<>();
         DataFormatter dataFormatter = new DataFormatter();
-        for (StudendtHeader header : StudendtHeader.values()) {
-            Integer index = header.getIndex();
-            String getValue = header.getValue();
-            String colValue = dataFormatter.formatCellValue(headerRow.getCell(index));
-            headList.add(colValue);
+        for (StudendtHeader header : StudendtHeader.values()) {// 0
+            Integer index = header.getIndex();//0
+            String getValue = header.getValue();//Name*
+            String colValue = dataFormatter.formatCellValue(headerRow.getCell(index));//Name*
+            headList.add(colValue);//Name*
             if (!getValue.equalsIgnoreCase(colValue)) {
                 throw new BadRequestException("Please upload the correct format !");
             }

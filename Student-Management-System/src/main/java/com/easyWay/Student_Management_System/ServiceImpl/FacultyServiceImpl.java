@@ -113,6 +113,7 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     void updateFacultyDetails(FacultyInfo saveFaculty, FacultyInfoDto details) {
+
         saveFaculty.setId(details.getFact_id());
         saveFaculty.setFact_Name(details.getFact_Name());
         saveFaculty.setFact_cls(gson.toJson(details.getFact_Cls()));
@@ -205,7 +206,7 @@ public class FacultyServiceImpl implements FacultyService {
         dto.setFact_state(entity.getFact_state());
         dto.setFact_joiningDate(entity.getFact_joiningDate());
         dto.setFact_leavingDate(entity.getFact_leavingDate());
-
+        dto.setEmail(entity.getUserInfo().getEmail());
         Type attendanceListType = new TypeToken<List<FactQualificationDto>>() {}.getType();
         dto.setFact_qualification(gson.fromJson(entity.getFact_graduation() ,attendanceListType));
 

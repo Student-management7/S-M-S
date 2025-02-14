@@ -11,5 +11,5 @@ public interface SchoolCreationService {
 
     String updateSchool(SchoolCreationDto details);
 
-    List<SchoolCreationDto> getSchoolDetails();
+    List<SchoolCreationDto> getSchoolDetails(UUID id);
 }

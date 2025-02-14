@@ -30,8 +30,8 @@ public class SchoolCreationController {
     }
 
     @GetMapping("/get")
-    public  List<SchoolCreationDto> getSchoolDetails(){
-        return schoolCreationService.getSchoolDetails();
+    public  List<SchoolCreationDto> getSchoolDetails(UUID id){
+        return schoolCreationService.getSchoolDetails(id);
     }
 
 }

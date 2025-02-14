@@ -106,9 +106,14 @@ public class SchoolCreationImpl implements SchoolCreationService {
     }
 
     @Override
-    public  List<SchoolCreationDto> getSchoolDetails() {
-        List<SchoolCreationEntity> entities = infoRepo.findAll();
-
+    public  List<SchoolCreationDto> getSchoolDetails(UUID id) {
+        List<SchoolCreationEntity> entities = new ArrayList<>();
+        if (ObjectUtils.isEmpty(id)) {
+          entities  = infoRepo.findAll();
+        }else {
+            SchoolCreationEntity entity = infoRepo.getById(id);
+            entities.add(entity);
+        }
         if (ObjectUtils.isEmpty(entities)){
             throw new BadRequestException("No data found");
         }

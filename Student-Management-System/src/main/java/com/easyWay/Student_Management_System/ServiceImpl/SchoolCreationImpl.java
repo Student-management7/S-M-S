@@ -41,6 +41,9 @@ public class SchoolCreationImpl implements SchoolCreationService {
 
     @Override
     public String saveSchool(SchoolCreationDto details) {
+        if(!checkRegistration(details)){
+            throw new BadRequestException("Email already registered");
+        }
         checkSchoolCreationValidation(details);
         SchoolCreationEntity schoolCreationEntity = new SchoolCreationEntity();
         convertDtoToEntity(details, schoolCreationEntity);
@@ -188,6 +191,15 @@ public class SchoolCreationImpl implements SchoolCreationService {
         saveSchool.setRoll(details.getRoll());
 
         infoRepo.save(saveSchool);
+    }
+
+    boolean checkRegistration(SchoolCreationDto dto ){
+        Users users =  usersRepo.findUsersByEmail(dto.getEmail());
+        if (ObjectUtils.isEmpty(users)){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }

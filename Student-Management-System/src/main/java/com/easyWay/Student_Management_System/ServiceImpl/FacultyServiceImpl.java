@@ -133,7 +133,7 @@ public class FacultyServiceImpl implements FacultyService {
 
     private void convertDtoToEntity(FacultyInfoDto dto, FacultyInfo entity) {
 
-        if(isEmailAlreadyRegistered(dto.getEmail(), claimService.getLoggedInUserSchoolCode())){
+        if(isEmailAlreadyRegistered(dto.getEmail())){
             throw new BadRequestException("Email already registered");
         }
 
@@ -217,8 +217,9 @@ public class FacultyServiceImpl implements FacultyService {
         dto.setFact_salary(entity.getSalaryInfo());
 
     }
-    public boolean isEmailAlreadyRegistered(String email, String code ) {
-        Users user = usersRepo.findUsersByEmail(email, code);
+
+    public boolean isEmailAlreadyRegistered(String email ) {
+        Users user = usersRepo.findUsersByEmail(email);
 
         if (ObjectUtils.isEmpty(user)){
             return false;

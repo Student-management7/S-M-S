@@ -7,4 +7,5 @@ public class NotificationPermissionDto {
     public boolean CreateNotification;
     public boolean NotificationList;
     public boolean HolidayFormController;
+    public boolean notificationController;
 }

@@ -6,4 +6,6 @@ import lombok.Data;
 
 public class FinancePermissionsDto {
     public boolean adminFees;
+    public boolean feesController;
+    public boolean permission;
 }

@@ -7,7 +7,7 @@ public class permissions {
 
     public StudentPermissionsDto Student;
     public FinancePermissionsDto finance;
-    public FacultyPersmissionsDto faculty;
+    public FacultyPermissionsDto faculty;
     public NotificationPermissionDto Notification;
     public SubjectPermissionDto Subject;
 

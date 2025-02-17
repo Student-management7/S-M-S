@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class SubjectPermissionDto {
-    public boolean SaveSubjectsToClasses;
+    public boolean saveSubjectsToClasses;
     public boolean classSubjectShow;
 }

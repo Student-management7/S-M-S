@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class permissions {
 
-    public StudentPermissionsDto Student;
+    public StudentPermissionsDto student;
     public FinancePermissionsDto finance;
     public FacultyPermissionsDto faculty;
-    public NotificationPermissionDto Notification;
-    public SubjectPermissionDto Subject;
+    public NotificationPermissionDto notification;
+    public SubjectPermissionDto subject;
 
 }

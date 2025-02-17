@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class NotificationPermissionDto {
-    public boolean CreateNotification;
-    public boolean NotificationList;
-    public boolean HolidayFormController;
+    public boolean createNotification;
+    public boolean notificationList;
+    public boolean holidayFormController;
     public boolean notificationController;
 }

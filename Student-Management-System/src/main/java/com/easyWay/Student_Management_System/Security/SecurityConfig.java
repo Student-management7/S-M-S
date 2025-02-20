@@ -38,7 +38,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/adminCreation/save", "/auth/register" , "/auth/forget-password", "/contactUs/**").permitAll()
+                        .requestMatchers("/auth/login", "/auth/register" , "/auth/forget-password", "/contactUs/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(JwtFilter() , UsernamePasswordAuthenticationFilter.class)

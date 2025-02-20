@@ -15,6 +15,7 @@ import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
 import com.easyWay.Student_Management_System.Repo.FileTrackingRepo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
 import com.easyWay.Student_Management_System.Security.ClaimService;
+import com.easyWay.Student_Management_System.Service.EmailService;
 import com.easyWay.Student_Management_System.Service.StudentService;
 import com.easyWay.Student_Management_System.Utils.FileUtils;
 import com.google.gson.Gson;
@@ -60,7 +61,7 @@ public class StudentServiceImpl implements StudentService {
     Gson gson;
 
     @Autowired
-    MailServiceFeignClient mailService;
+    EmailService mailService;
 
     @Autowired
     AdminFeesRepo adminFeesRepo;
@@ -80,7 +81,7 @@ public class StudentServiceImpl implements StudentService {
         convertDtoToEntity(details, studentInfo, false);
         studentInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         infoRepo.save(studentInfo);
-      //  mailService.sendEmail(details.getFamilyDetails().getStdo_email(),"Tesing 2", "Test");
+        mailService.sendSimpleEmail(details.getFamilyDetails().getStdo_email(),"Student Registration Mail", "Student Registered Successfully Name = "+studentInfo.getName());
         return "Saved Successfully";
     }
 

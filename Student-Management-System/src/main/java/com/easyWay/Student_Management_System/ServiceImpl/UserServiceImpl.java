@@ -47,8 +47,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDeatilsServices userDeatilsServices;
 
-//    @Autowired
-//    private  MailService mailService;
+    @Autowired
+    private  EmailServiceImpl mailService;
 //
 //    @Autowired
 //    DatabaseService databaseService;
@@ -85,8 +85,7 @@ public class UserServiceImpl implements UserService {
         String newPassword = generatePassword();
         users.setPassword(encoder.encode(newPassword));
         usersRepo.save(users);
-//      usersRepo.save(users);
-//      mailService.newPasswordMail(users.getEmail() , "New Password " , newPassword , " ... ");
+        mailService.sendSimpleEmail(users.getEmail() , "New Password " , newPassword );
         return "New Password sent to your email";
     }
 

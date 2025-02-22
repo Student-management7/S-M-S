@@ -3,6 +3,7 @@ package com.easyWay.Student_Management_System.ServiceImpl;
 import com.easyWay.Student_Management_System.Dto.UsersDto;
 import com.easyWay.Student_Management_System.Entity.Users;
 import com.easyWay.Student_Management_System.Repo.UsersRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Security.JWTService;
 import com.easyWay.Student_Management_System.Security.LoggedInUser;
 import com.easyWay.Student_Management_System.Security.UserDeatilsServices;
@@ -51,6 +52,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private  EmailServiceImpl mailService;
+
+    @Autowired
+    ClaimService claimService;
 //
 //    @Autowired
 //    DatabaseService databaseService;
@@ -93,6 +97,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String editPassword(UsersDto usersDto) {
+
+        if (!claimService.getLoggedInUserEmail().equals(usersDto.getEmail())){
+            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("You can't change this passWord");
+        }
 
         if (StringUtils.isBlank(usersDto.getPassword()) && StringUtils.isBlank(usersDto.getEmail())){
 

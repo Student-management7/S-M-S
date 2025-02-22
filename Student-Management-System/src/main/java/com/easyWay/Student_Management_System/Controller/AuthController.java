@@ -50,4 +50,9 @@ public class AuthController {
         SecurityContextHolder.clearContext();
         return ResponseEntity.ok("Logged out successfully");
     }
+
+    @PostMapping("/edit")
+    public String editPassword(@RequestBody UsersDto usersDto){
+        return userService.editPassword(usersDto);
+    }
 }

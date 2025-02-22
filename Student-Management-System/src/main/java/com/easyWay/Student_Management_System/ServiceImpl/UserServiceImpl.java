@@ -8,6 +8,7 @@ import com.easyWay.Student_Management_System.Security.LoggedInUser;
 import com.easyWay.Student_Management_System.Security.UserDeatilsServices;
 import com.easyWay.Student_Management_System.Service.UserService;
 import com.google.gson.Gson;
+import io.micrometer.common.util.StringUtils;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -90,6 +92,21 @@ public class UserServiceImpl implements UserService {
         return "New Password sent to your email";
     }
 
+    @Override
+    public String editPassword(UsersDto usersDto) throws BadRequestException {
+        UsersDto dto = new UsersDto();
+        if (StringUtils.isBlank(dto.getPassword()) && StringUtils.isBlank(dto.getEmail())){
+            throw new BadRequestException("Email and Password can not be null");
+        }
+        Users users = usersRepo.findUsersByEmail(usersDto.getEmail());
+        if (ObjectUtils.isEmpty(users)){
+            throw new BadRequestException("No users found");
+        }
+        users.setPassword(encoder.encode(usersDto.getPassword()));
+        usersRepo.save(users);
+
+        return "Password update successfully";
+    }
 
 
     public static String generatePassword() {

@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String editPassword(UsersDto usersDto) {
 
-        if (!claimService.getLoggedInUserEmail().equals(usersDto.getEmail())){
+        if (!claimService.getLoggedInUserEmail().get().equals(usersDto.getEmail())){
             throw new com.easyWay.Student_Management_System.Helper.BadRequestException("You can't change this passWord");
         }
 

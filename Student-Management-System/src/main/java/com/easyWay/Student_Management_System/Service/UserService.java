@@ -12,5 +12,5 @@ public interface UserService {
 
     String forgetUserPassword(UsersDto userDto);
 
-    String editPassword(UsersDto usersDto) throws BadRequestException;
+    String editPassword(UsersDto usersDto) ;
 }

@@ -93,14 +93,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String editPassword(UsersDto usersDto) throws BadRequestException {
-        UsersDto dto = new UsersDto();
-        if (StringUtils.isBlank(dto.getPassword()) && StringUtils.isBlank(dto.getEmail())){
-            throw new BadRequestException("Email and Password can not be null");
+    public String editPassword(UsersDto usersDto) {
+
+        if (StringUtils.isBlank(usersDto.getPassword()) && StringUtils.isBlank(usersDto.getEmail())){
+
+            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("email and password can not be null");
         }
         Users users = usersRepo.findUsersByEmail(usersDto.getEmail());
         if (ObjectUtils.isEmpty(users)){
-            throw new BadRequestException("No users found");
+            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("Email not found");
         }
         users.setPassword(encoder.encode(usersDto.getPassword()));
         usersRepo.save(users);

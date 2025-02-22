@@ -17,11 +17,11 @@ public class PermissionsController {
     PermissionService permissionService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> savePermissions( @RequestBody PermissionsDto dto) {
+    public String savePermissions( @RequestBody PermissionsDto dto) {
         try {
-            return ResponseEntity.ok(permissionService.savePermission(dto));
+            return permissionService.savePermission(dto);
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return e.getMessage();
         }
 
     }

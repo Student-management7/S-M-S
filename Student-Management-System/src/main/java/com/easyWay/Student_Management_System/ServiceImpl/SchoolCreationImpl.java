@@ -50,9 +50,9 @@ public class SchoolCreationImpl implements SchoolCreationService {
         Users users = new Users();
         users.setEmail(details.getEmail());
         users.setPassword(encoder.encode(details.getPassword()));
+        users.setPermission("{\"student\":{\"studentAttendance\":true,\"studentAttendanceEdit\":true,\"studentAttendenceManagement\":true,\"studentFees\":true,\"studentAttendanceEditSave\":true,\"studentRegistrationController\":true,\"studentAttendanceShow\":true,\"studentFeesController\":true,\"studentFeesForm\":true,\"studentFeesDetails\":true,\"studentReportForm\":true,\"studentReport\":true,\"studentDetails\":true},\"faculty\":{\"facultySalaryDetails\":true,\"facultySalaryController\":true,\"facultyAttendanceEditSave\":true,\"facultyAttendanceEdit\":true,\"facultyAttendanceShow\":true,\"facultyAttendanceSave\":true,\"facultyRegistrationForm\":true,\"facultyDetails\":true},\"finance\":{\"adminFees\":true,\"feesController\":true,\"permission\":true},\"notification\":{\"createNotification\":true,\"notificationList\":true,\"holidayFormController\":true,\"notificationController\":true},\"subject\":{\"saveSubjectsToClasses\":true,\"classSubjectShow\":true}}");
         String schoolCode = details.getEmail().substring(1,4).toUpperCase()+RANDOM.nextInt(9999);
         users.setSchoolCode(schoolCode);
-        users.setPermission("");
         users = usersRepo.save(users);
         schoolCreationEntity.setUserInfo2(users);
         schoolCreationEntity.setSchoolCode(schoolCode);

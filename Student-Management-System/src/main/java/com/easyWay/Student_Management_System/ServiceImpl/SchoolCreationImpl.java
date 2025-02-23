@@ -41,6 +41,10 @@ public class SchoolCreationImpl implements SchoolCreationService {
 
     @Override
     public String saveSchool(SchoolCreationDto details) {
+        int len = (details.getPassword().length());
+        if (!(len >= 6 && len < 16)){
+            throw new BadRequestException("Use password between 6 to 16 character");
+        }
         if(!checkRegistration(details)){
             throw new BadRequestException("Email already registered");
         }

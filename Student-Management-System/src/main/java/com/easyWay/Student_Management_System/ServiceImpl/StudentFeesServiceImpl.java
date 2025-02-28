@@ -68,6 +68,9 @@ public class StudentFeesServiceImpl implements StudentFeesService {
         if (ObjectUtils.isEmpty(entity)){
             throw new BadRequestException("Not data found");
         }
+        int rem = dto.getFee()-entity.getFee();// 900 -899 = 1
+        int oldRem = entity.getStudentInfo().getRemainingFees();//280
+        entity.getStudentInfo().setRemainingFees(oldRem-rem);
         entity.setFee(dto.getFee());
         studentFeesInfoRepo.save(entity);
         return "data edit successfully";

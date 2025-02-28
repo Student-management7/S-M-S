@@ -37,4 +37,8 @@ public class NotificationController {
         return notificationService.getAllNotification();
     }
 
+    @GetMapping("/getNotification")
+    public List<NotificationDto> getNotification(@RequestParam String code) {
+        return notificationService.getNotification(code);
+    }
 }

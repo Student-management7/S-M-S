@@ -15,6 +15,8 @@ public interface NotificationService {
 
     List<NotificationDto> getAllNotification();
 
+    List<NotificationDto> getNotification(String code);
+
 
 
 }

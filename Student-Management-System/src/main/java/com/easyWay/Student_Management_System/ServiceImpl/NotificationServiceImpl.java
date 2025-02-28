@@ -12,9 +12,11 @@ import com.easyWay.Student_Management_System.Service.NotificationService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
@@ -101,6 +103,33 @@ public class NotificationServiceImpl implements NotificationService {
         }
 
         return result;
+    }
+
+    @Override
+    public List<NotificationDto> getNotification(String code) {
+        List<StudentInfo> studentInfoList = studentInfoRepo.findAll();
+        String schoolCode = "";
+        for (StudentInfo studentInfo : studentInfoList){
+            if(StringUtil.isBlank(studentInfo.getContact()) || StringUtil.isBlank(studentInfo.getName())){
+                continue;
+            }
+            String systemCode = studentInfo.getName().substring(0, 4) + studentInfo.getContact().substring(6, 10);
+            if (systemCode.equalsIgnoreCase(code)){
+                schoolCode = studentInfo.getSchoolCode();
+                break;
+            }
+        }
+        List<NotificationEntity> notifications =  repo.getAll(schoolCode);
+        if (ObjectUtils.isEmpty(notifications)){
+            throw new BadRequestException("No Data Found for this school");
+        }
+        List<NotificationDto> dtos = new ArrayList<>();
+        for (NotificationEntity entity :notifications){
+            NotificationDto dto = new NotificationDto();
+            convertEntityToDto(dto, entity);
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
 

@@ -109,28 +109,40 @@ public class NotificationServiceImpl implements NotificationService {
     public List<NotificationDto> getNotification(String code) {
         List<StudentInfo> studentInfoList = studentInfoRepo.findAll();
         String schoolCode = "";
-        for (StudentInfo studentInfo : studentInfoList){
-            if(StringUtil.isBlank(studentInfo.getContact()) || StringUtil.isBlank(studentInfo.getName())){
+
+        for (StudentInfo studentInfo : studentInfoList) {
+            if (StringUtil.isBlank(studentInfo.getContact()) || StringUtil.isBlank(studentInfo.getName())) {
                 continue;
             }
-            String systemCode = studentInfo.getName().substring(0, 4) + studentInfo.getContact().substring(6, 10);
-            if (systemCode.equalsIgnoreCase(code)){
+
+            String name = studentInfo.getName();
+            String contact = studentInfo.getContact();
+
+            if (name.length() < 4 || contact.length() < 10) {
+                continue; // Skip students with insufficient data
+            }
+
+            String systemCode = name.substring(0, 4) + contact.substring(6, 10);
+            if (systemCode.equalsIgnoreCase(code)) {
                 schoolCode = studentInfo.getSchoolCode();
                 break;
             }
         }
-        List<NotificationEntity> notifications =  repo.getAll(schoolCode);
-        if (ObjectUtils.isEmpty(notifications)){
+
+        List<NotificationEntity> notifications = repo.getAll(schoolCode);
+        if (ObjectUtils.isEmpty(notifications)) {
             throw new BadRequestException("No Data Found for this school");
         }
+
         List<NotificationDto> dtos = new ArrayList<>();
-        for (NotificationEntity entity :notifications){
+        for (NotificationEntity entity : notifications) {
             NotificationDto dto = new NotificationDto();
             convertEntityToDto(dto, entity);
             dtos.add(dto);
         }
         return dtos;
     }
+
 
 
     void convertDtoToEntity(NotificationDto notificationDto, NotificationEntity entity){

@@ -56,10 +56,13 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
         if (ObjectUtils.isEmpty(entity)){
             throw new BadRequestException("No data found for the given id");
         }
+
+        int total = calcTotal(dto);
         entity.setFacultySalary(dto.getFacultySalary());
         entity.setFacultyTransport(dto.getFacultyTransport());
         entity.setFacultyDeduction(gson.toJson(dto.getFacultyDeduction()));
         entity.setFacultyTax(dto.getFacultyTax());
+        entity.setTotal(total);
         facultySalaryRepo.save(entity);
 
         return "data edit successfully";
@@ -69,7 +72,7 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
 
         int total = 0;
         int tax = (dto.getFacultySalary() * dto.getFacultyTax()) / 100;
-        total = total+dto.getFacultySalary();
+        total = total + dto.getFacultySalary();
         total = total-tax;
         total = total - dto.getFacultyTransport();
         for (DeductionDto deductionDto : dto.getFacultyDeduction()){

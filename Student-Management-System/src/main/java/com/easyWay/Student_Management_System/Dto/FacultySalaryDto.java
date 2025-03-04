@@ -8,8 +8,8 @@ import java.util.UUID;
 public class FacultySalaryDto {
     private UUID id;
     private UUID facultyID;
-    private int facultySalary;
-    private int facultyTax;
-    private int facultyTransport;
+    private float facultySalary;
+    private float  facultyTax;
+    private float facultyTransport;
     private List<DeductionDto> facultyDeduction;
 }

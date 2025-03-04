@@ -57,7 +57,7 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
             throw new BadRequestException("No data found for the given id");
         }
 
-        int total = calcTotal(dto);
+        float total = calcTotal(dto);
         entity.setFacultySalary(dto.getFacultySalary());
         entity.setFacultyTransport(dto.getFacultyTransport());
         entity.setFacultyDeduction(gson.toJson(dto.getFacultyDeduction()));
@@ -68,10 +68,10 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
         return "data edit successfully";
     }
 
-    int calcTotal(FacultySalaryDto dto) {
+    float calcTotal(FacultySalaryDto dto) {
 
-        int total = 0;
-        int tax = (dto.getFacultySalary() * dto.getFacultyTax()) / 100;
+        float total = 0f;
+        float tax = (dto.getFacultySalary() * dto.getFacultyTax()) / 100.0f;
         total = total + dto.getFacultySalary();
         total = total-tax;
         total = total - dto.getFacultyTransport();
@@ -79,7 +79,7 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
             total = total-deductionDto.getAmount();
         }
 
-        return total;
+        return total ;
     }
 
     private void extracted(FacultySalaryDto details, FacultySalaryEntity entity) {
@@ -87,7 +87,8 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
         entity.setFacultyTax(details.getFacultyTax());
         entity.setFacultyDeduction(gson.toJson(details.getFacultyDeduction()));
         entity.setFacultyTransport(details.getFacultyTransport());
-        int total = calcTotal(details);
+
+        float total = calcTotal(details);
         entity.setTotal(total);
     }
 }

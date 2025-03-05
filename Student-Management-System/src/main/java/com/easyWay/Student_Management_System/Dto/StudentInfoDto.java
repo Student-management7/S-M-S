@@ -33,7 +33,7 @@ public class StudentInfoDto {
     public String admissionClass;
     public String endDate;
     public int totalFee;
-    public int remainingFees;
+    public float remainingFees;
 
     public List<StudentFeeInfo> feeInfo;
     public List<ReportCardEntity> reportCardEntities;

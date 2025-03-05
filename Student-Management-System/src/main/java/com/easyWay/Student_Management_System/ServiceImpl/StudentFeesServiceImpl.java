@@ -47,7 +47,7 @@ public class StudentFeesServiceImpl implements StudentFeesService {
             studentFeesInfoRepo.save(studentFeeInfo);
             float remaining = studentInfo.get().getRemainingFees();
             remaining = remaining- studentFees.getFee();
-            studentInfo.get().setRemainingFees((int)remaining);
+            studentInfo.get().setRemainingFees(remaining);
             studentFeeInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
             studentInfoRepo.save(studentInfo.get());
         }
@@ -69,8 +69,8 @@ public class StudentFeesServiceImpl implements StudentFeesService {
             throw new BadRequestException("Not data found");
         }
         float rem = dto.getFee()-entity.getFee();// 900 -899 = 1
-        int oldRem = entity.getStudentInfo().getRemainingFees();//280
-        entity.getStudentInfo().setRemainingFees((int) (oldRem-rem));
+        float oldRem = entity.getStudentInfo().getRemainingFees();//280
+        entity.getStudentInfo().setRemainingFees(oldRem-rem);
         entity.setFee(dto.getFee());
         studentFeesInfoRepo.save(entity);
         return "data edit successfully";

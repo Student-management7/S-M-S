@@ -8,4 +8,5 @@ import java.util.UUID;
 public class StudentFeesDto {
     public UUID id;
     public float fee;
+    public String paymentMode;
 }

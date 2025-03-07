@@ -35,6 +35,8 @@ public class StudentInfoDto {
     public int totalFee;
     public float remainingFees;
 
+
+
     public List<StudentFeeInfo> feeInfo;
     public List<ReportCardEntity> reportCardEntities;
 }

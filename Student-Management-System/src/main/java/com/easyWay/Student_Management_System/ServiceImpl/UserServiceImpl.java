@@ -98,6 +98,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public String editPassword(UsersDto usersDto) {
 
+        int len = (usersDto.getPassword().length());
+        if  (! (len >= 6 && len < 16)){
+            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("Use password between 6 to 16 character");
+        }
+
         if (!claimService.getLoggedInUserEmail().get().equals(usersDto.getEmail())){
             throw new com.easyWay.Student_Management_System.Helper.BadRequestException("You can't change this passWord");
         }

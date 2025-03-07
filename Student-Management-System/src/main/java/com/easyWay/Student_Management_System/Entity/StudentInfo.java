@@ -47,6 +47,8 @@ public class StudentInfo extends BaseEntity {
     @Column(nullable = true)
     private float remainingFees;
 
+
+
     @OneToMany(mappedBy = "studentInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<StudentFeeInfo> feeInfo;
 

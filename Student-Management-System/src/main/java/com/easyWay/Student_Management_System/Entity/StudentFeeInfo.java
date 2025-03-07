@@ -12,8 +12,11 @@ import lombok.Data;
 public class StudentFeeInfo extends BaseEntity{
 
     private float fee;
+    private String paymentMode;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_info_id", nullable = false)
     @JsonIgnore
     private StudentInfo studentInfo;
+
+
 }

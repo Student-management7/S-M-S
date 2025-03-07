@@ -44,7 +44,9 @@ public class StudentFeesServiceImpl implements StudentFeesService {
             StudentFeeInfo studentFeeInfo = new StudentFeeInfo();
             studentFeeInfo.setFee(studentFees.getFee());
             studentFeeInfo.setStudentInfo(studentInfo.get());
+            studentFeeInfo.setPaymentMode(studentFees.getPaymentMode());
             studentFeesInfoRepo.save(studentFeeInfo);
+
             float remaining = studentInfo.get().getRemainingFees();
             remaining = remaining- studentFees.getFee();
             studentInfo.get().setRemainingFees(remaining);

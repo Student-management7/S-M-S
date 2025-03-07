@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -73,17 +74,32 @@ public class StudentServiceImpl implements StudentService {
     //
     static int size = 1000;
 
+    private static final SecureRandom random = new SecureRandom();
+
+
 
     @Override
     public String saveStudent(StudentInfoDto details)  {
+
         checkStudentValidations(details);
         StudentInfo studentInfo = new StudentInfo();
         convertDtoToEntity(details, studentInfo, false);
         studentInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         infoRepo.save(studentInfo);
+
+        if(StringUtil.isBlank(details.getFamilyDetails().getStdo_email())){
+            throw new BadRequestException("Family Email is required");
+        }
+
         mailService.sendSimpleEmail(details.getFamilyDetails().getStdo_email(),"Student Registration Mail", "Student Registered Successfully Name = "+studentInfo.getName());
         return "Saved Successfully";
     }
+
+    public static String generateStudentCode() {
+        int code = random.nextInt(10000); // Generates a number between 0 and 9999
+        return String.format("%04d", code); // Ensures 4-digit format (e.g., 0001, 0123, 9999)
+    }
+
 
     @Override
     public String studentBulkUpload(MultipartFile file) {
@@ -254,13 +270,14 @@ public class StudentServiceImpl implements StudentService {
         entity.setAdmissionClass(dto.admissionClass);
         entity.setEndDate(dto.getEndDate());
         entity.setAdmissionClass(dto.getCls());
+        entity.setStudentCode(generateStudentCode());
         if(!isUpload) {
             entity.setTotalFees(dto.totalFee);
             entity.setRemainingFees(dto.totalFee);
         } else {
             AdminFeesStructure fees = adminFeesRepo.findByClass(dto.getAdmissionClass(), claimService.getLoggedInUserSchoolCode());
             entity.setTotalFees(ObjectUtils.isEmpty((int)fees.getTotal()) ?  0 : (int)fees.getTotal());
-            entity.setRemainingFees((int)fees.getTotal());
+            entity.setRemainingFees(fees.getTotal());
         }
         entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
     }
@@ -288,7 +305,7 @@ public class StudentServiceImpl implements StudentService {
                 .feeInfo(entity.getFeeInfo() != null && !entity.getFeeInfo().isEmpty() ? entity.getFeeInfo() : Collections.emptyList())
                 .reportCardEntities(entity.getReportCard() != null && !entity.getReportCard().isEmpty() ?
                         entity.getReportCard() : Collections.emptyList())
-
+                .studentCode(StringUtil.isBlank(entity.getStudentCode()) ? null : entity.getStudentCode())
                 .build();
     }
 

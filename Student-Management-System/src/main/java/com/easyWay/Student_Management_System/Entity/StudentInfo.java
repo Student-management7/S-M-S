@@ -36,6 +36,7 @@ public class StudentInfo extends BaseEntity {
     @Column(columnDefinition = "text")
     private String errorDescription;
     private boolean isDelete = false;
+    private String studentCode;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     @JsonIgnore

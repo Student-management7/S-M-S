@@ -18,6 +18,8 @@ public class FacultySalaryEntity extends BaseEntity{
     private String facultyDeduction;
     private float total;
 
+    private String paymentMode;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_info_id", nullable = false)
     @JsonIgnore

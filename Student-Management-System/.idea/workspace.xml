@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9a3cc6ef-3ff7-4f5d-9914-09bb95cdf47c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/StudentInfoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Dto/StudentInfoDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Entity/StudentInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/Entity/StudentInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/NotificationServiceImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/NotificationServiceImpl$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/NotificationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/easyWay/Student_Management_System/ServiceImpl/NotificationServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,12 +140,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java</url>
-          <line>128</line>
+          <line>144</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java</url>
-          <line>255</line>
+          <line>271</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -150,22 +155,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java</url>
-          <line>108</line>
+          <line>124</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java</url>
-          <line>395</line>
+          <line>412</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java</url>
-          <line>337</line>
+          <line>354</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java</url>
-          <line>201</line>
+          <line>217</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -175,12 +180,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java</url>
-          <line>90</line>
+          <line>106</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/StudentServiceImpl.java</url>
-          <line>241</line>
+          <line>257</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -205,7 +210,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/easyWay/Student_Management_System/ServiceImpl/FacultySalaryServiceImpl.java</url>
-          <line>59</line>
+          <line>61</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>

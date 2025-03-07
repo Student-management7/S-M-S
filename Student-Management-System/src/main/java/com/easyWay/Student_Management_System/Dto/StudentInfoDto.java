@@ -34,7 +34,7 @@ public class StudentInfoDto {
     public String endDate;
     public int totalFee;
     public float remainingFees;
-
+    public String studentCode;
 
 
     public List<StudentFeeInfo> feeInfo;

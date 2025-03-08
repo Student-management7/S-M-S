@@ -87,6 +87,7 @@ public class FacultySalaryServiceImpl implements FacultySalaryService {
         entity.setFacultyTax(details.getFacultyTax());
         entity.setFacultyDeduction(gson.toJson(details.getFacultyDeduction()));
         entity.setFacultyTransport(details.getFacultyTransport());
+        entity.setPaymentMode(details.getPaymentMode());
 
         float total = calcTotal(details);
         entity.setTotal(total);

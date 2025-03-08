@@ -11,5 +11,6 @@ public class FacultySalaryDto {
     private float facultySalary;
     private float  facultyTax;
     private float facultyTransport;
+    private String paymentMode;
     private List<DeductionDto> facultyDeduction;
 }

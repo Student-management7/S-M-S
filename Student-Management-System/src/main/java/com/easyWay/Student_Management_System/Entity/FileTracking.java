@@ -2,6 +2,7 @@ package com.easyWay.Student_Management_System.Entity;
 
 import com.easyWay.Student_Management_System.Enums.FileStatus;
 import com.easyWay.Student_Management_System.Enums.FileType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +26,7 @@ public class FileTracking extends BaseEntity {
     private FileStatus fileStatus;
 
     @OneToMany( mappedBy = "fileTracking",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<StudentInfo> studentInfo;
 
 

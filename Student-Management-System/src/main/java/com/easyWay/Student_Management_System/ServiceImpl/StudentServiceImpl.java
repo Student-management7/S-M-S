@@ -197,6 +197,16 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    @Override
+    public List<FileTracking> getExcelRecord() {
+        List<FileTracking> list = fileTrackingRepo.getFileTracking(claimService.getLoggedInUserSchoolCode());
+
+        if(ObjectUtils.isEmpty(list)){
+            throw new BadRequestException("No Records Found");
+        }
+        return list;
+    }
+
     void updateStudentDetails(StudentInfo saveStudent, StudentInfoDto details){
         saveStudent.setId(details.getId());
         saveStudent.setName(details.getName());
@@ -414,6 +424,7 @@ public class StudentServiceImpl implements StudentService {
         fileTracking.setTotal(total);
         fileTracking.setFileStatus(FileStatus.IN_PROGRESS);
         fileTracking.setFileType(FileType.EXCEL);
+        fileTracking.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         fileTracking = fileTrackingRepo.save(fileTracking);
         return fileTracking;
     }

@@ -65,13 +65,13 @@ public class ClassResponseServiceImpl implements ClassResponseService {
         }
 
         for (ClassAndSubjetDataDto data : response.getClassData()) {
-            if (checkClassValidation(data)) {
+          //  if (checkClassValidation(data)) {
                 CLassInfo classInfo = new CLassInfo();
                 classInfo.setClassName(data.getClassName());
                 classInfo.setSubject(gson.toJson(data.getSubject()));
                 classInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
                 classInfoRepo.save(classInfo);
-            }
+          //  }
         }
 
         return "Data saved successfully";

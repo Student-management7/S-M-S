@@ -15,4 +15,7 @@ public interface UsersRepo extends JpaRepository<Users , UUID> {
 
   @Query("select g from Users g where g.email = :email and g.schoolCode  = :code")
   Users findUsersByEmail(String email, String code);
+
+  @Query("select g from Users g where g.schoolCode = :code")
+  List<Users> getAllDetail(String code);
 }

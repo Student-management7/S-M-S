@@ -27,7 +27,7 @@ public class PermissionsController {
 
     }
 
-    @GetMapping("/get")
+    @GetMapping("/getAll")
     public List<SelfDto> getAllPermissions(){
         return permissionService.getAllPermission();
     }

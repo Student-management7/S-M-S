@@ -54,18 +54,18 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<SelfDto> getAllPermission() {
-        List<Users> users = usersRepo.getAllDetail(claimService.getLoggedInUserSchoolCode());
-        List<SelfDto> dtos = new ArrayList<>();
-        for (Users user :users) {
-            SelfDto dto = new SelfDto();
-            convertEntityToDto(dto, user);
+      List<Users> users =  usersRepo.getAllDetail(claimService.getLoggedInUserSchoolCode());
+      List<SelfDto> dtos = new ArrayList<>();
+      for (Users user : users){
 
-            dtos.add(dto);
-        }
-        return dtos;
+         SelfDto dto = convertEntityToDto(user);
+         dtos.add(dto);
+      }
+      return dtos;
     }
 
-    void convertEntityToDto(SelfDto selfDto, Users users) {
+    SelfDto convertEntityToDto(Users users) {
+        SelfDto selfDto = new SelfDto();
         PermissionsDto permissionsDto = new PermissionsDto();
 
         permissions perms = gson.fromJson(users.getPermission(), permissions.class);
@@ -83,6 +83,8 @@ public class PermissionServiceImpl implements PermissionService {
             selfDto.setRole("admin");
         } else if (!ObjectUtils.isEmpty(users.getFacultyInfo())) {
             selfDto.setRole("sub-user");
+            selfDto.getPermission().setFacultyId(users.getFacultyInfo().getId());
         }
+        return selfDto;
     }
 }

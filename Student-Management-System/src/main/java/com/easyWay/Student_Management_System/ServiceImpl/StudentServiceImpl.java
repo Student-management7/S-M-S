@@ -83,7 +83,7 @@ public class StudentServiceImpl implements StudentService {
 
         checkStudentValidations(details);
         StudentInfo studentInfo = new StudentInfo();
-        convertDtoToEntity(details, studentInfo, false);
+        convertDtoToEntity(details, studentInfo, false, new ArrayList<>(), new ArrayList<>());
         studentInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         infoRepo.save(studentInfo);
 
@@ -236,7 +236,7 @@ public class StudentServiceImpl implements StudentService {
             validateMaditeryField(studentDto, errorDescription, errorCodes);
             StudentInfo studentInfo = new StudentInfo();
             studentInfo.setFileTracking(fileTracking);
-            convertDtoToEntity(studentDto, studentInfo, true);
+            convertDtoToEntity(studentDto, studentInfo, true, errorCodes, errorDescription);
 
             if (!errorCodes.isEmpty() && !errorDescription.isEmpty()) {
                 studentInfo.setErrorCode(String.join(", ", errorCodes));
@@ -264,7 +264,8 @@ public class StudentServiceImpl implements StudentService {
         fileTrackingRepo.save(fileTracking);
     }
 
-    private void convertDtoToEntity(StudentInfoDto dto, StudentInfo entity,boolean isUpload) {
+    private void convertDtoToEntity(StudentInfoDto dto, StudentInfo entity,boolean isUpload, List<String> errorCodes,
+                                    List<String> errorDesc) {
 
         entity.setName(dto.getName().toLowerCase());
         entity.setCity(dto.getCity());
@@ -287,8 +288,13 @@ public class StudentServiceImpl implements StudentService {
             entity.setRemainingFees(dto.totalFee);
         } else {
             AdminFeesStructure fees = adminFeesRepo.findByClass(dto.getAdmissionClass(), claimService.getLoggedInUserSchoolCode());
-            entity.setTotalFees(ObjectUtils.isEmpty((int)fees.getTotal()) ?  0 : (int)fees.getTotal());
-            entity.setRemainingFees(fees.getTotal());
+            if(ObjectUtils.isEmpty(fees)){
+                errorCodes.add("1111");
+                errorDesc.add("No Fees details found for the given class");
+            }else {
+                entity.setTotalFees(ObjectUtils.isEmpty((int) fees.getTotal()) ? 0 : (int) fees.getTotal());
+                entity.setRemainingFees(fees.getTotal());
+            }
         }
         entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
     }

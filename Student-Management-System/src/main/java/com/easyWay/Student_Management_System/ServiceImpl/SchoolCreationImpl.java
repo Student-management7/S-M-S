@@ -77,7 +77,7 @@ public class SchoolCreationImpl implements SchoolCreationService {
         if (StringUtil.isBlank(details.getAdminContact())){
             throw new BadRequestException("Admin contact can't be empty");
         }
-        if (StringUtil.isBlank(details.getServiceStartDate())){
+        if (StringUtil.isBlank(details.getServiceStartDate().toString())){
             throw new BadRequestException("Service start date can't be empty");
         }
         if (StringUtil.isBlank(details.getEmail())){
@@ -161,8 +161,8 @@ public class SchoolCreationImpl implements SchoolCreationService {
         entity.setSchoolAddress(dto.getSchoolAddress());
         entity.setCurrentPlan(dto.getCurrentPlan());
         entity.setAdminContact(dto.getAdminContact());
-        entity.setServiceStartDate(TimeUtils.toStartOfDay(dto.getServiceStartDate()));
-        entity.setRenewalDate(TimeUtils.toEndOfDay(dto.getServiceStartDate()).plusDays(28));
+        entity.setServiceStartDate(dto.getServiceStartDate());
+        entity.setRenewalDate(dto.getServiceStartDate().plusDays(28));
 
         entity.setStatus(dto.getStatus());
         entity.setCity(dto.getCity());

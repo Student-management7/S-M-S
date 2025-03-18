@@ -129,7 +129,7 @@ public class FacultyServiceImpl implements FacultyService {
         saveFaculty.setFact_contact(details.getFact_contact());
         saveFaculty.setFact_joiningDate(details.getFact_joiningDate());
         saveFaculty.setFact_leavingDate(details.getFact_leavingDate());
-
+        saveFaculty.setFact_email(details.getFact_email());
         saveFaculty.setFact_graduation(gson.toJson(details.getFact_qualification()));
 
         infoRepo.save(saveFaculty);

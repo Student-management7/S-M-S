@@ -219,6 +219,7 @@ public class StudentServiceImpl implements StudentService {
         saveStudent.setCity(details.getCity());
         saveStudent.setDob(details.getDob());
         saveStudent.setDepartment(details.getDepartment());
+        saveStudent.setEmail(details.getEmail());
 
         infoRepo.save(saveStudent);
     }

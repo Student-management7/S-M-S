@@ -136,9 +136,9 @@ public class SchoolCreationImpl implements SchoolCreationService {
             dto.setSchoolCode(entity.getSchoolCode());
             dto.setCurrentPlan(entity.getCurrentPlan());
 //            dto.setRenewalDate(entity.getRenewalDate().toString());
-            dto.setRenewalDate(entity.getRenewalDate().toString());
+            dto.setRenewalDate(entity.getRenewalDate());
 
-            dto.setServiceStartDate(entity.getServiceStartDate().toString());
+            dto.setServiceStartDate(entity.getServiceStartDate());
             dto.setStatus(entity.getStatus());
 
             dto.setCity(entity.getCity());

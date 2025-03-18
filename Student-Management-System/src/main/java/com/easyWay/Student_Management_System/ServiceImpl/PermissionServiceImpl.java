@@ -12,6 +12,7 @@ import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.PermissionService;
 import com.google.gson.Gson;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class PermissionServiceImpl implements PermissionService {
 
     @Autowired
@@ -35,6 +37,8 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Autowired
     ClaimService claimService;
+
+
 
     @Override
     @Transactional
@@ -57,9 +61,18 @@ public class PermissionServiceImpl implements PermissionService {
       List<Users> users =  usersRepo.getAllDetail(claimService.getLoggedInUserSchoolCode());
       List<SelfDto> dtos = new ArrayList<>();
       for (Users user : users){
+          if (!ObjectUtils.isEmpty(user.getFacultyInfo())) {
+              if (user.getFacultyInfo().isDelete()){
+                  continue;
+              }
+          }
+          try {
+              SelfDto dto = convertEntityToDto(user);
+              dtos.add(dto);
+          }catch (Exception e){
+            log.info(e.getMessage());
+          }
 
-         SelfDto dto = convertEntityToDto(user);
-         dtos.add(dto);
       }
       return dtos;
     }

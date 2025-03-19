@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.security.SecureRandom;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -136,9 +139,9 @@ public class SchoolCreationImpl implements SchoolCreationService {
             dto.setSchoolCode(entity.getSchoolCode());
             dto.setCurrentPlan(entity.getCurrentPlan());
 //            dto.setRenewalDate(entity.getRenewalDate().toString());
-            dto.setRenewalDate(entity.getRenewalDate());
+            dto.setRenewalDate(ObjectUtils.isEmpty(entity.getRenewalDate())? " ":entity.getRenewalDate().toString());
 
-            dto.setServiceStartDate(entity.getServiceStartDate());
+            dto.setServiceStartDate(ObjectUtils.isEmpty(entity.getServiceStartDate())? " ":entity.getServiceStartDate().toString());
             dto.setStatus(entity.getStatus());
 
             dto.setCity(entity.getCity());
@@ -157,12 +160,18 @@ public class SchoolCreationImpl implements SchoolCreationService {
 
 
     public void convertDtoToEntity(SchoolCreationDto dto , SchoolCreationEntity entity){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dto.getServiceStartDate(), formatter);
+        LocalDate end = LocalDate.parse(dto.getRenewalDate(), formatter);
+        LocalDateTime serviceStart = localDate.atStartOfDay();
+        LocalDateTime endDate = end.atStartOfDay();
+
         entity.setSchoolName(dto.getSchoolName());
         entity.setSchoolAddress(dto.getSchoolAddress());
         entity.setCurrentPlan(dto.getCurrentPlan());
         entity.setAdminContact(dto.getAdminContact());
-        entity.setServiceStartDate(dto.getServiceStartDate());
-        entity.setRenewalDate(dto.getServiceStartDate().plusDays(28));
+        entity.setServiceStartDate(serviceStart);
+        entity.setRenewalDate(endDate);
 
         entity.setStatus(dto.getStatus());
         entity.setCity(dto.getCity());

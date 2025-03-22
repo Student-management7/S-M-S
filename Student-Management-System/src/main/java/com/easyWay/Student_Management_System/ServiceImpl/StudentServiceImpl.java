@@ -323,6 +323,7 @@ public class StudentServiceImpl implements StudentService {
                 .reportCardEntities(entity.getReportCard() != null && !entity.getReportCard().isEmpty() ?
                         entity.getReportCard() : Collections.emptyList())
                 .studentCode(StringUtil.isBlank(entity.getStudentCode()) ? null : entity.getStudentCode())
+                .status(entity.getRemainingFees() == 0.0 ? "Complete" : "Incomplete")
                 .build();
     }
 

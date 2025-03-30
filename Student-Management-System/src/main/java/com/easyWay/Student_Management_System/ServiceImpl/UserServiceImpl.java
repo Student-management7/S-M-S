@@ -78,6 +78,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String loginUser(UsersDto dto) throws BadRequestException {
+        Users user = usersRepo.findUsersByEmail(dto.getEmail());
+        if (user == null) {
+            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("Invalid email or password.");
+        }
+
+        if (!user.isActive()) {
+            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("Your account is inactive. Please contact support.");
+        }
         Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail().toLowerCase(), dto.getPassword()));
         System.out.println(authentication.getAuthorities().toString());
         return jwtService.generateToken(dto.getEmail().toLowerCase() , String.valueOf(authentication.getAuthorities().stream().toList().get(0)), dto.getSchoolCode());

@@ -12,6 +12,8 @@ import java.util.UUID;
 @Repository
 public interface SchoolCreationRepo extends JpaRepository<SchoolCreationEntity , UUID> {
 
-    @Query("select a from SchoolCreationEntity a where a.schoolCode = :code and a.id = :id")
-    SchoolCreationEntity getById(@Param("code") String code, @Param("id") UUID id);
+    @Query("select a from SchoolCreationEntity a where a.id = :id")
+    SchoolCreationEntity getById(@Param("id") UUID id);
+
+
 }

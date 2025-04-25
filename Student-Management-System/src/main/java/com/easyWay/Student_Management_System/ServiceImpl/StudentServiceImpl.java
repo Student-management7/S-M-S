@@ -91,7 +91,7 @@ public class StudentServiceImpl implements StudentService {
             throw new BadRequestException("Family Email is required");
         }
 
-        mailService.sendSimpleEmail(details.getFamilyDetails().getStdo_email(),"Student Registration Mail", "Student Registered Successfully Name = "+studentInfo.getName());
+        mailService.sendSimpleEmail(details.getEmail(),"Student Registration Mail", "Student Registered Successfully Name = "+studentInfo.getName());
         return "Saved Successfully";
     }
 
@@ -500,7 +500,9 @@ public class StudentServiceImpl implements StudentService {
             throw new BadRequestException("Category can't be empty");
         }
 
-
+        if (StringUtil.isBlank(details.getEmail())){
+            throw new BadRequestException("Email can't be empty");
+        }
     }
 
 }

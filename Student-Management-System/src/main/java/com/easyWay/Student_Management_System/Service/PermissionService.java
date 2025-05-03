@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface PermissionService {
 
-    String savePermission(PermissionsDto dto);
+    String savePermission(PermissionsDto dto , String user);
 
     List<SelfDto> getAllPermission();
+
+
 }

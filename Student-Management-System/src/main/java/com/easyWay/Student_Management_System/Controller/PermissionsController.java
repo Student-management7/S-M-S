@@ -18,9 +18,9 @@ public class PermissionsController {
     PermissionService permissionService;
 
     @PostMapping("/save")
-    public String savePermissions( @RequestBody PermissionsDto dto) {
+    public String savePermissions( @RequestBody PermissionsDto dto ,@RequestParam String user) {
         try {
-            return permissionService.savePermission(dto);
+            return permissionService.savePermission(dto,user);
         } catch (Exception e){
             return e.getMessage();
         }
@@ -31,5 +31,7 @@ public class PermissionsController {
     public List<SelfDto> getAllPermissions(){
         return permissionService.getAllPermission();
     }
+
+
 
 }

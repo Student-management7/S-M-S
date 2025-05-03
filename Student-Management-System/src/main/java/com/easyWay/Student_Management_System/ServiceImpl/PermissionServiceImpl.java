@@ -4,9 +4,11 @@ import com.easyWay.Student_Management_System.Dto.PermissionsDto;
 import com.easyWay.Student_Management_System.Dto.SelfDto;
 import com.easyWay.Student_Management_System.Dto.permissions;
 import com.easyWay.Student_Management_System.Entity.FacultyInfo;
+import com.easyWay.Student_Management_System.Entity.SchoolCreationEntity;
 import com.easyWay.Student_Management_System.Entity.Users;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.FacultyInfoRepo;
+import com.easyWay.Student_Management_System.Repo.SchoolCreationRepo;
 import com.easyWay.Student_Management_System.Repo.UsersRepo;
 import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.PermissionService;
@@ -38,22 +40,40 @@ public class PermissionServiceImpl implements PermissionService {
     @Autowired
     ClaimService claimService;
 
+    @Autowired
+    SchoolCreationRepo schoolRepo;
+
 
 
     @Override
     @Transactional
-    public String savePermission(PermissionsDto dto) {
+    public String savePermission(PermissionsDto dto , String user) {
 
-        Optional<FacultyInfo> facultyDataOpt = repo.findById(dto.getFacultyId());
+       if (user.equalsIgnoreCase("faculty")) {
 
-        if (facultyDataOpt.isEmpty()) {
-            throw new BadRequestException("Faculty with ID " + dto.getFacultyId() + " not found.");
-        }
+           Optional<FacultyInfo> facultyDataOpt = repo.findById(dto.getFacultyId());
 
-        FacultyInfo facultyData = facultyDataOpt.get();
-        facultyData.getUserInfo().setPermission(gson.toJson(dto.permissions));
-        repo.save(facultyData);
-        return "Saved Successfully";
+           if (facultyDataOpt.isEmpty()) {
+               throw new BadRequestException("Faculty with ID " + dto.getFacultyId() + " not found.");
+           }
+
+           FacultyInfo facultyData = facultyDataOpt.get();
+           facultyData.getUserInfo().setPermission(gson.toJson(dto.permissions));
+           repo.save(facultyData);
+
+           return "Saved Successfully";
+
+       }else if (user.equalsIgnoreCase("school")) {
+           if (!schoolRepo.existsById(dto.getAdminId())) {
+               throw new BadRequestException("School with ID " + dto.getAdminId() + " not found.");
+           }
+           SchoolCreationEntity schoolData = schoolRepo.getById(dto.getAdminId());
+           schoolData.getUserInfo2().setPermission(gson.toJson(dto.getPermissions()));
+           schoolRepo.save(schoolData);
+           return "Saved Successfully";
+       }
+
+        return "Provide school or faculty in parameter";
     }
 
     @Override
@@ -76,6 +96,7 @@ public class PermissionServiceImpl implements PermissionService {
       }
       return dtos;
     }
+
 
     SelfDto convertEntityToDto(Users users) {
         SelfDto selfDto = new SelfDto();

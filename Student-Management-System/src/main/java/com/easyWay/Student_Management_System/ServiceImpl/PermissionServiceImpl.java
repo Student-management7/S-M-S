@@ -64,10 +64,10 @@ public class PermissionServiceImpl implements PermissionService {
            return "Saved Successfully";
 
        }else if (user.equalsIgnoreCase("school")) {
-           if (!schoolRepo.existsById(dto.getAdminId())) {
-               throw new BadRequestException("School with ID " + dto.getAdminId() + " not found.");
+           if (!schoolRepo.existsById(dto.getSchoolId())) {
+               throw new BadRequestException("School with ID " + dto.getSchoolId() + " not found.");
            }
-           SchoolCreationEntity schoolData = schoolRepo.getById(dto.getAdminId());
+           SchoolCreationEntity schoolData = schoolRepo.getById(dto.getSchoolId());
            schoolData.getUserInfo2().setPermission(gson.toJson(dto.getPermissions()));
            schoolRepo.save(schoolData);
            return "Saved Successfully";

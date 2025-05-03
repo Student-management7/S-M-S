@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 public class PermissionsDto {
-    public UUID adminId;
+    public UUID schoolId;
     public UUID facultyId;
     public permissions permissions;
 }

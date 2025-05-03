@@ -59,6 +59,22 @@ public class ClaimService {
         return "";
     }
 
+    public String getSchoolName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "";
+        }
+
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof LoggedInUser) {
+            return ((LoggedInUser) principal).getUsers().getSchoolCreationEntity().getSchoolName();
+        }
+
+        return "";
+    }
+
 //    public String getLoggedInUserEmail() {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //

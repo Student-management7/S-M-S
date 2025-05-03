@@ -32,7 +32,6 @@ public class SchoolCreationEntity extends BaseEntity{
     private String subscriptionType;
     private String roll;
 
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_info_id", nullable = false)
     @JsonIgnore

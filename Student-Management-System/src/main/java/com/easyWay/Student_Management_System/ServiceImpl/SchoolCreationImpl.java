@@ -10,6 +10,7 @@ import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.SchoolCreationService;
 import com.easyWay.Student_Management_System.Utils.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,6 +33,9 @@ public class SchoolCreationImpl implements SchoolCreationService {
 
     @Autowired
     SchoolCreationRepo infoRepo;
+
+    @Autowired
+    UsersRepo userRepo;
 
     @Autowired
     ClaimService claimService;
@@ -93,9 +97,18 @@ public class SchoolCreationImpl implements SchoolCreationService {
 
     @Override
     public String deleteSchool(UUID id) {
-        if (infoRepo.existsById(id)) {
-            infoRepo.deleteById(id);
-            return "School with ID " + id + " deleted successfully.";
+
+        SchoolCreationEntity entity = infoRepo.getById(id);
+        if (!ObjectUtils.isEmpty(entity)) {
+            List<Users> schoolCreationList = new ArrayList<>();
+            List<Users> schoolCreationEntityList = userRepo.getAllDetail(entity.getSchoolCode());
+            for (Users creationEntity:schoolCreationEntityList){
+                creationEntity.setActive(false);
+               schoolCreationList.add(creationEntity);
+            }
+            userRepo.saveAll(schoolCreationList);
+            return "Delete School Successfully";
+
         } else {
             return "School with ID " + id + " not found.";
         }

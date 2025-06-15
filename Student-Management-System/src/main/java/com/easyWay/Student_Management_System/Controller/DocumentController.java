@@ -19,9 +19,11 @@ public class DocumentController {
 
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestBody Document doc) {
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String tittle
+                                      , @RequestParam boolean publish, @RequestParam String cls, @RequestParam String subject) {
+
         try {
-            service.uploadPdf(file, doc);
+            service.uploadPdf(file, tittle, publish, cls, subject);
             return ResponseEntity.ok("File uploaded successfully!");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());

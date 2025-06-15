@@ -10,6 +10,7 @@ public class Document extends BaseEntity{
     private String name;
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] data;
     private String tittle;
     private String cls;

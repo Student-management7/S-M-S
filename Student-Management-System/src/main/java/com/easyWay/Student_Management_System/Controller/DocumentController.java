@@ -1,5 +1,6 @@
 package com.easyWay.Student_Management_System.Controller;
 
+import com.easyWay.Student_Management_System.Dto.DocumentDto;
 import com.easyWay.Student_Management_System.Entity.Document;
 import com.easyWay.Student_Management_System.ServiceImpl.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -30,6 +32,16 @@ public class DocumentController {
         }
     }
 
+    @GetMapping("/getAll")
+    public List<DocumentDto> getAllDoc(){
+        return service.getAll();
+    }
+
+    @PostMapping("/update")
+    public String updateDoc(@RequestBody Document doc){
+        return service.updateDoc(doc);
+    }
+
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable UUID id) {
         Document doc = service.getDocument(id);
@@ -37,5 +49,15 @@ public class DocumentController {
                 .contentType(MediaType.parseMediaType("application/pdf"))
                 .header("Content-Disposition", "attachment; filename=\"" + doc.getName() + "\"")
                 .body(doc.getData());
+    }
+
+    @PostMapping("/delete")
+    public String deleteFile(@RequestParam UUID id){
+        return service.deleteFile(id);
+    }
+
+    @PostMapping("/getNotes")
+    public List<DocumentDto> getNotes(@RequestParam String code){
+        return service.getNotes(code);
     }
 }

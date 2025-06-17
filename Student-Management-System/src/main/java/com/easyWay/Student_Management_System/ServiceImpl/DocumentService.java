@@ -56,20 +56,25 @@ public class DocumentService {
 
     public List<DocumentDto> getAll() {
 
-        List<Document> documentList = repository.getAll(claimService.getLoggedInUserSchoolCode());
+        List<Document> documentList = repository.findAll();
+
+        if(ObjectUtils.isEmpty(documentList)){
+            throw new BadRequestException("No record found");
+        }
 
         List<DocumentDto> dtoList = new ArrayList<>();
         for (Document doc: documentList){
-            DocumentDto dto = new DocumentDto();
-            dto.setId(doc.getId());
-            dto.setSubject(doc.getSubject());
-            dto.setTittle(doc.getTittle());
-            dto.setName(doc.getName());
-            dto.setCls(doc.getCls());
-            dto.setPublish(doc.isPublish());
+            if(claimService.getLoggedInUserSchoolCode().equalsIgnoreCase(doc.getSchoolCode())) {
+                DocumentDto dto = new DocumentDto();
+                dto.setId(doc.getId());
+                dto.setSubject(doc.getSubject());
+                dto.setTittle(doc.getTittle());
+                dto.setName(doc.getName());
+                dto.setCls(doc.getCls());
+                dto.setPublish(doc.isPublish());
 
-            dtoList.add(dto);
-
+                dtoList.add(dto);
+            }
         }
         return dtoList;
     }

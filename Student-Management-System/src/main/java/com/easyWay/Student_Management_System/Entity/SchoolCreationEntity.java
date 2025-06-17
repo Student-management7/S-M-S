@@ -37,7 +37,12 @@ public class SchoolCreationEntity extends BaseEntity{
     @JsonIgnore
     private Users userInfo2;
 
+    private String phoneNumberId;
 
+    @Column(length = 2000)
+    private String accessToken;
+
+    private String apiUrl;
 //    @OneToOne(mappedBy = "adminCreation_info", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private AdminCreationEntity adminCreationEntity;
 

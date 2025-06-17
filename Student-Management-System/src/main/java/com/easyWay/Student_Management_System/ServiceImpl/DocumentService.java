@@ -56,7 +56,7 @@ public class DocumentService {
 
     public List<DocumentDto> getAll() {
 
-        List<Document> documentList = repository.findAll();
+        List<Document> documentList = repository.getAll(claimService.getLoggedInUserSchoolCode());
 
         List<DocumentDto> dtoList = new ArrayList<>();
         for (Document doc: documentList){

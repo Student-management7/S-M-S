@@ -15,5 +15,9 @@ public interface SchoolCreationRepo extends JpaRepository<SchoolCreationEntity ,
     @Query("select a from SchoolCreationEntity a where a.id = :id")
     SchoolCreationEntity getById(@Param("id") UUID id);
 
+    // Method to find SchoolCreationEntity by schoolCode of the associated user
+    @Query("SELECT s FROM SchoolCreationEntity s WHERE s.userInfo2.schoolCode = :schoolCode")
+    SchoolCreationEntity findByUserSchoolCode(@Param("schoolCode") String schoolCode);
+
 
 }

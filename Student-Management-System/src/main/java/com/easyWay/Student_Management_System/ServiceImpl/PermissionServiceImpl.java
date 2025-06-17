@@ -78,7 +78,12 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<SelfDto> getAllPermission() {
-      List<Users> users =  usersRepo.getAllDetail(claimService.getLoggedInUserSchoolCode());
+        List<Users> users = new ArrayList<>();
+        if(ObjectUtils.isEmpty(claimService.getLoggedInUserSchoolCode())) {
+            users = usersRepo.findAll();
+        }else {
+            users = usersRepo.getAllDetail(claimService.getLoggedInUserSchoolCode());
+        }
       List<SelfDto> dtos = new ArrayList<>();
       for (Users user : users){
           if (!ObjectUtils.isEmpty(user.getFacultyInfo())) {

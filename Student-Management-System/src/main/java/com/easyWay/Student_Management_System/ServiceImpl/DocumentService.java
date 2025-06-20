@@ -45,7 +45,7 @@ public class DocumentService {
         doc.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         doc.setSubject(subject);
         doc.setCls(cls);
-        doc.setTittle(tittle);
+        doc.setTitle(tittle);
         doc.setPublish(publish);
         return repository.save(doc);
     }
@@ -68,7 +68,7 @@ public class DocumentService {
                 DocumentDto dto = new DocumentDto();
                 dto.setId(doc.getId());
                 dto.setSubject(doc.getSubject());
-                dto.setTittle(doc.getTittle());
+                dto.setTitle(doc.getTitle());
                 dto.setName(doc.getName());
                 dto.setCls(doc.getCls());
                 dto.setPublish(doc.isPublish());
@@ -127,7 +127,7 @@ public class DocumentService {
             DocumentDto dto = new DocumentDto();
             dto.setId(doc.getId());
             dto.setSubject(doc.getSubject());
-            dto.setTittle(doc.getTittle());
+            dto.setTitle(doc.getTitle());
             dto.setName(doc.getName());
             dto.setCls(doc.getCls());
             dto.setPublish(doc.isPublish());
@@ -136,5 +136,26 @@ public class DocumentService {
 
         }
         return dtoList;
+    }
+
+    public String updatePublish(List<DocumentDto> dto) {
+
+        List<Document> document = repository.findAll();
+        if (ObjectUtils.isEmpty(document)){
+            throw new BadRequestException("No record found for update");
+        }
+        for(DocumentDto data :dto){
+           for (Document doc :document){
+               if (doc.equals(data.getId())){
+
+                   doc.setPublish(data.isPublish());
+                   repository.save(doc);
+                   continue;
+               }
+           }
+
+
+        }
+        return "updated successfully";
     }
 }

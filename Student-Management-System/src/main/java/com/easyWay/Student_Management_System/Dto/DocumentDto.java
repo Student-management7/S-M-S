@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Data
 public class DocumentDto {
-    public String tittle;
+    public String title;
     public String cls;
     public String subject;
     public boolean publish;

@@ -21,11 +21,11 @@ public class DocumentController {
 
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String tittle
-                                      , @RequestParam boolean publish, @RequestParam String cls, @RequestParam String subject) {
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String title
+            , @RequestParam boolean publish, @RequestParam String cls, @RequestParam String subject) {
 
         try {
-            service.uploadPdf(file, tittle, publish, cls, subject);
+            service.uploadPdf(file, title, publish, cls, subject);
             return ResponseEntity.ok("File uploaded successfully!");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
@@ -33,12 +33,12 @@ public class DocumentController {
     }
 
     @GetMapping("/getAll")
-    public List<DocumentDto> getAllDoc(){
+    public List<DocumentDto> getAllDoc() {
         return service.getAll();
     }
 
     @PostMapping("/update")
-    public String updateDoc(@RequestBody Document doc){
+    public String updateDoc(@RequestBody Document doc) {
         return service.updateDoc(doc);
     }
 
@@ -52,12 +52,19 @@ public class DocumentController {
     }
 
     @PostMapping("/delete")
-    public String deleteFile(@RequestParam UUID id){
+    public String deleteFile(@RequestParam UUID id) {
         return service.deleteFile(id);
     }
 
     @PostMapping("/getNotes")
-    public List<DocumentDto> getNotes(@RequestParam String code){
+    public List<DocumentDto> getNotes(@RequestParam String code) {
         return service.getNotes(code);
     }
+
+    @PostMapping("/syllabus/update")
+    public String updatePublish(@RequestBody List<DocumentDto> dto) {
+
+        return service.updatePublish(dto);
+    }
 }
+

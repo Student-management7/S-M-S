@@ -12,7 +12,7 @@ public class Document extends BaseEntity{
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] data;
-    private String tittle;
+    private String title;
     private String cls;
     private String subject;
     private boolean publish;

@@ -16,6 +16,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -79,12 +80,7 @@ public class DocumentService {
         return dtoList;
     }
 
-    public String updateDoc(Document document) {
-        repository.save(document);
-        return "Updated successfully";
-    }
-
-    public String deleteFile(UUID id) {
+     public String deleteFile(UUID id) {
         repository.deleteById(id);
         return "Deleted successfully";
     }
@@ -157,5 +153,24 @@ public class DocumentService {
 
         }
         return "updated successfully";
+    }
+
+    public String updateDoc(MultipartFile file, String title, boolean publish, String cls, String subject, UUID id) throws IOException {
+
+        List<Document> docs = repository.findAll();
+        for (Document doc :docs) {
+            if (doc.getId().equals(id)) {
+                doc.setName(file.getOriginalFilename());
+                doc.setData(file.getBytes());
+                doc.setSchoolCode(claimService.getLoggedInUserSchoolCode());
+                doc.setSubject(subject);
+                doc.setCls(cls);
+                doc.setTitle(title);
+                doc.setPublish(publish);
+                repository.save(doc);
+
+            }
+        }
+        return "Updated successfully";
     }
 }

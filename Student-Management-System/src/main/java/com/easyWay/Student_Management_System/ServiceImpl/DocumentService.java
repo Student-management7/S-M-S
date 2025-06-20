@@ -146,7 +146,7 @@ public class DocumentService {
         }
         for(DocumentDto data :dto){
            for (Document doc :document){
-               if (doc.equals(data.getId())){
+               if (doc.getId().equals(data.getId())){
 
                    doc.setPublish(data.isPublish());
                    repository.save(doc);

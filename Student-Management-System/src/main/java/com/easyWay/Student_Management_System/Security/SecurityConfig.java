@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login", "/auth/register" , "/auth/forget-password", "/contactUs/**"
-                        ,"/notification/getNotification", "/adminCreation/save", "/doc/getNotes").permitAll()
+                        ,"/notification/getNotification", "/adminCreation/save", "/doc/getNotes", "/api/payment/create-order").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(JwtFilter() , UsernamePasswordAuthenticationFilter.class)

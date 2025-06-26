@@ -57,4 +57,8 @@ public class StudentInfo extends BaseEntity {
     @JsonIgnore
     private List<ReportCardEntity> reportCard;
 
+    @Column(columnDefinition = "int default 0")
+    private int month;
+
+
 }

@@ -80,6 +80,12 @@ public class StudentController {
         return studentService.getExcelRecord();
     }
 
+    @GetMapping("/getByCode")
+    public StudentInfo findStudent(@RequestParam String code){
+
+        return studentService.getStudent(code);
+    }
+
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadExcel(@RequestParam String value, @RequestParam UUID id) throws IOException {
         // Sample Data

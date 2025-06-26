@@ -1,10 +1,7 @@
 package com.easyWay.Student_Management_System.ServiceImpl;
 
 import com.easyWay.Student_Management_System.Dto.*;
-import com.easyWay.Student_Management_System.Entity.AdminFeesStructure;
-import com.easyWay.Student_Management_System.Entity.FacultyInfo;
-import com.easyWay.Student_Management_System.Entity.FileTracking;
-import com.easyWay.Student_Management_System.Entity.StudentInfo;
+import com.easyWay.Student_Management_System.Entity.*;
 import com.easyWay.Student_Management_System.Enums.FileStatus;
 import com.easyWay.Student_Management_System.Enums.FileType;
 import com.easyWay.Student_Management_System.Enums.StudendtHeader;
@@ -205,6 +202,31 @@ public class StudentServiceImpl implements StudentService {
             throw new BadRequestException("No Records Found");
         }
         return list;
+    }
+
+    @Override
+    public StudentInfo getStudent(String code) {
+        List<StudentInfo> studentInfoList = infoRepo.findAll();
+
+        for (StudentInfo studentInfo : studentInfoList) {
+            if (StringUtil.isBlank(studentInfo.getContact()) || StringUtil.isBlank(studentInfo.getName())) {
+                continue;
+            }
+
+            String name = studentInfo.getName();
+            String contact = studentInfo.getContact();
+
+            if (name.length() < 4 || contact.length() < 10) {
+                continue; // Skip students with insufficient data
+            }
+
+            String systemCode = name.substring(0, 4) + contact.substring(6, 10);
+            if (systemCode.equalsIgnoreCase(code)) {
+                return studentInfo;
+            }
+        }
+
+         throw new BadRequestException("No such record found for the given code");
     }
 
     void updateStudentDetails(StudentInfo saveStudent, StudentInfoDto details){

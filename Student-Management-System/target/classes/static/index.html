@@ -9,8 +9,8 @@
             .then(response => response.json())
             .then(order => {
                 const options = {
-                    key: "rzp_test_H0ZclUf9C8dmdg", // Replace with your Razorpay API Key
-                    amount: order.amount, // Amount in paise
+                    key: "rzp_test_H0ZclUf9C8dmdg",
+                    amount: order.amount,
                     currency: order.currency,
                     name: "Your Company",
                     description: "Test Transaction",

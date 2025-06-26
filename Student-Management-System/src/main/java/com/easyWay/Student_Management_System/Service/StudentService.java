@@ -25,5 +25,5 @@ public interface StudentService{
     String updateStudent(StudentInfoDto student);
 
     List<FileTracking> getExcelRecord();
-
+    StudentInfo getStudent(String code);
 }

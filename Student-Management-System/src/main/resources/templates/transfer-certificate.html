@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Transfer Certificate</title>
+    <style>
+        body {
+            font-family: "Times New Roman", serif;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #000;
+            line-height: 1.5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .school-name {
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .school-address {
+            font-size: 14px;
+            margin-top: 0;
+        }
+        .title {
+            text-align: center;
+            text-decoration: underline;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        .divider {
+            border-top: 1px solid #000;
+            margin: 25px 0;
+        }
+        .field-row {
+            display: flex;
+            margin-bottom: 12px;
+        }
+        .field-label {
+            min-width: 180px;
+            font-weight: bold;
+        }
+        .signature-section {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature {
+            text-align: right;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="school-name">ABC Public School</div>
+    <div class="school-address">
+        123 Main Street, Cityname, State - 123456<br/>
+        Phone: (123) 456-7890 | Email: info@abcschool.edu
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="title">School Transfer Certificate</div>
+
+<div class="field-row">
+    <div class="field-label">TC No:</div>
+    <div th:text="${tcNo}"></div>
+    <div style="flex-grow: 1;"></div>
+    <div class="field-label">Admission No:</div>
+    <div th:text="${admissionNo}"></div>
+</div>
+
+<div class="field-row">
+    <div class="field-label">Name of the Student:</div>
+    <div th:text="${studentName}"></div>
+</div>
+
+<div class="field-row">
+    <div class="field-label">Father's Name:</div>
+    <div th:text="${fatherName}"></div>
+</div>
+
+<div class="field-row">
+    <div class="field-label">Mother's Name:</div>
+    <div th:text="${motherName}"></div>
+    <div style="flex-grow: 1;"></div>
+    <div class="field-label">Caste:</div>
+    <div th:text="${caste}"></div>
+</div>
+
+<div class="field-row">
+    <div class="field-label">Date of Birth (in figures):</div>
+    <div th:text="${dobFigures}"></div>
+    <div style="flex-grow: 1;"></div>
+    <div class="field-label">Date of Birth (in words):</div>
+    <div th:text="${dobWords}"></div>
+</div>
+
+<div class="field-row">
+    <div class="field-label">Nationality:</div>
+    <div th:text="${nationality}"></div>
+</div>
+
+<div class="field-row">
+    <div class="field-label">Last Class Attended:</div>
+    <div th:text="${lastClass}"></div>
+    <div style="flex-grow: 1;"></div>
+    <div class="field-label">Promoted to:</div>
+    <div th:text="${promotedTo}"></div>
+</div>
+
+<div class="field-row">
+    <div class="field-label">Date of Admission:</div>
+    <div th:text="${admissionDate}"></div>
+    <div style="flex-grow: 1;"></div>
+    <div class="field-label">Date of Leaving:</div>
+    <div th:text="${leavingDate}"></div>
+</div>
+
+<div class="field-row">
+    <div class="field-label">Reason for Leaving:</div>
+    <div th:text="${reason}"></div>
+</div>
+
+<div class="field-row">
+    <div class="field-label">Conduct:</div>
+    <div th:text="${conduct}"></div>
+</div>
+
+<div class="field-row">
+    <div class="field-label">Remarks:</div>
+    <div th:text="${remarks}"></div>
+</div>
+
+<div class="signature-section">
+    <div>Date: <span th:text="${date}"></span></div>
+    <div class="signature">
+        Signature of Principal<br/>
+        <strong><span th:text="${principalName}"></span></strong>
+    </div>
+</div>
+
+</body>
+</html>

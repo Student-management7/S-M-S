@@ -2,23 +2,29 @@ package com.easyWay.Student_Management_System.Controller;
 
 import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
 import com.easyWay.Student_Management_System.Dto.StudentInfoDto;
+import com.easyWay.Student_Management_System.Dto.TransferCertificateDTO;
 import com.easyWay.Student_Management_System.Entity.FileTracking;
 import com.easyWay.Student_Management_System.Entity.StudentInfo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
 import com.easyWay.Student_Management_System.Service.FacultyService;
 import com.easyWay.Student_Management_System.Service.StudentService;
 import com.easyWay.Student_Management_System.Utils.EmailCheckUtils;
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import lombok.Getter;
 import org.apache.coyote.BadRequestException;
 import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 
@@ -34,6 +40,9 @@ public class StudentController {
 
     @Autowired
     StudentInfoRepo studentInfoRepo;
+
+    @Autowired
+    SpringTemplateEngine templateEngine;
 
     @PostMapping("/save")
     public String saveStudent(@RequestBody StudentInfoDto details){
@@ -137,6 +146,54 @@ public class StudentController {
                 .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
                 .body(excelFile);
 
+    }
+
+
+
+    @PostMapping("/download-tc")
+    public ResponseEntity<ByteArrayResource> generateTC(@RequestBody TransferCertificateDTO dto) throws IOException {
+
+        Context context = new Context();
+        context.setVariable("tcNo", dto.getTcNo());
+        context.setVariable("admissionNo", dto.getAdmissionNo());
+        context.setVariable("studentName", dto.getStudentName());
+        context.setVariable("fatherName", dto.getFatherName());
+        context.setVariable("motherName", dto.getMotherName());
+        context.setVariable("caste", dto.getCaste());
+        context.setVariable("dobFigures", dto.getDobFigures());
+        context.setVariable("dobWords", dto.getDobWords());
+        context.setVariable("nationality", dto.getNationality());
+        context.setVariable("lastClass", dto.getLastClass());
+        context.setVariable("promotedTo", dto.getPromotedTo());
+        context.setVariable("admissionDate", dto.getAdmissionDate());
+        context.setVariable("leavingDate", dto.getLeavingDate());
+        context.setVariable("reason", dto.getReason());
+        context.setVariable("conduct", dto.getConduct());
+        context.setVariable("remarks", dto.getRemarks());
+        context.setVariable("date", dto.getDate());
+        context.setVariable("principalName", dto.getPrincipalName());
+
+        // Render Thymeleaf to HTML string
+        String html = templateEngine.process("transfer-certificate", context);
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PdfRendererBuilder builder = new PdfRendererBuilder();
+        builder.useFastMode();
+        builder.withHtmlContent(html, null);
+        builder.toStream(os);
+        builder.run();
+
+        byte[] pdfBytes = os.toByteArray();
+        ByteArrayResource resource = new ByteArrayResource(pdfBytes);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=transfer_certificate.pdf");
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(pdfBytes.length)
+                .body(resource);
     }
 
 

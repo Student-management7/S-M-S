@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Transfer Certificate</title>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 30px; max-width: 800px; margin: auto; border: 2px solid #000;">
+
+<h2 style="text-align: center; text-transform: uppercase; margin-bottom: 5px;">ABC Public School</h2>
+<p style="text-align: center; margin-top: 0; font-size: 14px;">
+    123 Main Street, Cityname, State - 123456<br/>
+    Phone: (123) 456-7890 | Email: info@abcschool.edu
+</p>
+
+<hr style="border: 1px solid #000; margin: 20px 0;" />
+
+<h3 style="text-align: center; text-decoration: underline;">School Transfer Certificate</h3>
+
+<p style="font-size: 16px;"><strong>TC No:</strong> <span th:text="${tcNo}"></span> &#160;&#160;&#160;&#160; <strong style="margin-left: 280px;">Admission No:</strong> <span th:text="${admissionNo}"></span></p>
+<p style="font-size: 16px;"><strong>Name of the Student:</strong> <span th:text="${studentName}"></span></p>
+<p style="font-size: 16px;"><strong>Father's Name:</strong> <span th:text="${fatherName}"></span></p>
+<p style="font-size: 16px;"><strong>Mother's Name:</strong> <span th:text="${motherName}"></span>  <strong style="margin-left: 250px;">Cast:</strong> <span th:text="${caste}"></span></p>
+<p style="font-size: 16px;"><strong>Date of Birth (in figures):</strong> <span th:text="${dobFigures}"></span> <strong style="margin-left: 30px;">Date of Birth (in words): </strong><span th:text="${dobWords}"></span></p>
+<p style="font-size: 16px;"><strong>Nationality:</strong> <span th:text="${nationality}"></span></p>
+<p style="font-size: 16px;"><strong>Last Class Attended:</strong> <span th:text="${lastClass}"></span> <strong style="margin-left: 302px;">Passed and Promoted to:</strong> <span th:text="${promotedTo}"></span></p>
+<p style="font-size: 16px;"><strong>Date of Admission:</strong> <span th:text="${admissionDate}"></span>  <strong style="margin-left: 60px;">Date of Leaving:</strong> <span th:text="${leavingDate}"></span></p>
+<p style="font-size: 16px;"><strong>Reason for Leaving:</strong> <span th:text="${reason}"></span></p>
+<p style="font-size: 16px;"><strong>Conduct:</strong> <span th:text="${conduct}"></span></p>
+<p style="font-size: 16px;"><strong>Remarks:</strong> <span th:text="${remarks}"></span></p>
+
+<br/><br/>
+
+<table style="width: 100%%; font-size: 16px;">
+    <tr>
+        <td style="text-align: left;">Date: <span th:text="${date}"></span></td>
+        <td style="text-align: right;">Signature of Principal<br/><strong><span th:text="${principalName}"></span></strong></td>
+    </tr>
+</table>
+
+</body>
+</html>

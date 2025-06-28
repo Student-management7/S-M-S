@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>Student Fees Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+        h2, h3, p, table {
+            margin: 0;
+            padding: 0;
+        }
+        h3 {
+            text-decoration: underline;
+            margin-top: 10px;
+        }
+        .header, .footer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .info-table, .details-table, .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .fee-table th, .fee-table td {
+            border: 1px solid #000;
+            padding: 8px;
+        }
+        .fee-table th {
+            background-color: #f0f0f0;
+        }
+        .right {
+            text-align: right;
+        }
+        .signature {
+            margin-top: 60px;
+            text-align: right;
+        }
+        .received-by {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h2>Sunshine Public School</h2>
+    <p>123, Knowledge Road, Cityville, India</p>
+    <p>Phone: +91-9876543210 | Email: info@sunshineschool.com</p>
+    <h3>Fees Receipt</h3>
+</div>
+
+<table class="info-table">
+    <tr>
+        <td><strong>Receipt No:</strong> <span th:text="${receiptNo}"></span></td>
+        <td class="right"><strong>Date:</strong> <span th:text="${date}"></span></td>
+    </tr>
+</table>
+
+<table class="details-table">
+    <tr>
+        <td><strong>Student Name:</strong> <span th:text="${studentName}"></span></td>
+        <td><strong>Class:</strong> <span th:text="${studentClass}"></span></td>
+    </tr>
+    <tr>
+        <td><strong>Roll No:</strong> <span th:text="${rollNo}"></span></td>
+        <td><strong>Section:</strong> <span th:text="${section}"></span></td>
+    </tr>
+    <tr>
+        <td colspan="2"><strong>Father's Name:</strong> <span th:text="${fatherName}"></span></td>
+    </tr>
+</table>
+
+<table class="fee-table">
+    <thead>
+    <tr>
+        <th>Particulars</th>
+        <th class="right">Amount (INR)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Tuition Fee</td>
+        <td class="right" th:text="${tuitionFee}"></td>
+    </tr>
+    <tr>
+        <td>Library Fee</td>
+        <td class="right" th:text="${libraryFee}"></td>
+    </tr>
+    <tr>
+        <td>Sports Fee</td>
+        <td class="right" th:text="${sportsFee}"></td>
+    </tr>
+    <tr>
+        <td>Payment Mode</td>
+        <td class="right" th:text="${paymentMode}"></td>
+    </tr>
+    <tr>
+        <td><strong>Total</strong></td>
+        <td class="right"><strong th:text="${total}"></strong></td>
+    </tr>
+    </tbody>
+</table>
+
+<p><strong>Amount in Words:</strong> <span th:text="${amountInWords}"></span></p>
+
+<p class="received-by">Received By: _______________________</p>
+
+<div class="signature">
+    <p>Authorized Signature</p>
+</div>
+</body>
+</html>

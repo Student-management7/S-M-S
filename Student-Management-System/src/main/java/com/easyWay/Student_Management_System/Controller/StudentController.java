@@ -1,6 +1,7 @@
 package com.easyWay.Student_Management_System.Controller;
 
 import com.easyWay.Student_Management_System.Dto.FacultyInfoDto;
+import com.easyWay.Student_Management_System.Dto.ReceiptDTO;
 import com.easyWay.Student_Management_System.Dto.StudentInfoDto;
 import com.easyWay.Student_Management_System.Dto.TransferCertificateDTO;
 import com.easyWay.Student_Management_System.Entity.FileTracking;
@@ -196,5 +197,44 @@ public class StudentController {
                 .body(resource);
     }
 
+    @PostMapping("/download-receipt")
+    public ResponseEntity<ByteArrayResource> generateReceipt(@RequestBody ReceiptDTO dto) throws IOException {
+
+        Context context = new Context();
+        context.setVariable("receiptNo", dto.getReceiptNo());
+        context.setVariable("date", dto.getDate());
+        context.setVariable("studentName", dto.getStudentName());
+        context.setVariable("studentClass", dto.getStudentClass());
+        context.setVariable("rollNo", dto.getRollNo());
+        context.setVariable("section", dto.getSection());
+        context.setVariable("fatherName", dto.getFatherName());
+        context.setVariable("tuitionFee", dto.getTuitionFee());
+        context.setVariable("libraryFee", dto.getLibraryFee());
+        context.setVariable("sportsFee", dto.getSportsFee());
+        context.setVariable("paymentMode", dto.getPaymentMode());
+        context.setVariable("total", dto.getTuitionFee() + dto.getLibraryFee() + dto.getSportsFee());
+        context.setVariable("amountInWords", dto.getAmountInWords());
+
+        String html = templateEngine.process("fees-receipt", context);  // `fees-receipt.html` in /templates
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PdfRendererBuilder builder = new PdfRendererBuilder();
+        builder.useFastMode();
+        builder.withHtmlContent(html, null);
+        builder.toStream(os);
+        builder.run();
+
+        byte[] pdfBytes = os.toByteArray();
+        ByteArrayResource resource = new ByteArrayResource(pdfBytes);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=fees_receipt.pdf");
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(pdfBytes.length)
+                .body(resource);
+    }
 
 }

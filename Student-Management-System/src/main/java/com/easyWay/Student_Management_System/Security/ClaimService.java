@@ -1,5 +1,6 @@
 package com.easyWay.Student_Management_System.Security;
 
+import com.easyWay.Student_Management_System.Entity.SchoolCreationEntity;
 import com.easyWay.Student_Management_System.Entity.Users;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -59,20 +60,20 @@ public class ClaimService {
         return "";
     }
 
-    public String getSchoolName() {
+    public SchoolCreationEntity getSchoolName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
-            return "";
+            return null;
         }
 
         Object principal = authentication.getPrincipal();
 
         if (principal instanceof LoggedInUser) {
-            return ((LoggedInUser) principal).getUsers().getSchoolCreationEntity().getSchoolName();
+            return ((LoggedInUser) principal).getUsers().getSchoolCreationEntity();
         }
 
-        return "";
+        return null;
     }
 
 //    public String getLoggedInUserEmail() {

@@ -7,6 +7,7 @@ import com.easyWay.Student_Management_System.Dto.TransferCertificateDTO;
 import com.easyWay.Student_Management_System.Entity.FileTracking;
 import com.easyWay.Student_Management_System.Entity.StudentInfo;
 import com.easyWay.Student_Management_System.Repo.StudentInfoRepo;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.easyWay.Student_Management_System.Service.FacultyService;
 import com.easyWay.Student_Management_System.Service.StudentService;
 import com.easyWay.Student_Management_System.Utils.EmailCheckUtils;
@@ -44,6 +45,9 @@ public class StudentController {
 
     @Autowired
     SpringTemplateEngine templateEngine;
+
+    @Autowired
+    ClaimService claimService;
 
     @PostMapping("/save")
     public String saveStudent(@RequestBody StudentInfoDto details){
@@ -173,6 +177,9 @@ public class StudentController {
         context.setVariable("remarks", dto.getRemarks());
         context.setVariable("date", dto.getDate());
         context.setVariable("principalName", dto.getPrincipalName());
+        context.setVariable("schoolNme", claimService.getSchoolName().getSchoolName());
+        context.setVariable("schoolAddress", claimService.getSchoolName().getSchoolAddress());
+
 
         // Render Thymeleaf to HTML string
         String html = templateEngine.process("transfer-certificate", context);
@@ -214,6 +221,9 @@ public class StudentController {
         context.setVariable("paymentMode", dto.getPaymentMode());
         context.setVariable("total", dto.getTuitionFee() + dto.getLibraryFee() + dto.getSportsFee());
         context.setVariable("amountInWords", dto.getAmountInWords());
+        context.setVariable("schoolNme", claimService.getSchoolName().getSchoolName());
+        context.setVariable("schoolAddress", claimService.getSchoolName().getSchoolAddress());
+        context.setVariable("num", claimService.getSchoolName().getSchoolLandlineNo() + " | " + claimService.getSchoolName().getAdminContact());
 
         String html = templateEngine.process("fees-receipt", context);  // `fees-receipt.html` in /templates
 

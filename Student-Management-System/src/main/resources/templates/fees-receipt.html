@@ -49,9 +49,9 @@
 </head>
 <body>
 <div class="header">
-    <h2>Sunshine Public School</h2>
-    <p>123, Knowledge Road, Cityville, India</p>
-    <p>Phone: +91-9876543210 | Email: info@sunshineschool.com</p>
+    <h2><span th:text="${schoolNme}"></span></h2>
+    <p><span th:text="${schoolAddress}"></span></p>
+    <p>Phone: <span th:text="${num}"></span> </p>
     <h3>Fees Receipt</h3>
 </div>
 

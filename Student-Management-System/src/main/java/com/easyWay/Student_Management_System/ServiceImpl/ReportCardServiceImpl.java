@@ -108,7 +108,7 @@ public class ReportCardServiceImpl implements ReportCardService {
             dto.setExamDate(entity1.getExamDate().toString());
             dto.setAverage(entity1.getAverage());
             dto.setTotalMarks(entity1.getTotalMarks());
-            dto.setStudentInfo(entity1.getStudentInfo());
+          //  dto.setStudentInfo(entity1.getStudentInfo());
 
             dtos.add(dto);
         }

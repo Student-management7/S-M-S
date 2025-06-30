@@ -10,5 +10,7 @@ public class permissions {
     public FacultyPermissionsDto faculty;
     public NotificationPermissionDto notification;
     public SubjectPermissionDto subject;
+    public SyllabusDto syllabus;
+    public TcDto tc;
 
 }

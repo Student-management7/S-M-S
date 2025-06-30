@@ -8,4 +8,5 @@ public class FinancePermissionsDto {
     public boolean adminFees;
     public boolean feesController;
     public boolean permission;
+    public boolean FeesManagement;
 }

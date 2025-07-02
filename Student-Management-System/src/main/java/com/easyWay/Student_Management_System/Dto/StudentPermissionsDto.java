@@ -18,6 +18,7 @@ public class StudentPermissionsDto {
     public boolean studentReportForm;
     public boolean studentReport;
     public boolean studentDetails;
+    public boolean bulkUpload;
 
 }
 

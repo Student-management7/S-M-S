@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class SyllabusDto {
 
-    public boolean SyllabusList;
-    public boolean UploadSyllabus;
-    public boolean EditSyllabus;
+    public boolean syllabusList;
+    public boolean uploadSyllabus;
+    public boolean editSyllabus;
 
 }

@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class TcDto {
 
-    public boolean TransferCertificate;
-    public boolean Marksheet;
+    public boolean transferCertificate;
+    public boolean marksheet;
 }

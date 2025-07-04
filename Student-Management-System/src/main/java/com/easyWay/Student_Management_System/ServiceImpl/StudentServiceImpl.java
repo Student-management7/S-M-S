@@ -522,9 +522,6 @@ public class StudentServiceImpl implements StudentService {
             throw new BadRequestException("Category can't be empty");
         }
 
-        if (StringUtil.isBlank(details.getEmail())){
-            throw new BadRequestException("Email can't be empty");
-        }
     }
 
 }

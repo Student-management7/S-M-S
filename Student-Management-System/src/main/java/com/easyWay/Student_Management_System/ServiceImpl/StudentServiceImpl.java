@@ -84,9 +84,9 @@ public class StudentServiceImpl implements StudentService {
         studentInfo.setSchoolCode(claimService.getLoggedInUserSchoolCode());
         infoRepo.save(studentInfo);
 
-        if(StringUtil.isBlank(details.getFamilyDetails().getStdo_email())){
-            throw new BadRequestException("Family Email is required");
-        }
+       if(ObjectUtils.isEmpty(details.getEmail())){
+           return "Saved Successfully";
+       }
 
         mailService.sendSimpleEmail(details.getEmail(),"Student Registration Mail", "Student Registered Successfully Name = "+studentInfo.getName());
         return "Saved Successfully";

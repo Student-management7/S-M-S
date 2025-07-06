@@ -39,4 +39,6 @@ public class StudentInfoDto {
 
     public List<StudentFeeInfo> feeInfo;
     public List<ReportCardEntity> reportCardEntities;
+    public String studentId;
+
 }

@@ -30,6 +30,7 @@ public interface StudentInfoRepo extends JpaRepository<StudentInfo, UUID> {
     @Query("select p from StudentInfo p where p.isDelete = false and p.fileTracking.id = :id ")
     List<StudentInfo> getByFileId(@Param("id") UUID id);
 
-
+    @Query("SELECT COUNT(g) FROM StudentInfo g WHERE g.schoolCode = :code ")
+    Long countStudentsBySchoolCode(@Param("code") String code);
 
 }

@@ -319,6 +319,8 @@ public class StudentServiceImpl implements StudentService {
             }
         }
         entity.setSchoolCode(claimService.getLoggedInUserSchoolCode());
+        long noOfStudent = infoRepo.countStudentsBySchoolCode(claimService.getLoggedInUserSchoolCode());
+        entity.setStudentId(String.valueOf(noOfStudent + 1));
     }
 
     private StudentInfoDto convertEntityToDto(StudentInfo entity) {

@@ -60,5 +60,5 @@ public class StudentInfo extends BaseEntity {
     @Column(columnDefinition = "int default 0")
     private int month;
 
-
+     private String studentId;
 }

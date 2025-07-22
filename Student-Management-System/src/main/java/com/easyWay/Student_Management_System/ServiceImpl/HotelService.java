@@ -1,6 +1,7 @@
 package com.easyWay.Student_Management_System.ServiceImpl;
 
 import com.easyWay.Student_Management_System.Dto.AdminCreationDto;
+import com.easyWay.Student_Management_System.Dto.SchoolCreationDto;
 import com.easyWay.Student_Management_System.Entity.AdminCreationEntity;
 import com.easyWay.Student_Management_System.Entity.HotelCreationEntity;
 import com.easyWay.Student_Management_System.Entity.HotelCustomerEntity;
@@ -15,10 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class HotelService {
@@ -65,5 +69,14 @@ public class HotelService {
         entity.setUserInfo4(user);
         hotelCreationRepo.save(entity);
         return "Saved successfully";
+    }
+
+
+    public List<HotelCreationEntity> getDetails(UUID id) {
+
+        if(ObjectUtils.isEmpty(id)){
+            hotelCreationRepo.findAll();
+        }
+        return null;
     }
 }

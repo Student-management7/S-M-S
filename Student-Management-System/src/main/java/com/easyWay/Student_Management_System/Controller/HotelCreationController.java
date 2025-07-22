@@ -5,10 +5,10 @@ import com.easyWay.Student_Management_System.Entity.HotelCreationEntity;
 import com.easyWay.Student_Management_System.Service.AdminCreationService;
 import com.easyWay.Student_Management_System.ServiceImpl.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/hotelCreation")
@@ -22,4 +22,8 @@ public class HotelCreationController {
         return hotelService.saveAdmin(dto);
     }
 
+    @GetMapping("/get")
+    public List<HotelCreationEntity> getDetails(@RequestParam(required = false) UUID id){
+        return hotelService.getDetails(id);
+    }
 }

@@ -39,12 +39,12 @@ public class HotelService {
     @Autowired
     UsersRepo usersRepo;
 
-    private BCryptPasswordEncoder encoder  = new BCryptPasswordEncoder(11);
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
 
     private static final SecureRandom RANDOM = new SecureRandom();
 
 
-    public String saveCustomerDetail(@RequestBody HotelCustomerEntity hotelCustomerEntity){
+    public String saveCustomerDetail(@RequestBody HotelCustomerEntity hotelCustomerEntity) {
         hotelCustomerEntityRepo.save(hotelCustomerEntity);
         return "Saved Successfully";
     }
@@ -56,7 +56,7 @@ public class HotelService {
 
     public String saveAdmin(HotelCreationEntity entity) {
 
-        if (ObjectUtils.isEmpty(entity.getEmail())){
+        if (ObjectUtils.isEmpty(entity.getEmail())) {
             throw new BadRequestException("Email is mandatory");
         }
 
@@ -64,8 +64,9 @@ public class HotelService {
         user.setEmail(entity.getEmail());
         user.setPassword(encoder.encode(entity.getPassword()));
         user = usersRepo.save(user);
-        String schoolCode = entity.getEmail().substring(1,4).toUpperCase()+RANDOM.nextInt(9999);
+        String schoolCode = entity.getEmail().substring(1, 4).toUpperCase() + RANDOM.nextInt(9999);
         user.setSchoolCode(schoolCode);
+        entity.setHotelCode(user.getSchoolCode());
         entity.setUserInfo4(user);
         hotelCreationRepo.save(entity);
         return "Saved successfully";
@@ -74,9 +75,18 @@ public class HotelService {
 
     public List<HotelCreationEntity> getDetails(UUID id) {
 
-        if(ObjectUtils.isEmpty(id)){
-            hotelCreationRepo.findAll();
+        List<HotelCreationEntity> entities = new ArrayList<>();
+
+        if (ObjectUtils.isEmpty(id)) {
+            List<HotelCreationEntity> savedData =  hotelCreationRepo.findAll();
+            return savedData;
+
+        } else {
+           HotelCreationEntity saveData = hotelCreationRepo.getById(id);
+           entities.add(saveData);
+           return entities;
+
         }
-        return null;
     }
+
 }

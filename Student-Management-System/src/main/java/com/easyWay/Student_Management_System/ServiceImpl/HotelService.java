@@ -2,15 +2,10 @@ package com.easyWay.Student_Management_System.ServiceImpl;
 
 import com.easyWay.Student_Management_System.Dto.AdminCreationDto;
 import com.easyWay.Student_Management_System.Dto.SchoolCreationDto;
-import com.easyWay.Student_Management_System.Entity.AdminCreationEntity;
-import com.easyWay.Student_Management_System.Entity.HotelCreationEntity;
-import com.easyWay.Student_Management_System.Entity.HotelCustomerEntity;
-import com.easyWay.Student_Management_System.Entity.Users;
+import com.easyWay.Student_Management_System.Entity.*;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
-import com.easyWay.Student_Management_System.Repo.AdminCreationRepo;
-import com.easyWay.Student_Management_System.Repo.HotelCreationRepo;
-import com.easyWay.Student_Management_System.Repo.HotelCustomerEntityRepo;
-import com.easyWay.Student_Management_System.Repo.UsersRepo;
+import com.easyWay.Student_Management_System.Repo.*;
+import com.easyWay.Student_Management_System.Security.ClaimService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,13 +26,16 @@ public class HotelService {
     HotelCustomerEntityRepo hotelCustomerEntityRepo;
 
     @Autowired
-    AdminCreationRepo infoRepo;
+    ClaimService claimService;
 
     @Autowired
     HotelCreationRepo hotelCreationRepo;
 
     @Autowired
     UsersRepo usersRepo;
+
+    @Autowired
+    HotelCheckInnRepo checkInnRepo;
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
 
@@ -49,9 +47,10 @@ public class HotelService {
         return "Saved Successfully";
     }
 
-    public ArrayList<HotelCustomerEntity> getUserDetails() {
+    public ArrayList<HotelCheckinEntity> getUserDetails() {
 
-        return null;
+        return checkInnRepo.getCheckinn(claimService.getLoggedInUserSchoolCode());
+
     }
 
     public String saveAdmin(HotelCreationEntity entity) {
@@ -88,5 +87,11 @@ public class HotelService {
 
         }
     }
+
+    public void saveHotelCheckinn(HotelCheckinEntity userData) {
+        userData.setHotelCode(claimService.getLoggedInUserSchoolCode());
+        checkInnRepo.save(userData);
+    }
+
 
 }

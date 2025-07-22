@@ -1,5 +1,6 @@
 package com.easyWay.Student_Management_System.Controller;
 
+import com.easyWay.Student_Management_System.Entity.HotelCheckinEntity;
 import com.easyWay.Student_Management_System.Entity.HotelCustomerEntity;
 import com.easyWay.Student_Management_System.ServiceImpl.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,13 @@ public class HotelController {
     }
 
     @GetMapping("/get")
-    public ArrayList<HotelCustomerEntity> getCustomer(){
-      return   hotelService.getUserDetails();
+    public ArrayList<HotelCheckinEntity> getCustomer(){
+      return hotelService.getUserDetails();
     }
 
+    @PostMapping("/save")
+    public ResponseEntity<String> registerUser(@RequestBody HotelCheckinEntity userData) {
+        hotelService.saveHotelCheckinn(userData);
+        return ResponseEntity.ok("User Saved Successfully");
+    }
 }

@@ -52,8 +52,8 @@ public class AdminCreationServiceImpl implements AdminCreationService {
         user = usersRepo.save(user);
         entity.setUserInfo3(user);
         infoRepo.save(entity);
-
         return "Saved successfully";
+
     }
 
     @Override

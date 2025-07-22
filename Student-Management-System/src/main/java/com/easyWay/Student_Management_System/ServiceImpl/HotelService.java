@@ -14,8 +14,10 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 @Service
@@ -35,6 +37,8 @@ public class HotelService {
 
     private BCryptPasswordEncoder encoder  = new BCryptPasswordEncoder(11);
 
+    private static final SecureRandom RANDOM = new SecureRandom();
+
 
     public String saveCustomerDetail(@RequestBody HotelCustomerEntity hotelCustomerEntity){
         hotelCustomerEntityRepo.save(hotelCustomerEntity);
@@ -48,11 +52,16 @@ public class HotelService {
 
     public String saveAdmin(HotelCreationEntity entity) {
 
+        if (ObjectUtils.isEmpty(entity.getEmail())){
+            throw new BadRequestException("Email is mandatory");
+        }
 
         Users user = new Users();
         user.setEmail(entity.getEmail());
         user.setPassword(encoder.encode(entity.getPassword()));
         user = usersRepo.save(user);
+        String schoolCode = entity.getEmail().substring(1,4).toUpperCase()+RANDOM.nextInt(9999);
+        user.setSchoolCode(schoolCode);
         entity.setUserInfo4(user);
         hotelCreationRepo.save(entity);
         return "Saved successfully";

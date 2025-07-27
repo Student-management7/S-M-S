@@ -24,6 +24,7 @@ public class HotelCreationEntity extends BaseEntityHotel{
     public String totalRooms;
     public String subscription;
     public String gstNumber;
+    public String role;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_info_id", nullable = false)

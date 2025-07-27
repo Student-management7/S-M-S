@@ -16,6 +16,7 @@ com\easyWay\Student_Management_System\ServiceImpl\NotificationServiceImpl.class
 com\easyWay\Student_Management_System\Controller\PaymentController.class
 com\easyWay\Student_Management_System\Entity\Attendance.class
 com\easyWay\Student_Management_System\Dto\ClassResponseDto.class
+com\easyWay\Student_Management_System\Repo\HotelCheckInnRepo.class
 com\easyWay\Student_Management_System\Feign\MailServiceFeignClient.class
 com\easyWay\Student_Management_System\ServiceImpl\PermissionServiceImpl.class
 com\easyWay\Student_Management_System\Dto\StudentReportCardDto.class
@@ -162,6 +163,7 @@ com\easyWay\Student_Management_System\Dto\FactListDto.class
 com\easyWay\Student_Management_System\Dto\FactOther$FactOtherBuilder.class
 com\easyWay\Student_Management_System\ServiceImpl\NotificationServiceImpl$1.class
 com\easyWay\Student_Management_System\Repo\ClassInfoRepo.class
+com\easyWay\Student_Management_System\Entity\HotelCheckinEntity.class
 com\easyWay\Student_Management_System\Repo\AdminFeesRepo.class
 com\easyWay\Student_Management_System\ServiceImpl\FacultyServiceImpl.class
 com\easyWay\Student_Management_System\ServiceImpl\AttendanceServiceImpl$2.class

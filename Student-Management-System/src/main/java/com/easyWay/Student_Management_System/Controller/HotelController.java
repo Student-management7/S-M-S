@@ -1,8 +1,7 @@
 package com.easyWay.Student_Management_System.Controller;
 
-import com.easyWay.Student_Management_System.Entity.HotelCheckInEntity;
-import com.easyWay.Student_Management_System.Entity.HotelCreationEntity;
 import com.easyWay.Student_Management_System.Entity.HotelCustomersEntity;
+import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.ServiceImpl.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +29,16 @@ public class HotelController {
     }
 
     @GetMapping("/get")
-    public List<HotelCustomersEntity> getCustomer(@RequestParam(required = false) UUID id, @RequestParam(required = false) String aadhar){
-      return hotelService.getUserDetails(aadhar, id);
+    public List<HotelCustomersEntity> getCustomer(@RequestParam(required = false) UUID id,
+                                                  @RequestParam(required = false) String aadhar){
+        try {
+
+            return hotelService.getUserDetails(aadhar, id);
+
+        }catch (Exception e){
+           throw new BadRequestException(e.getMessage());
+        }
+
     }
 
 }

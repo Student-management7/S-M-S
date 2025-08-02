@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -119,42 +120,46 @@ public class HotelService {
         }
         return null;
     }
-
+    @Transactional(readOnly = true)
     public List<HotelCustomersEntity> getUserDetails(String aadhar, UUID id) {
 
-        List<HotelCustomersEntity> entities = new ArrayList<>();
-        List<HotelCustomersEntity> returnEntities = new ArrayList<>();
+        try {
+            List<HotelCustomersEntity> entities = new ArrayList<>();
+            List<HotelCustomersEntity> returnEntities = new ArrayList<>();
 
-        if(ObjectUtils.isEmpty(id) && ObjectUtils.isEmpty(aadhar)){
+            if (ObjectUtils.isEmpty(id) && ObjectUtils.isEmpty(aadhar)) {
                 entities = hotelCustomerEntityRepo.findAll();
-        } else if (ObjectUtils.isEmpty(id)){
-            HotelCustomersEntity optionalCustomer = hotelCustomerEntityRepo.findByAadhar(aadhar);
+            } else if (ObjectUtils.isEmpty(id)) {
+                HotelCustomersEntity optionalCustomer = hotelCustomerEntityRepo.findByAadhar(aadhar);
 
-            if (ObjectUtils.isEmpty(optionalCustomer)) {
-                throw new BadRequestException("No Data found");
+                if (ObjectUtils.isEmpty(optionalCustomer)) {
+                    throw new BadRequestException("No Data found");
+                }
+
+                HotelCustomersEntity customer = optionalCustomer;
+                entities.add(customer);
+            } else if (ObjectUtils.isEmpty(aadhar)) {
+                Optional<HotelCustomersEntity> optionalCustomer = hotelCustomerEntityRepo.findById(id);
+
+                if (ObjectUtils.isEmpty(optionalCustomer)) {
+                    throw new BadRequestException("No Data found");
+                }
+
+                HotelCustomersEntity customer = optionalCustomer.get();
+                entities.add(customer);
+            }
+            for (HotelCustomersEntity dto : entities) {
+                dto.setFingerprint_data(encodeBase64(dto.getFingerprint_data()).getBytes());
+                dto.setFace_image(encodeBase64(dto.getFace_image()).getBytes());
+                dto.setAdharImgF(encodeBase64(dto.getAdharImgF()).getBytes());
+                dto.setAdharImgB(encodeBase64(dto.getAdharImgB()).getBytes());
+                returnEntities.add(dto);
             }
 
-            HotelCustomersEntity customer = optionalCustomer;
-            entities.add(customer);
-        } else if (ObjectUtils.isEmpty(aadhar)){
-            Optional<HotelCustomersEntity> optionalCustomer = hotelCustomerEntityRepo.findById(id);
-
-            if (ObjectUtils.isEmpty(optionalCustomer)) {
-                throw new BadRequestException("No Data found");
-            }
-
-            HotelCustomersEntity customer = optionalCustomer.get();
-            entities.add(customer);
+            return returnEntities;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        for (HotelCustomersEntity dto : entities) {
-            dto.setFingerprint_data(encodeBase64(dto.getFingerprint_data()).getBytes());
-            dto.setFace_image(encodeBase64(dto.getFace_image()).getBytes());
-            dto.setAdharImgF(encodeBase64(dto.getAdharImgF()).getBytes());
-            dto.setAdharImgB(encodeBase64(dto.getAdharImgB()).getBytes());
-            returnEntities.add(dto);
-        }
-
-        return returnEntities;
     }
 
     private String encodeBase64(byte[] data) {

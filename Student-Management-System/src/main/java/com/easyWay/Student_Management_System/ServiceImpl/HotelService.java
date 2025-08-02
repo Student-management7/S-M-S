@@ -120,17 +120,26 @@ public class HotelService {
         return null;
     }
 
-    public List<HotelCustomersEntity> getUserDetails(UUID id) {
+    public List<HotelCustomersEntity> getUserDetails(String aadhar, UUID id) {
 
         List<HotelCustomersEntity> entities = new ArrayList<>();
         List<HotelCustomersEntity> returnEntities = new ArrayList<>();
 
-        if(ObjectUtils.isEmpty(id)){
+        if(ObjectUtils.isEmpty(id) && ObjectUtils.isEmpty(aadhar)){
                 entities = hotelCustomerEntityRepo.findAll();
-        } else {
+        } else if (ObjectUtils.isEmpty(id)){
+            HotelCustomersEntity optionalCustomer = hotelCustomerEntityRepo.findByAadhar(aadhar);
+
+            if (ObjectUtils.isEmpty(optionalCustomer)) {
+                throw new BadRequestException("No Data found");
+            }
+
+            HotelCustomersEntity customer = optionalCustomer;
+            entities.add(customer);
+        } else if (ObjectUtils.isEmpty(aadhar)){
             Optional<HotelCustomersEntity> optionalCustomer = hotelCustomerEntityRepo.findById(id);
 
-            if (optionalCustomer.isEmpty()) {
+            if (ObjectUtils.isEmpty(optionalCustomer)) {
                 throw new BadRequestException("No Data found");
             }
 
@@ -195,7 +204,7 @@ public class HotelService {
         dto.setBillNo(entity.getBillNo());
         dto.setAmount(entity.getAmount());
         dto.setRemarks(entity.getRemarks());
-        dto.setCustomersEntity(getUserDetails(entity.getCustomerId()).get(0));
+        dto.setCustomersEntity(getUserDetails(null,entity.getCustomerId()).get(0));
     }
 
 }

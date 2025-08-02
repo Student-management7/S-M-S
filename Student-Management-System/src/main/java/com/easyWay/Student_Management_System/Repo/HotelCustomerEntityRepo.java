@@ -10,5 +10,7 @@ import java.util.UUID;
 @Repository
 public interface HotelCustomerEntityRepo extends JpaRepository<HotelCustomersEntity, UUID> {
 
+    @Query("select g from HotelCustomersEntity g where g.adharNo = :aadhar")
+    HotelCustomersEntity findByAadhar(String aadhar);
 
 }

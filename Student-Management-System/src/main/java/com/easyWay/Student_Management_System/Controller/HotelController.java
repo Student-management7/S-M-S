@@ -30,8 +30,8 @@ public class HotelController {
     }
 
     @GetMapping("/get")
-    public List<HotelCustomersEntity> getCustomer(@RequestParam(required = false) UUID id){
-      return hotelService.getUserDetails(id);
+    public List<HotelCustomersEntity> getCustomer(@RequestParam(required = false) UUID id, @RequestParam(required = false) String aadhar){
+      return hotelService.getUserDetails(aadhar, id);
     }
 
 }

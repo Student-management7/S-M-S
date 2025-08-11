@@ -36,22 +36,31 @@ public class SelfServiceImpl implements SelfService {
 
     void convertEntityToDto(SelfDto selfDto, Users users) {
         PermissionsDto permissionsDto = new PermissionsDto();
+//
+//        permissions perms = gson.fromJson(users.getPermission(), permissions.class);
 
-        permissions perms = gson.fromJson(users.getPermission(), permissions.class);
-
-        permissionsDto.setPermissions(perms);
+ //       permissionsDto.setPermissions(perms);
         selfDto.setAdminCreationEntity(users.getAdminCreationEntity());
         selfDto.setSchoolCreationEntity(users.getSchoolCreationEntity());
         selfDto.setFacultyInfo(users.getFacultyInfo());
         selfDto.setSchoolCode(users.getSchoolCode());
+        selfDto.setHotelCreationEntity(users.getHotelCreationEntity());
         selfDto.setEmail(users.getEmail());
-        selfDto.setPermission(permissionsDto);
+        String permissionString = users.getPermission();
+        if (permissionString.trim().startsWith("{")) {
+            permissions permss = gson.fromJson(permissionString, permissions.class);
+            permissionsDto.setPermissions(permss);
+        } else {
+            permissionsDto.setPermissions(null); // or set default
+        }
         if(!ObjectUtils.isEmpty(users.getSchoolCreationEntity())){
             selfDto.setRole("user");
         } else if (!ObjectUtils.isEmpty(users.getAdminCreationEntity())) {
             selfDto.setRole("admin");
         } else if (!ObjectUtils.isEmpty(users.getFacultyInfo())) {
             selfDto.setRole("sub-user");
+        }else if (!ObjectUtils.isEmpty(users.getHotelCreationEntity())) {
+            selfDto.setRole("Hotel");
         }
     }
 }

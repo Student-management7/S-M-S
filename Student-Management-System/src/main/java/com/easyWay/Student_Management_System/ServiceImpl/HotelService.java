@@ -91,6 +91,12 @@ public class HotelService {
                                    String nationality, MultipartFile faceImage, MultipartFile adharImgF,
                                    MultipartFile adharImgB, MultipartFile fingerprintData){
     try {
+        HotelCustomersEntity optionalCustomer = hotelCustomerEntityRepo.findByAadhar(adharNo);
+
+        if(!ObjectUtils.isEmpty(optionalCustomer)){
+            throw new BadRequestException("Aadhar already present");
+        }
+
         HotelCustomersEntity customer = new HotelCustomersEntity();
         customer.setName(name);
         customer.setAddress(address);
@@ -149,11 +155,28 @@ public class HotelService {
                 entities.add(customer);
             }
             for (HotelCustomersEntity dto : entities) {
-                dto.setFingerprint_data(encodeBase64(dto.getFingerprint_data()).getBytes());
-                dto.setFace_image(encodeBase64(dto.getFace_image()).getBytes());
-                dto.setAdharImgF(encodeBase64(dto.getAdharImgF()).getBytes());
-                dto.setAdharImgB(encodeBase64(dto.getAdharImgB()).getBytes());
+                String fp = encodeBase64(dto.getFingerprint_data());
+                if (fp != null) {
+                    dto.setFingerprint_data(fp.getBytes());
+                }
+
+                String face = encodeBase64(dto.getFace_image());
+                if (face != null) {
+                    dto.setFace_image(face.getBytes());
+                }
+
+                String adharF = encodeBase64(dto.getAdharImgF());
+                if (adharF != null) {
+                    dto.setAdharImgF(adharF.getBytes());
+                }
+
+                String adharB = encodeBase64(dto.getAdharImgB());
+                if (adharB != null) {
+                    dto.setAdharImgB(adharB.getBytes());
+                }
+
                 returnEntities.add(dto);
+
             }
 
             return returnEntities;

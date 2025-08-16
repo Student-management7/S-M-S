@@ -55,7 +55,7 @@ public class HotelService {
         String schoolCode = entity.getEmail().substring(1, 4).toUpperCase() + RANDOM.nextInt(9999);
         user.setSchoolCode(schoolCode);
         user.setPermission("Hotel");
-        user.setActive(true);
+        user.setActive(false);
         user.setRole("USER");
         user = usersRepo.save(user);
         entity.setHotelCode(user.getSchoolCode());

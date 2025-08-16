@@ -129,6 +129,27 @@ public class UserServiceImpl implements UserService {
         return "Password update successfully";
     }
 
+    @Override
+    public String editActiveStatus(UsersDto usersDto) {
+
+        if (!claimService.getLoggedInUserEmail().get().equals(usersDto.getEmail())){
+            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("You can't change this passWord");
+        }
+
+        if (StringUtils.isBlank(usersDto.getPassword()) && StringUtils.isBlank(usersDto.getEmail())){
+
+            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("email and password can not be null");
+        }
+        Users users = usersRepo.findUsersByEmail(usersDto.getEmail());
+        if (ObjectUtils.isEmpty(users)){
+            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("Email not found");
+        }
+        users.setActive(usersDto.isStatus());
+        usersRepo.save(users);
+
+        return "Active status update successfully";
+    }
+
 
     public static String generatePassword() {
         StringBuilder password = new StringBuilder(10); // Fixed length: 10

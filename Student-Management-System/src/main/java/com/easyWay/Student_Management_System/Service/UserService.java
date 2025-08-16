@@ -13,4 +13,7 @@ public interface UserService {
     String forgetUserPassword(UsersDto userDto);
 
     String editPassword(UsersDto usersDto) ;
+
+    String editActiveStatus(UsersDto usersDto) ;
+
 }

@@ -8,4 +8,5 @@ public class UsersDto {
     private String password;
     private String schoolCode;
     private String permission;
+    private boolean status;
 }

@@ -55,4 +55,9 @@ public class AuthController {
     public String editPassword(@RequestBody UsersDto usersDto){
         return userService.editPassword(usersDto);
     }
+
+    @PostMapping("/edit")
+    public String editActiveStatus(@RequestBody UsersDto usersDto){
+        return userService.editActiveStatus(usersDto);
+    }
 }

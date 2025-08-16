@@ -50,6 +50,7 @@ public class SelfServiceImpl implements SelfService {
         if (permissionString.trim().startsWith("{")) {
             permissions permss = gson.fromJson(permissionString, permissions.class);
             permissionsDto.setPermissions(permss);
+            selfDto.setPermission(permissionsDto);
         } else {
             permissionsDto.setPermissions(null); // or set default
         }

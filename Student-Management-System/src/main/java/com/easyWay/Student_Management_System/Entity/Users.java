@@ -17,7 +17,7 @@ public class Users extends  BaseEntity{
     private String password;
     private String schoolCode;
     private String role;
-    private boolean isActive = true;
+    private boolean isActive = false;
 
     @Column(columnDefinition = "Text")
     private String permission ;

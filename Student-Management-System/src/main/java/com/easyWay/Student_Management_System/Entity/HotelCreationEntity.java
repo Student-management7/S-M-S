@@ -30,5 +30,5 @@ public class HotelCreationEntity extends BaseEntityHotel{
     @JoinColumn(name = "user_info_id", nullable = false)
     @JsonIgnore
     private Users userInfo4;
-
+    public  String referral;
 }

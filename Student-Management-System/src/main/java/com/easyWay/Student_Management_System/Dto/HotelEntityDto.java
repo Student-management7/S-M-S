@@ -1,9 +1,7 @@
 package com.easyWay.Student_Management_System.Dto;
 
-import com.easyWay.Student_Management_System.Entity.BaseEntityHotel;
 import com.easyWay.Student_Management_System.Entity.Users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -35,5 +33,5 @@ public class HotelEntityDto {
         @JsonIgnore
         private Users userInfo4;
         private boolean isActive;
-
+        public String referral;
 }

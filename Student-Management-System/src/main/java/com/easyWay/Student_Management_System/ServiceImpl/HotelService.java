@@ -261,6 +261,7 @@ public class HotelService {
         dto.setGstNumber(entity.getGstNumber());
         dto.setRole(entity.getRole());
         dto.setActive(entity.getUserInfo4().isActive());
+        dto.setReferral(entity.getReferral());
         // dto.setUserInfoId(entity.getUserInfo4().getId()); // Optional
         return dto;
     }

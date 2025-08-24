@@ -1,6 +1,7 @@
 package com.easyWay.Student_Management_System.ServiceImpl;
 
 import com.easyWay.Student_Management_System.Dto.HotelCheckInnDto;
+import com.easyWay.Student_Management_System.Dto.HotelEntityDto;
 import com.easyWay.Student_Management_System.Entity.*;
 import com.easyWay.Student_Management_System.Helper.BadRequestException;
 import com.easyWay.Student_Management_System.Repo.*;
@@ -70,17 +71,24 @@ public class HotelService {
     }
 
 
-    public List<HotelCreationEntity> getDetails(UUID id) {
+    public List<HotelEntityDto> getDetails(UUID id) {
 
-        List<HotelCreationEntity> entities = new ArrayList<>();
+        List<HotelEntityDto> entities = new ArrayList<>();
 
         if (ObjectUtils.isEmpty(id)) {
             List<HotelCreationEntity> savedData =  hotelCreationRepo.findAll();
-            return savedData;
+
+            for(HotelCreationEntity entity : savedData){
+                HotelEntityDto dto = convertToDto(entity);
+                entities.add(dto);
+            }
+            return entities;
 
         } else {
            HotelCreationEntity saveData = hotelCreationRepo.getById(id);
-           entities.add(saveData);
+            HotelEntityDto dto = convertToDto(saveData);
+
+            entities.add(dto);
            return entities;
 
         }
@@ -233,6 +241,28 @@ public class HotelService {
         dto.setAmount(entity.getAmount());
         dto.setRemarks(entity.getRemarks());
         dto.setCustomersEntity(getUserDetails(null,entity.getCustomerId()).get(0));
+    }
+    public HotelEntityDto convertToDto(HotelCreationEntity entity) {
+        if (entity == null) return null;
+
+        HotelEntityDto dto = new HotelEntityDto();
+        dto.setId(entity.getId()); // Assuming BaseEntityHotel has getId()
+        dto.setHotelName(entity.getHotelName());
+        dto.setOwnerName(entity.getOwnerName());
+        dto.setContactNumber(entity.getContactNumber());
+        dto.setEmail(entity.getEmail());
+        dto.setAddress(entity.getAddress());
+        dto.setCity(entity.getCity());
+        dto.setState(entity.getState());
+        dto.setPincode(entity.getPincode());
+        dto.setCountry(entity.getCountry());
+        dto.setTotalRooms(entity.getTotalRooms());
+        dto.setSubscription(entity.getSubscription());
+        dto.setGstNumber(entity.getGstNumber());
+        dto.setRole(entity.getRole());
+        dto.setActive(entity.getUserInfo4().isActive());
+        // dto.setUserInfoId(entity.getUserInfo4().getId()); // Optional
+        return dto;
     }
 
 }

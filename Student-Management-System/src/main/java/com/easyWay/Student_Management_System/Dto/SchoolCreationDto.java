@@ -28,5 +28,5 @@ public class SchoolCreationDto extends BaseEntity {
     public String boardType;
     public String subscriptionType;
     public String roll;
-
+    private boolean isActive;
 }

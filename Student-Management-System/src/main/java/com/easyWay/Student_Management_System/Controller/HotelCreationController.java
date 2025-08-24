@@ -1,6 +1,7 @@
 package com.easyWay.Student_Management_System.Controller;
 
 import com.easyWay.Student_Management_System.Dto.AdminCreationDto;
+import com.easyWay.Student_Management_System.Dto.HotelEntityDto;
 import com.easyWay.Student_Management_System.Entity.HotelCreationEntity;
 import com.easyWay.Student_Management_System.Service.AdminCreationService;
 import com.easyWay.Student_Management_System.ServiceImpl.HotelService;
@@ -23,7 +24,7 @@ public class HotelCreationController {
     }
 
     @GetMapping("/get")
-    public List<HotelCreationEntity> getDetails(@RequestParam(required = false) UUID id){
+    public List<HotelEntityDto> getDetails(@RequestParam(required = false) UUID id){
         return hotelService.getDetails(id);
     }
 }

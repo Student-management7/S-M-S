@@ -165,6 +165,7 @@ public class SchoolCreationImpl implements SchoolCreationService {
             dto.setBoardType(entity.getBoardType());
             dto.setSubscriptionType(entity.getSubscriptionType());
             dto.setRoll(entity.getRoll());
+            dto.setActive(entity.getUserInfo2().isActive());
             dtos.add(dto);
 
         }

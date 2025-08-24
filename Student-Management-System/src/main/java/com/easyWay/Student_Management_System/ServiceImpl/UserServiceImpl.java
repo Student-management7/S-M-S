@@ -132,9 +132,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public String editActiveStatus(UsersDto usersDto) {
 
-        if (!claimService.getLoggedInUserEmail().get().equals(usersDto.getEmail())){
-            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("You can't change this passWord");
-        }
+//        if (!claimService.getLoggedInUserEmail().get().equals(usersDto.getEmail())){
+//            throw new com.easyWay.Student_Management_System.Helper.BadRequestException("You can't change this passWord");
+//        }
 
         if (StringUtils.isBlank(usersDto.getPassword()) && StringUtils.isBlank(usersDto.getEmail())){
 

@@ -266,4 +266,14 @@ public class HotelService {
         return dto;
     }
 
+    public String updateCheckout(HotelCheckInnDto dto) {
+        HotelCheckInEntity id = checkInnRepo.getById(dto.getId());
+        if (ObjectUtils.isEmpty(id)) {
+            throw new BadRequestException("No data found");
+        } else {
+            id.setDepartureDate(dto.getDepartureDate());
+            checkInnRepo.save(id);
+            return "Updated successfully";
+        }
+    }
 }

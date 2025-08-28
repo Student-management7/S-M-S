@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 public class HotelCheckInnDto {
 
-
+    private UUID id;
     @Column(name = "arrival_date")
     private String arrivalDate;
 

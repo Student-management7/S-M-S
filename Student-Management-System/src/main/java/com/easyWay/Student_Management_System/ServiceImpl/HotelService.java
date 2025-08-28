@@ -220,7 +220,7 @@ public class HotelService {
         if(entity == null || dto == null) {
             return;
         }
-
+        dto.setId(entity.getId());
         dto.setArrivalDate(entity.getArrivalDate());
         dto.setGuestNames(entity.getGuestNames());
         dto.setAddress(entity.getAddress());

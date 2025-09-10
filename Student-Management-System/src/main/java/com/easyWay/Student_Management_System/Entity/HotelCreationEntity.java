@@ -7,6 +7,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class HotelCreationEntity extends BaseEntityHotel{
@@ -25,6 +27,7 @@ public class HotelCreationEntity extends BaseEntityHotel{
     public String subscription;
     public String gstNumber;
     public String role;
+    public List<String> roomNumber;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_info_id", nullable = false)

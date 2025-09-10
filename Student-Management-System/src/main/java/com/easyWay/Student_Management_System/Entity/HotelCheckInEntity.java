@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
 public class HotelCheckInEntity extends BaseEntityHotel {
 
-    private UUID customerId;
+    private List<UUID> customerId;
 
     @Column(name = "arrival_date")
     private String arrivalDate;

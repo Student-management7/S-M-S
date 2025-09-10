@@ -4,6 +4,7 @@ import com.easyWay.Student_Management_System.Entity.HotelCustomersEntity;
 import jakarta.persistence.Column;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -67,5 +68,5 @@ public class HotelCheckInnDto {
     @Column(name = "remarks")
     private String remarks;
 
-    private HotelCustomersEntity customersEntity;
+    private List<HotelCustomersEntity> customersEntity;
 }

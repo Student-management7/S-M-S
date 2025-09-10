@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -206,7 +207,13 @@ public class HotelService {
 
 
     public List<HotelCheckInnDto> getCheckInnDetails() {
-        List<HotelCheckInEntity> entities = checkInnRepo.getCheckinn(claimService.getLoggedInUserSchoolCode());
+        List<HotelCheckInEntity> entities = new ArrayList<>();
+       // if(ObjectUtils.isEmpty(fromDate)){
+         entities = checkInnRepo.getCheckinn(claimService.getLoggedInUserSchoolCode());
+//         }else {
+//            entities = checkInnRepo.getCheckinnByDate(claimService.getLoggedInUserSchoolCode(), fromDate, toDate);
+//
+//        }
         List<HotelCheckInnDto> dtos = new ArrayList<>();
         for(HotelCheckInEntity entity : entities){
             HotelCheckInnDto dto = new HotelCheckInnDto();
@@ -240,7 +247,7 @@ public class HotelService {
         dto.setBillNo(entity.getBillNo());
         dto.setAmount(entity.getAmount());
         dto.setRemarks(entity.getRemarks());
-        dto.setCustomersEntity(getUserDetails(null,entity.getCustomerId()).get(0));
+        dto.setCustomersEntity(getUserDetailsForMultipleIds(entity.getCustomerId()));
     }
     public HotelEntityDto convertToDto(HotelCreationEntity entity) {
         if (entity == null) return null;
@@ -262,6 +269,7 @@ public class HotelService {
         dto.setRole(entity.getRole());
         dto.setActive(entity.getUserInfo4().isActive());
         dto.setReferral(entity.getReferral());
+        dto.setRoomNumber(entity.getRoomNumber());
         // dto.setUserInfoId(entity.getUserInfo4().getId()); // Optional
         return dto;
     }
@@ -274,6 +282,54 @@ public class HotelService {
             id.setDepartureDate(dto.getDepartureDate());
             checkInnRepo.save(id);
             return "Updated successfully";
+        }
+    }
+    @Transactional(readOnly = true)
+    public List<HotelCustomersEntity> getUserDetailsForMultipleIds(List<UUID> ids) {
+
+        try {
+            List<HotelCustomersEntity> entities = new ArrayList<>();
+            List<HotelCustomersEntity> returnEntities = new ArrayList<>();
+
+
+            for (UUID id : ids) {
+                Optional<HotelCustomersEntity> optionalCustomer = hotelCustomerEntityRepo.findById(id);
+
+                HotelCustomersEntity customer = optionalCustomer.get();
+                entities.add(customer);
+            }
+                if (ObjectUtils.isEmpty(entities)) {
+                    throw new BadRequestException("No Data found");
+                }
+
+            for (HotelCustomersEntity dto : entities) {
+                String fp = encodeBase64(dto.getFingerprint_data());
+                if (fp != null) {
+                    dto.setFingerprint_data(fp.getBytes());
+                }
+
+                String face = encodeBase64(dto.getFace_image());
+                if (face != null) {
+                    dto.setFace_image(face.getBytes());
+                }
+
+                String adharF = encodeBase64(dto.getAdharImgF());
+                if (adharF != null) {
+                    dto.setAdharImgF(adharF.getBytes());
+                }
+
+                String adharB = encodeBase64(dto.getAdharImgB());
+                if (adharB != null) {
+                    dto.setAdharImgB(adharB.getBytes());
+                }
+
+                returnEntities.add(dto);
+
+            }
+
+            return returnEntities;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

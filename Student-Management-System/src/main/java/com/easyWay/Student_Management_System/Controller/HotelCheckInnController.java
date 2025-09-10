@@ -4,9 +4,12 @@ import com.easyWay.Student_Management_System.Dto.HotelCheckInnDto;
 import com.easyWay.Student_Management_System.Entity.HotelCheckInEntity;
 import com.easyWay.Student_Management_System.ServiceImpl.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -23,7 +26,8 @@ public class HotelCheckInnController {
     }
 
     @GetMapping("/get")
-    public List<HotelCheckInnDto> getDetails(){
+    public List<HotelCheckInnDto> getDetails(    ) {
         return hotelService.getCheckInnDetails();
     }
+
 }

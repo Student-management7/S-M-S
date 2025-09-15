@@ -287,49 +287,55 @@ public class HotelService {
     @Transactional(readOnly = true)
     public List<HotelCustomersEntity> getUserDetailsForMultipleIds(List<UUID> ids) {
 
-        try {
-            List<HotelCustomersEntity> entities = new ArrayList<>();
-            List<HotelCustomersEntity> returnEntities = new ArrayList<>();
+        List<HotelCustomersEntity> entities = new ArrayList<>();
+        List<HotelCustomersEntity> returnEntities = new ArrayList<>();
 
+        if(ObjectUtils.isEmpty(ids)){
+            return entities;
 
-            for (UUID id : ids) {
-                Optional<HotelCustomersEntity> optionalCustomer = hotelCustomerEntityRepo.findById(id);
-
-                HotelCustomersEntity customer = optionalCustomer.get();
-                entities.add(customer);
-            }
+        }else {
+            try {
+                for (UUID id : ids) {
+                    Optional<HotelCustomersEntity> optionalCustomer = hotelCustomerEntityRepo.findById(id);
+                    if (ObjectUtils.isEmpty(optionalCustomer)) {
+                        continue;
+                    }
+                    HotelCustomersEntity customer = optionalCustomer.get();
+                    entities.add(customer);
+                }
                 if (ObjectUtils.isEmpty(entities)) {
                     throw new BadRequestException("No Data found");
                 }
 
-            for (HotelCustomersEntity dto : entities) {
-                String fp = encodeBase64(dto.getFingerprint_data());
-                if (fp != null) {
-                    dto.setFingerprint_data(fp.getBytes());
+                for (HotelCustomersEntity dto : entities) {
+                    String fp = encodeBase64(dto.getFingerprint_data());
+                    if (fp != null) {
+                        dto.setFingerprint_data(fp.getBytes());
+                    }
+
+                    String face = encodeBase64(dto.getFace_image());
+                    if (face != null) {
+                        dto.setFace_image(face.getBytes());
+                    }
+
+                    String adharF = encodeBase64(dto.getAdharImgF());
+                    if (adharF != null) {
+                        dto.setAdharImgF(adharF.getBytes());
+                    }
+
+                    String adharB = encodeBase64(dto.getAdharImgB());
+                    if (adharB != null) {
+                        dto.setAdharImgB(adharB.getBytes());
+                    }
+
+                    returnEntities.add(dto);
+
                 }
 
-                String face = encodeBase64(dto.getFace_image());
-                if (face != null) {
-                    dto.setFace_image(face.getBytes());
-                }
-
-                String adharF = encodeBase64(dto.getAdharImgF());
-                if (adharF != null) {
-                    dto.setAdharImgF(adharF.getBytes());
-                }
-
-                String adharB = encodeBase64(dto.getAdharImgB());
-                if (adharB != null) {
-                    dto.setAdharImgB(adharB.getBytes());
-                }
-
-                returnEntities.add(dto);
-
+                return returnEntities;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-
-            return returnEntities;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 }

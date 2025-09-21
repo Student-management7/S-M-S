@@ -69,4 +69,6 @@ public class HotelCheckInnDto {
     private String remarks;
 
     private List<HotelCustomersEntity> customersEntity;
+
+    private String roomNumber;
 }

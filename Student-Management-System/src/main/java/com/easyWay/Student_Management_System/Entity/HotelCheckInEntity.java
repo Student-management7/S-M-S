@@ -70,6 +70,8 @@ public class HotelCheckInEntity extends BaseEntityHotel {
     @Column(name = "remarks")
     private String remarks;
 
+    private String roomNumber;
+
 }
 
 

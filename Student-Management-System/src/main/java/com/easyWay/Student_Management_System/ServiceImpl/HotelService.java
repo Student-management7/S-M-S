@@ -248,6 +248,7 @@ public class HotelService {
         dto.setAmount(entity.getAmount());
         dto.setRemarks(entity.getRemarks());
         dto.setCustomersEntity(getUserDetailsForMultipleIds(entity.getCustomerId()));
+        dto.setRoomNumber(entity.getRoomNumber());
     }
     public HotelEntityDto convertToDto(HotelCreationEntity entity) {
         if (entity == null) return null;
